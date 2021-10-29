@@ -1,17 +1,17 @@
 
-DireWolves Airlines
+**DireWolves Airlines**
 
-Tools and Languages:
+**Tools and Languages:**
 
-Frontend - React
-Backend - Java
-Database - SQL 
+ Frontend - React
+ Backend - Java
+ Database - SQL 
 
-Team Members
+**Team Members**
 Divya Mittal
 Vinay Guda
 Nikhil Raj
 Rugved Manookar
 
-Scrum meetings schedule:
+**Scrum meetings schedule:**
 Every Friday
