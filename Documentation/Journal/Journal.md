@@ -67,7 +67,7 @@ Pushed changes to github and reviewed the design of the team and did necessary c
 
 ## Tasks Planning to work Next
 
-    Implemenatation task assignment
+    Divya-
 
 ## Blocked Tasks
 
