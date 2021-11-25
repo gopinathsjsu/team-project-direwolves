@@ -43,3 +43,23 @@
   font-family: Arial;
   margin-top: 10px;
 }
+.transform{
+  perspective: 10000px;
+}
+
+.swap{
+  overflow: hidden;
+  position: relative;
+}
+
+.my-account-past-flights-card {
+  background-color: #fff;
+}
+.card--full {
+  width: 938px;
+}
+
+.header-bar {
+  min-height: 56px;
+  position: relative;
+}

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Login from "./Components/Login/LoginComponent";
 import SignUp from "./Components/Signup/SignupComponent";
+import Bookings from "./Components/Flights/Bookings";
 
 //Create a Main Component
 class Main extends Component {
@@ -10,11 +11,14 @@ class Main extends Component {
       <div>
         {/*Render Different Component based on Route*/}
         {/* added temporarily for home*/}
-        <Routes>
+        <Router>
+          <Routes> 
         <Route path="/" component= {SignUp}/>
         <Route path="/register" component={SignUp} />
         <Route path="/login" component={Login} />
+        <Route path="/bookings" exact element={Bookings} />
         </Routes>
+        </Router>
       </div>
     );
   }
