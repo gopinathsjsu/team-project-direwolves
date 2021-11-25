@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+
+.past-flights{
+  box-sizing: border-box;
+  font-family: Arial;
+  margin-top: 10px;
+}
