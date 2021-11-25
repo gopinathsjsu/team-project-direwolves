@@ -63,3 +63,40 @@
   min-height: 56px;
   position: relative;
 }
+
+.header-bar--container {
+  padding: 12px 20px;
+}
+
+.endow--backdrop-outer-container {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.swa-g-color-bg-neutral-gray2 {
+  background-color: #E6E7E8;
+}
+.endow--backdrop-background {
+  height: 100%;
+}
+
+.header-bar--content {
+  min-height: 32px;
+}
+
+
+.my-account-no-results-content {
+  text-align: center;
+}
+
+.my-account-no-results-content--title {
+  color: #111B40;
+  font: 22px/26px Arial;
+}
+
+.my-account-past-flights-card .past-flights-card--no-results-section {
+  padding: 27px 0 22px;
+}
