@@ -12,12 +12,12 @@ class Main extends Component {
         {/*Render Different Component based on Route*/}
         {/* added temporarily for home*/}
         <Router>
-          <Routes> 
-        <Route path="/" component= {SignUp}/>
-        <Route path="/register" component={SignUp} />
-        <Route path="/login" component={Login} />
-        <Route path="/bookings" exact element={Bookings} />
-        </Routes>
+          <Routes>
+            {/* <Route path="/" component={SignUp} />
+            <Route path="/register" component={SignUp} />
+            <Route path="/login" component={Login} /> */}
+            <Route path="/bookings" exact element={<Bookings />} />
+          </Routes>
         </Router>
       </div>
     );
