@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import "../styles/loginStyle.css";
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -87,12 +87,13 @@ class SignUp extends Component {
   }
 
   render() {
+    console.log("came here");
     return (
         <div className="container-fluid form-cont">
           <div className="flex-container">
             <div className="row">
               <div className="col col-sm-6">
-                <img src="./assets/splitwiselogo-01.png" alt="..."></img>
+               
               </div>
               <div className="col col-sm-6">
                 <div
@@ -103,7 +104,7 @@ class SignUp extends Component {
                 >
                   {this.state.loginError}
                 </div>
-                <h3>Create Account</h3>
+                <h3>Create Airline Account</h3>
                 <Form onSubmit={this.handleSubmit} className="form-stacked">
                   <FormGroup>
                     <Label for="firstname">
