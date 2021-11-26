@@ -18,9 +18,6 @@ const UserProfileSchema = new mongoose.Schema(
         address:{
             type: String
         },
-        dateOfBirth:{
-            type: String
-        },
         role:{
             type: String
         },

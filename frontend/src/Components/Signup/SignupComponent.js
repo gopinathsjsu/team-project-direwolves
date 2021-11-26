@@ -8,8 +8,6 @@ import {
   Col
 } from "reactstrap";
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import "../styles/loginStyle.css";
 class SignUp extends Component {
   constructor(props) {
@@ -21,10 +19,7 @@ class SignUp extends Component {
           email: "",
           password: "",
           address:"",
-          date:"",
-          role:""
         },
-        date:new Date(),
         error: {},
         loginError: "",
         auth: true
@@ -46,7 +41,7 @@ class SignUp extends Component {
     axios.defaults.withCredentials = true;
       //make a post request with the user data
       axios
-        .post(`http://localhost:8000/signupUser`, this.state.userInfo)
+        .post(`http://localhost:3001/signup`, this.state.userInfo)
         .then((response) => {
           console.log("Status Code : ", response.status);
           if (response.status === 200) {
@@ -91,10 +86,8 @@ class SignUp extends Component {
     return (
         <div className="container-fluid form-cont">
           <div className="flex-container">
-            <div className="row">
-              <div className="col col-sm-6">
-               
-              </div>
+            <div className="row" style={{padding:"120px"}}>
+              <div className="col col-sm-3"></div>
               <div className="col col-sm-6">
                 <div
                   id="errorLogin"
@@ -172,22 +165,11 @@ class SignUp extends Component {
                       onChange={this.handleChange}
                     ></Input>
                   </FormGroup>
-                  <FormGroup>
-                    <Label htmlFor="dob">
-                      DateOfBirth
-                    </Label>
-                    <DatePicker
-                    selected={this.state.date}
-                    onChange={this.handleChange}
-                    showTimeSelect
-                    dateFormat="Pp"
-                    />
-                  </FormGroup>
                   <FormGroup row>
                     <Col>
                       <Button
                         type="submit"
-                        color="btn btn-Normal"
+                        color="btn btn-primary"
                       >
                         Sign me up!
                       </Button>

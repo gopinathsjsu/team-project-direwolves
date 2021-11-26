@@ -1,11 +1,13 @@
 //import the require dependencies
 var express = require('express');
 var app = express();
+
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var session = require('express-session');
 app.set('view engine', 'ejs');
-
+const bcrypt = require("bcrypt");
+const UserProfile=require("./model/UserProfile");
 const config = require('./config');
 
 //use cors to allow cross origin resource sharing
@@ -43,7 +45,11 @@ mongoose.createConnection(db, {
   useCreateIndex: true,
   poolSize: 4
 }).then((err, result) => {
-  console.log("connected!!!");
+  if(result)
+    console.log("connected!!!");
+  else{
+    console.log(err);
+  }
 });
 
 
@@ -52,7 +58,24 @@ app.get("/", (req, res) => {
 
 
 app.post('/signup', async function (req, res) {
-
+  const salt = await bcrypt.genSalt(10);
+  req.body.password = await bcrypt.hash(req.body.password, salt);
+  console.log("Registering New User");
+  const newUser = {
+    firstName: req.body.name,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    address:req.body.address,
+  };
+  new UserProfile(newUser).save((error, data) => {
+    if (error) {
+      res.status(500).end("Error Occured");
+    } else {
+      var JSONStr = JSON.stringify(data);
+      res.status(200).end(JSONStr);
+    }
+  })
 });
 
 
