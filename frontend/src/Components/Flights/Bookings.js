@@ -1,10 +1,10 @@
 import React from "react";
-
+import BookingList2 from "./BookingList2";
 const Bookings = () => {
   return (
     <div className="past-flights">
       <div className="transform endow rectangle">
-        <div className="swap" >
+        <div className="swap">
           <div className="transform endow rectangle card card--full my-account-past-flights-card">
             <div className="swap">
               <div className="header-bar">
@@ -30,9 +30,21 @@ const Bookings = () => {
                   <div className="my-account-past-flights-card--filter-area"></div>
                   <div className="past-flights-card--no-results-section">
                     <div className="my-account-no-results-content">
-                      <span className="my-account-no-results-content--title">
+                      {/* <span className="my-account-no-results-content--title">
                         You have no past flights.
-                      </span>
+                      </span> */}
+
+                      <div className="table-wrapper">
+                        <div class="table">
+                          <div class="row header">
+                            <div class="cell">Trip</div>
+                            <div class="cell">Date</div>
+                            <div class="cell">Traveller</div>
+                            <div class="cell">Location</div>
+                          </div>
+                          <BookingList2 />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

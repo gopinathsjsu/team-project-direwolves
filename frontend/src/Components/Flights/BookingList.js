@@ -2,7 +2,7 @@ import React from "react";
 
 const BookingList = () => {
   return (
-    <tbody class="atm-c-table__body app-containers-ManageResMyTrips-panels-styles__panel--2gGlj">
+    <tbody class="atm-c-tabs__body">
       <tr class="atm-c-table__row">
         <td class="atm-c-table__cell atm-c-table__cell--align-left">
           <div class="app-containers-ManageResMyTrips-panels-styles__pastTripColumn--1QPi4">

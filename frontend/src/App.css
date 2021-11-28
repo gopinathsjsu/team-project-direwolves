@@ -100,3 +100,142 @@
 .my-account-past-flights-card .past-flights-card--no-results-section {
   padding: 27px 0 22px;
 }
+
+/*list start*/
+
+.atm-c-table--stacked {
+  display: table;
+}
+
+.atm-c-table--stacked>.atm-c-table__body {
+  display: table-row-group;
+  width: 100%;
+}
+
+.atm-c-table--stacked .atm-c-table__row {
+  display: table-row;
+}
+
+.atm-c-table__row:last-child {
+  border-bottom: 0;
+}
+
+.atm-c-table__row {
+  vertical-align: top;
+  border-bottom-width: 1px
+;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc;
+}
+
+.atm-c-table--stacked {
+  display: table;
+}
+
+.atm-c-table--stacked .atm-c-table__cell {
+  display: table-cell;
+  padding: 1rem 0.5rem;
+  min-width: 47em
+}
+
+.atm-c-table__cell--align-left {
+  text-align: left;
+  padding: 1rem 0.5rem;
+}
+
+td {
+  display: table-cell;
+  vertical-align: inherit;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__pastTripColumn--1QPi4 {
+  line-height: 0.5;
+}
+.app-containers-ManageResMyTrips-panels-styles__tripTo--txTbK {
+  font-weight: 600;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__pastConfirmationNumber--3E7wb {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK {
+  flex-direction: row;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK {
+  display: flex;
+}
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK .app-containers-ManageResMyTrips-panels-styles__date--27yJ6 {
+  width: 140px;
+  font-weight: 400;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK .app-containers-ManageResMyTrips-panels-styles__date--27yJ6 {
+  margin-bottom: 0;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK .app-containers-ManageResMyTrips-panels-styles__date--27yJ6 {
+  font-size: 14px;
+}
+
+.atm-c-text-passage :last-child {
+  margin-bottom: 0;
+}
+
+.atm-c-text-passage :first-child {
+  margin-top: 0;
+}
+
+.atm-l-linelength-container {
+  max-width: 48rem;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK .app-containers-ManageResMyTrips-panels-styles__flights--1YRWB {
+  margin: 0 auto;
+  width: 90px;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__dateFlightItem--1ZURK .app-containers-ManageResMyTrips-panels-styles__flights--1YRWB {
+  font-weight: 600;
+}
+
+.app-containers-ManageResMyTrips-panels-styles__flights--1YRWB {
+  min-height: 30px;
+}
+
+ul{
+  list-style: none;
+}
+
+/* For table list */
+body .wrapper {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 800px;
+}
+
+.table {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+  display: table;
+}
+
+.row.header {
+  font-weight: 900;
+  color: #ffffff;
+  background: #ea6153;
+}
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+}
+
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}
