@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Login/LoginComponent";
 import SignUp from "./Signup/SignupComponent";
 import SearchFlights from "./SearchFlights/SearchFlights";
+import Dashboard from "./Home/Dashboard/Dashboard";
 
 //Create a Main Component
 class Main extends Component {
@@ -16,6 +17,7 @@ class Main extends Component {
           <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/flights" element={<SearchFlights />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     );
