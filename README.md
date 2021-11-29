@@ -4,8 +4,8 @@
 **Tools and Languages:**
 
  Frontend - React
- Backend - Java
- Database - SQL 
+ Backend - Node JS
+ Database - MongoDB
 
 **Team Members**
 Divya Mittal
