@@ -81,7 +81,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.isSuccess) {
-      return <Navigate to='/dashboard' />
+      return <Navigate to='/createReservation' />
     }
     return (
         <div className="container-fluid form-cont">
@@ -175,7 +175,7 @@ class SignUp extends Component {
                     </Col>
                   </FormGroup>
                 </Form>
-                <a href="/dashboard"> hello boi </a>
+                <a href="/createReservation"> hello boi </a>
               </div>
             </div>
           </div>
