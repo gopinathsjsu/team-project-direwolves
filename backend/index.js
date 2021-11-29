@@ -97,10 +97,10 @@ app.post('/login', async function (req, res) {
           if (matchPassword) {
             const userData = {
               _id: user._id,
-              firstName: req.body.name,
-              lastName: req.body.lastName,
-              email: req.body.email,
-              address:req.body.address,
+              firstName: user.name,
+              lastName: user.lastName,
+              email: user.email,
+              address:user.address,
             };
             var JSONStr = JSON.stringify(userData);
             res.status(200).end(JSONStr);

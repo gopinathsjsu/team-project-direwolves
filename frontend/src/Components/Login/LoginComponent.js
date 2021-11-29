@@ -65,6 +65,9 @@ class Login extends Component {
   }
 
   render() {
+    if (this.state.isSuccess) {
+      return <Navigate to='/dashboard' />
+    }
     return (
       <div className="container-fluid form-cont">
         <div className="flex-container">
@@ -80,7 +83,7 @@ class Login extends Component {
                 {this.state.error}
               </div>
               <h3>Login</h3>
-              <Form onSubmit={this.submitForm} className="form-stacked">
+              <Form onSubmit={this.submitForm} method="post" className="form-stacked">
                 <FormGroup>
                   <Label htmlFor="email" className="Lable-align">
                     Email address
