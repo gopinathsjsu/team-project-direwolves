@@ -39,21 +39,25 @@ app.use(function (req, res, next) {
 const db = config.mongoURI;
 const mongoose = require('mongoose');
 
-mongoose.createConnection(db, {
+var options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
-  poolSize: 4
-}).then((err, result) => {
-  if(result)
-    console.log("connected!!!");
-  else{
-    console.log(err);
+  poolSize: 500,
+  bufferMaxEntries: 0
+};
+
+mongoose.connect(db, options, (err, res) => {
+  if (err) {
+      console.log(err);
+      console.log(`MongoDB Connection Failed`);
+  } else {
+      console.log(`MongoDB Connected`);
   }
 });
 
 
 app.get("/", (req, res) => {
+  
 });
 
 
