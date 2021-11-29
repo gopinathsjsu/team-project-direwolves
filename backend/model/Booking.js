@@ -10,7 +10,8 @@ const BookingSchema = new mongoose.Schema(
         bookingStatus: {
             type: String
         },
-        mileageId: { type: Schema.Types.ObjectId, ref: "Mileage" },
+        price:{type:Number},
+        paidbyMileage:{type:Boolean, default:false},
     }
 );
 

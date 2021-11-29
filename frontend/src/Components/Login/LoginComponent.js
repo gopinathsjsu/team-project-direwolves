@@ -66,7 +66,7 @@ class Login extends Component {
 
   render() {
     if (this.state.isSuccess) {
-      return <Navigate to='/dashboard' />
+      return <Navigate to='/createReservation' />
     }
     return (
       <div className="container-fluid form-cont">
@@ -97,6 +97,7 @@ class Login extends Component {
                     onChange={(e)=>{
                       this.setState({email: e.target.value})
                     }}
+                    required
                   ></Input>
                 </FormGroup>
 
@@ -110,6 +111,7 @@ class Login extends Component {
                     onChange={(e)=>{
                       this.setState({password: e.target.value})
                     }}
+                    required
                   ></Input>
                 </FormGroup>
                 <FormGroup row>

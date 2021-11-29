@@ -86,7 +86,7 @@ app.post('/signup', async function (req, res) {
 app.post('/login', async function (req, res) {
   UserProfile.findOne({ email: req.body.email }, (error, user) => {
     if (error) {
-      res.status(500).end("UnSuccessful Login");
+      res.status(500).end("User Not Found");
     }
     if (user) {
       bcrypt.compare(
