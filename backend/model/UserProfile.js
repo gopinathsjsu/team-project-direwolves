@@ -18,8 +18,8 @@ const UserProfileSchema = new mongoose.Schema(
         address:{
             type: String
         },
-        role:{
-            type: String
+        isAdmin:{
+            type: Boolean, default: false
         }
 
     }

@@ -5,12 +5,10 @@ import {
   FormGroup,
   Label,
   Input,
-  Col,
-  FormFeedback,
+  Col
 } from "reactstrap";
 import axios from "axios";
-// import { connect } from "react-redux";
-// import * as Action from "../../actions/index";
+import {Navigate} from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -19,23 +17,10 @@ class Login extends Component {
         email: "",
         password: "",
         error: "",
-        formerror: {},
-        auth: true,
+        isSuccess: false
       };
   }
 
-
-  emailEventHandler = (e) => {
-    this.setState({
-      email: e.target.value,
-    });
-  };
-
-  passEventHandler = (e) => {
-    this.setState({
-      password: e.target.value,
-    });
-  };
   ///LoginUser'
   submitForm = (e) => {
     //prevent page from refresh
@@ -48,20 +33,19 @@ class Login extends Component {
       axios.defaults.withCredentials = true;
       //make a post request with the user data
       axios
-        .post(`http://localhost:8000/loginUser`, data)
+        .post(`http://localhost:3001/login`, data)
         .then((response) => {
           console.log("Status Code : ", response.status);
           if (response.status === 200) {
-            this.getCurrentUserInfo();
             this.setState({
               error: "",
+              isSuccess:true
             });
-            //<Home></Home>;
+            this.SetLocalStorage(JSON.stringify(response.data));
           } else {
             this.setState({
               error: "Please enter correct credentials",
-              authFlag: false,
-              formerror: {},
+              isSuccess: false,
             });
           }
         })
@@ -72,29 +56,6 @@ class Login extends Component {
           });
         });
   };
-
-  getCurrentUserInfo() {
-    axios
-      .get(`http://localhost:8000/getUserInfo`, {
-        params: {
-          userEmail: this.state.email,
-        },
-      })
-      .then((response) => {
-        console.log("Status Code : ", response.status);
-        if (response.status === 200) {
-          this.SetLocalStorage(JSON.stringify(response.data[0]));
-          this.setState({
-            authFlag: "true",
-          });
-        }
-      })
-      .catch(() => {
-        this.setState({
-          error: "Not able to find user",
-        });
-      });
-  }
 
   SetLocalStorage(data) {
     if (typeof Storage !== "undefined") {
@@ -107,10 +68,8 @@ class Login extends Component {
     return (
       <div className="container-fluid form-cont">
         <div className="flex-container">
-          <div className="row">
-            <div className="col col-sm-6">
-              <img src="./assets/splitwiselogo-01.png" alt="..."></img>
-            </div>
+          <div className="row" style={{padding:"120px"}}>
+          <div className="col col-sm-3"></div>
             <div className="col col-sm-6">
               <div
                 id="errorLogin"
@@ -121,7 +80,7 @@ class Login extends Component {
                 {this.state.error}
               </div>
               <h3>Login</h3>
-              <Form className="form-stacked">
+              <Form onSubmit={this.submitForm} className="form-stacked">
                 <FormGroup>
                   <Label htmlFor="email" className="Lable-align">
                     Email address
@@ -132,10 +91,10 @@ class Login extends Component {
                     id="email"
                     name="email"
                     placeholder="Email"
-                    onChange={this.emailEventHandler}
-                    invalid={this.state.formerror.email ? true : false}
+                    onChange={(e)=>{
+                      this.setState({email: e.target.value})
+                    }}
                   ></Input>
-                  <FormFeedback>{this.state.formerror.email}</FormFeedback>
                 </FormGroup>
 
                 <FormGroup>
@@ -145,10 +104,10 @@ class Login extends Component {
                     id="password"
                     name="password"
                     placeholder="Password"
-                    onChange={this.passEventHandler}
-                    invalid={this.state.formerror.password ? true : false}
+                    onChange={(e)=>{
+                      this.setState({password: e.target.value})
+                    }}
                   ></Input>
-                  <FormFeedback>{this.state.formerror.password}</FormFeedback>
                 </FormGroup>
                 <FormGroup row>
                   <Col>
@@ -156,9 +115,6 @@ class Login extends Component {
                       data-testid="btn-submit"
                       type="submit"
                       className="btn btn-Normal"
-                      onClick={(e)=>{
-                        this.props.history.push("/dashboard");
-                      }}
                       color="btn btn-primary"
                     >
                       Login

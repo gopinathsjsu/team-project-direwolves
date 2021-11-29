@@ -57,7 +57,7 @@ mongoose.connect(db, options, (err, res) => {
 
 
 app.get("/", (req, res) => {
-  
+
 });
 
 
@@ -84,8 +84,35 @@ app.post('/signup', async function (req, res) {
 
 
 app.post('/login', async function (req, res) {
-
-
+  UserProfile.findOne({ email: req.body.email }, (error, user) => {
+    if (error) {
+      res.status(500).end("UnSuccessful Login");
+    }
+    if (user) {
+      bcrypt.compare(
+        req.body.password,
+        user.password,
+        function (err, matchPassword) {
+          if (err) return error;
+          if (matchPassword) {
+            const userData = {
+              _id: user._id,
+              firstName: req.body.name,
+              lastName: req.body.lastName,
+              email: req.body.email,
+              address:req.body.address,
+            };
+            var JSONStr = JSON.stringify(userData);
+            res.status(200).end(JSONStr);
+          } else {
+            res.status(500).end("UnSuccessful Login");
+          }
+        }
+      );
+    } else {
+      res.status(500).end("UnSuccessful Login");
+    }
+  });
 });
 
 app.listen(3001);

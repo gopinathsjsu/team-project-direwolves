@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import "../styles/loginStyle.css";
+import {Navigate} from 'react-router-dom';
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -20,9 +21,8 @@ class SignUp extends Component {
           password: "",
           address:"",
         },
-        error: {},
         loginError: "",
-        auth: true
+        isSuccess: false,
       };
   }
 
@@ -46,12 +46,10 @@ class SignUp extends Component {
           console.log("Status Code : ", response.status);
           if (response.status === 200) {
             this.setState({
-              loginError: "",
-              authFlag: true,
+              isSuccess: true,
+              loginError:""
             });
-            //this.props.RegisterUser({ data }); //reducer call
-           // this.SetLocalStorage(data);
-            alert("Successfully Created! Please Continue to Login");
+            this.SetLocalStorage(this.state.userInfo);
           } else {
             this.setState({
               loginError: "User is already registered",
@@ -63,7 +61,7 @@ class SignUp extends Component {
         .catch(() => {
           this.setState({
             loginError: "User is already registered",
-            error: {},
+            authFlag: false,
           });
         });
     
@@ -82,7 +80,9 @@ class SignUp extends Component {
   }
 
   render() {
-    console.log("came here");
+    if (this.state.isSuccess) {
+      return <Navigate to='/dashboard' />
+    }
     return (
         <div className="container-fluid form-cont">
           <div className="flex-container">
@@ -108,7 +108,6 @@ class SignUp extends Component {
                       id="name"
                       name="name"
                       placeholder="First Name"
-                      invalid={this.state.error.name ? true : false}
                       onChange={this.handleChange}
                       required
                     ></Input>
