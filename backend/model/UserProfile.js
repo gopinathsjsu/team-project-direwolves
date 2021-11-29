@@ -21,6 +21,9 @@ const UserProfileSchema = new mongoose.Schema(
         role:{
             type: String
         },
+        bookings:{
+            type:Object
+        }
 
     }
 );
