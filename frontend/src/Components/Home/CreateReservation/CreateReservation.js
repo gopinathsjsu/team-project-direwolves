@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, ToggleButton } from 'react-bootstrap';
+import { Card, Col, Row, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ButtonGroup } from "react-bootstrap";
 import { getDateFromStr, getDateFromUtils, getTimeFromStr, } from '../../Services/ControllerUtils';
 
-class Dashboard extends Component {
+class CreateReservation extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,13 +17,13 @@ class Dashboard extends Component {
             airline: "AL1",
             departureTime: "11/22/2022 11:45",
             arrivalTime: "11/23/2022 11:45",
-            // trip: "O",
             radios: [
-                { name: "O", value: "O" },
-                { name: "T", value: "T" }
+                { name: "One Way", value: "O" },
+                { name: "Two Way", value: "T" }
             ],
-            numberOfPassengers: 10,
+            numberOfPassengers: 1,
             mileagePay: false,
+            passengerData:[]
         };
     }
 
@@ -42,10 +42,9 @@ class Dashboard extends Component {
                         <Row>
                             <Col>
                                 <label>Trip: </label>
-                                {this.state.trip}
                                 <ButtonGroup toggle>
                                     {this.state.radios.map((radio, idx) => (
-                                        <ToggleButton
+                                        <Button
                                             key={idx}
                                             type="radio"
                                             variant={"light"}
@@ -53,15 +52,10 @@ class Dashboard extends Component {
                                             value={radio.value}
                                             checked={this.state.trip === radio.value}
                                             onClick={e => {
-                                                console.log(e.currentTarget.value);
-                                                console.log(e.target.value);
                                                 this.setState({ trip: e.currentTarget.value });
-                                            }
-                                            }
-                                        >
-                                            {radio.value}
-                                            {radio.name}
-                                        </ToggleButton>
+                                            }}> 
+                                            {radio.name} {this.state.trip === radio.value?"✔":" "}
+                                        </Button>
                                     ))}
                                 </ButtonGroup>
 
@@ -102,6 +96,13 @@ class Dashboard extends Component {
                         </Row>
                         <Row>
                             <Col>
+                                <Row>Paying with</Row>
+                                <Row>{this.state.payingWith === "C"?"USD":"Mileage Points"}</Row>
+                                <Row>{this.state.payingWith === "C"?this.state.price:this.state.mileagePoints}</Row>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
                                 <Row>Number of passengers</Row>
                                 <Row><input className="form-control" type="text" id="passengers" value={this.state.numberOfPassengers} onChange={(e) => {
                                     this.setState({ numberOfPassengers: Number(e.target.value) });
@@ -115,12 +116,33 @@ class Dashboard extends Component {
                                     <Row>
                                         <Col>
                                             First Name:
-                                            <input className="form-control" type="text" placeholder="Enter First Name" />
+                                            <input className="form-control" type="text" placeholder="Enter First Name" onChange={(e)=>{
+                                                let list = this.state.passengerData;
+                                                if(list[i]){
+                                                    list[i].firstName = e.target.value;
+                                                }else{
+                                                    list.push({
+                                                        firstName:e.target.value,
+                                                        lastName:""
+                                                    })
+                                                }
+                                                this.setState({passengerData:list});
+                                            }}/>
                                         </Col>
-
                                         <Col>
                                             Last Name:
-                                            <input className="form-control" type="text" placeholder="Enter First Name" />
+                                            <input className="form-control" type="text" placeholder="Enter First Name" onChange={(e)=>{
+                                                let list = this.state.passengerData;
+                                                if(list[i]){
+                                                    list[i].lastName = e.target.value;
+                                                }else{
+                                                    list.push({
+                                                        lastName:e.target.value,
+                                                        firstName:""
+                                                    })
+                                                }
+                                                this.setState({passengerData:list});
+                                            }}/>
                                         </Col>
                                     </Row>
                                 </Card.Body>
@@ -135,4 +157,4 @@ class Dashboard extends Component {
 }
 
 
-export default Dashboard;
+export default CreateReservation;

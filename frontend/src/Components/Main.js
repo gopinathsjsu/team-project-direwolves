@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Login/LoginComponent";
 import SignUp from "./Signup/SignupComponent";
 import SearchFlights from "./SearchFlights/SearchFlights";
-import Dashboard from "./Home/Dashboard/Dashboard";
+import CreateReservation from "./Home/CreateReservation/CreateReservation";
 import Bookings from "./Flights/Bookings";
 
 //Create a Main Component
@@ -18,7 +18,7 @@ class Main extends Component {
           <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/flights" element={<SearchFlights />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/createReservation" element={<CreateReservation />} />
           <Route path="/bookings" element={<Bookings />} />
         </Routes>
       </div>
