@@ -122,7 +122,7 @@ app.post("/getbookings", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ userId: req.body.userId })
       .populate("userId", ["firstName", "lastName"])
-      .populate("flightId", ["departureAirport", "arrivalAirport"])
+      .populate("flightId", ["departureAirport", "arrivalAirport", "arrivalDateTime", "departureDateTime"])
       .sort({ Time: "desc" });
 
     return res.status(200).json({
