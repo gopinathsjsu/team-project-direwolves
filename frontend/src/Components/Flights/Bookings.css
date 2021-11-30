@@ -1,0 +1,84 @@
+.past-flights {
+  box-sizing: border-box;
+  font-family: Arial;
+  margin-top: 10px;
+}
+.transform {
+  perspective: 10000px;
+}
+
+.swap {
+  overflow: hidden;
+  position: relative;
+}
+
+.my-account-past-flights-card {
+  background-color: #fff;
+}
+.card--full {
+  width: 938px;
+}
+
+.header-bar {
+  min-height: 56px;
+  position: relative;
+}
+
+.header-bar--container {
+  padding: 12px 20px;
+}
+
+.endow--backdrop-outer-container {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.swa-g-color-bg-neutral-gray2 {
+  background-color: #e6e7e8;
+}
+.endow--backdrop-background {
+  height: 100%;
+}
+
+.header-bar--content {
+  min-height: 32px;
+}
+
+.my-account-no-results-content {
+  text-align: center;
+}
+
+.my-account-no-results-content--title {
+  color: #111b40;
+  font: 22px/26px Arial;
+}
+
+.my-account-past-flights-card .past-flights-card--no-results-section {
+  padding: 27px 0 22px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 800px;
+}
+
+.table {
+    margin: 0 0 40px 0;
+    width: 100%;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
+    display: table;
+}
+
+.row-header {
+    font-weight: 900;
+    color: #ffffff;
+    background: #ea6153;
+}
+.cell {
+    padding: 6px 12px;
+    display: table-cell;
+}

@@ -1,6 +1,7 @@
 import React from "react";
+import "./BookingsItem.css"
 
-const BookingList2 = () => {
+const BookingList2 = ({booking}) => {
   return (
     <div class="row">
       <div class="cell" data-title="Name">

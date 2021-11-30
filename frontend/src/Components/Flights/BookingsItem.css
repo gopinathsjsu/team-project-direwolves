@@ -1,0 +1,20 @@
+/*list start*/
+
+  
+  
+  
+  /* For table list */
+  
+  
+  
+  
+  
+  .cell {
+    padding: 6px 12px;
+    display: table-cell;
+  }
+  
+  .row {
+    display: table-row;
+    background: #f6f6f6;
+  }
