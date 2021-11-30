@@ -132,6 +132,48 @@ app.post("/getbookings", async (req, res, next) => {
   }
 });
 
+
+app.post("/createReservation", async (req, res, next) => {
+  const newBooking = {
+    userId: req.body.userId,
+    flightId: req.body.flightId,
+    bookingDate: req.body.bookingDate,
+    seatNumber: req.body.seatNumber,
+    bookingStatus:req.body.bookingStatus,
+    price: req.body.price,
+    isMileage: req.body.isMileage
+  };
+  new Booking(newBooking).save((error, data) => {
+    if (error) {
+      res.status(500).end("Error Occured");
+    } else {
+      var JSONStr = JSON.stringify(data);
+      res.status(200).end(JSONStr);
+    }
+  })
+});
+
+
+app.post("/getSeatInfoFromBookings", async (req, res, next) => {
+  try {
+    const bookings = await Booking.find({ flightId: req.body.flightId })
+      .populate("userId", ["firstName", "lastName"])
+      .populate("flightId", ["departureAirport", "arrivalAirport", "arrivalDateTime", "departureDateTime"])
+      .sort({ Time: "desc" });
+
+    return res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: "Server Error " + err,
+    });
+  }
+});
+
 app.listen(3001);
 console.log("Server Listening on port 3001");
 
