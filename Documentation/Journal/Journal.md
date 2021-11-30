@@ -13,13 +13,16 @@
     Divya- Database Design
     Nikhil-UML Diagram
     Vinay- Architecture Diagram
-    Rugveed- Project API Documentation
+    Rugved- Project API Documentation
 
 ## Blocked Tasks
 
     None
 
 ## XP Core values
+
+    Communication:
+    We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
 
     Feedback:
     After discussion, corrections were suggested to the architecture diagram.
@@ -34,14 +37,14 @@
     Divya- Completed Database design and SQL tables creation.
     Nikhil- Completed UML Diagrams design
     Vinay- Architecture Diagram and Basic react layout
-    Rugveed- Done with basic Project api(Login and Signup)
+    Rugved- Done with basic Project api(Login and Signup)
 
 ## Tasks Planning to work Next
 
     Divya- Login SignUP Wireframe
     Nikhil- Search Flight
     Vinay- Seat Booking
-    Rugveed- Flight Reservation
+    Rugved- Flight Reservation
 
 ## Blocked Tasks
 
@@ -49,8 +52,9 @@
 
 ## XP Core values
 
-    Feedback:
-    Project Task Board model was upgraded, and automation settings changed as per inputs from Apoorva and Pranjay
+    Communication and FeedBack:
+    We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion and we had a “Feedback” oriented group discussion sitting together.
+    
 
 ---
 
@@ -63,11 +67,14 @@ Pushed changes to github and reviewed the design of the team and did necessary c
     Divya- Done with Wireframe. Will checking by end of the day
     Nikhil- Done with Wireframe. Will checking by end of the day
     Vinay- Done with Wireframe. Will checking by end of the day
-    Rugveed- Done with Wireframe. Will checking by end of the day
+    Rugved- Done with Wireframe. Will checking by end of the day
 
 ## Tasks Planning to work Next
 
     Divya-
+    Vinay- Frontend and Backend Base setup, create models, Revise MERN Stack
+    Nikhil-
+    Rugved-
 
 ## Blocked Tasks
 
@@ -75,7 +82,106 @@ Pushed changes to github and reviewed the design of the team and did necessary c
 
 ## XP Core values
 
-    Feedback:
-    Project Task Board model was upgraded, and automation settings changed as per inputs from Apoorva and Pranjay
+    Communication:
+    We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+
+    Feedback: Open feedback on wireframes and tech stack to work on.
+    
+
+---
+
+# 4th week- 01 Nov 2021
+
+Completed the basic layout designs. Pushed front end and backend base. (Initially decided to design in JAVA but later changed to MERN stack)
+
+## Tasks Completed
+
+    Divya- 
+    Nikhil- 
+    Vinay- Base setup with minor changes. Models creation.
+    Rugved- 
+
+## Tasks Planning to work Next
+
+    Divya-
+    Vinay- Start working on APIs of Reservation related aspects
+    Nikhil-
+    Rugved-
+
+## Blocked Tasks
+
+    None
+
+## XP Core values
+
+    Communication:
+    We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+
+    Feedback: Open feedback on model creation, API design, and UI elements.
+    
+
+---
+
+# 5th week- 15 Nov 2021
+
+Completed APIs and initial screen designs. Login and Signup functionality added. Use of password hashing mechanism to support secure authentication
+
+## Tasks Completed
+
+    Divya- Login and sign up
+    Nikhil- 
+    Vinay- API design and models update specific to Reservations.
+    Rugved- 
+
+## Tasks Planning to work Next
+
+    Divya-
+    Vinay- Fully finalise the screen implemntation and test the application end to end. Multiple passengers functionality added
+    Nikhil-
+    Rugved-
+
+## Blocked Tasks
+
+    None
+
+## XP Core values
+
+    Communication:
+    We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+
+    Feedback: Open feedback on UI Designs, where to put the user data for faster access, how to handle date filtering for search flights.
+    
+
+---
+
+# 6th week- 29 Nov 2021
+
+Completing APIs and screen designs. Finalising the end to end functionalities and testing. Modelling high level test cases for identifying bugs.
+
+## Tasks Completed
+
+    Divya- 
+    Nikhil- 
+    Vinay- Seat booking UI design as in actual plane. Multiple passengers functionality commented out
+    Rugved- 
+
+## Tasks Planning to work Next
+
+    Divya-
+    Vinay- Fully test the application end to end.
+    Nikhil-
+    Rugved-
+
+## Blocked Tasks
+
+    None
+
+## XP Core values
+
+    Communication:
+    We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+
+    Feedback: Open feedback on what tests to run and how to fix bugs.
+    
 
 ---
