@@ -54,7 +54,6 @@
 
     Communication and FeedBack:
     We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion and we had a “Feedback” oriented group discussion sitting together.
-    
 
 ---
 
@@ -71,7 +70,7 @@ Pushed changes to github and reviewed the design of the team and did necessary c
 
 ## Tasks Planning to work Next
 
-    Divya-
+    Divya-Start implementation for Login and Signup component
     Vinay- Frontend and Backend Base setup, create models, Revise MERN Stack
     Nikhil-
     Rugved-
@@ -86,7 +85,6 @@ Pushed changes to github and reviewed the design of the team and did necessary c
     We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
 
     Feedback: Open feedback on wireframes and tech stack to work on.
-    
 
 ---
 
@@ -96,14 +94,14 @@ Completed the basic layout designs. Pushed front end and backend base. (Initiall
 
 ## Tasks Completed
 
-    Divya- 
-    Nikhil- 
+    Divya- Base setup changed from java to Node JS. Checked in changes related to signup and login. Still working on the files.
+    Nikhil-
     Vinay- Base setup with minor changes. Models creation.
-    Rugved- 
+    Rugved-
 
 ## Tasks Planning to work Next
 
-    Divya-
+    Divya-Complete Login and Signup with Backend API Implementation
     Vinay- Start working on APIs of Reservation related aspects
     Nikhil-
     Rugved-
@@ -118,7 +116,6 @@ Completed the basic layout designs. Pushed front end and backend base. (Initiall
     We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
 
     Feedback: Open feedback on model creation, API design, and UI elements.
-    
 
 ---
 
@@ -128,14 +125,14 @@ Completed APIs and initial screen designs. Login and Signup functionality added.
 
 ## Tasks Completed
 
-    Divya- Login and sign up
-    Nikhil- 
+    Divya- Login and sign up. Database connectivity with backend.
+    Nikhil-
     Vinay- API design and models update specific to Reservations.
-    Rugved- 
+    Rugved-
 
 ## Tasks Planning to work Next
 
-    Divya-
+    Divya-Start implementation for Mileage Account API
     Vinay- Fully finalise the screen implemntation and test the application end to end. Multiple passengers functionality added
     Nikhil-
     Rugved-
@@ -150,7 +147,6 @@ Completed APIs and initial screen designs. Login and Signup functionality added.
     We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
 
     Feedback: Open feedback on UI Designs, where to put the user data for faster access, how to handle date filtering for search flights.
-    
 
 ---
 
@@ -160,10 +156,10 @@ Completing APIs and screen designs. Finalising the end to end functionalities an
 
 ## Tasks Completed
 
-    Divya- 
-    Nikhil- 
+    Divya- Mileage Account implementation in progress. Saving signup details in the local storage to use it in the entire application.
+    Nikhil-
     Vinay- Seat booking UI design as in actual plane. Multiple passengers functionality commented out
-    Rugved- 
+    Rugved-
 
 ## Tasks Planning to work Next
 
@@ -182,6 +178,5 @@ Completing APIs and screen designs. Finalising the end to end functionalities an
     We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
 
     Feedback: Open feedback on what tests to run and how to fix bugs.
-    
 
 ---

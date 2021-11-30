@@ -67,9 +67,13 @@ class ManageMileage extends Component {
     
   };
 
-  //// axios.get(`http//localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`)
+  //// 
   getMileageActivity(){
-     
+    axios.get(`http//localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`).then(response=>{
+
+    }).catch(()=>{
+        
+    })
 
   }
 
