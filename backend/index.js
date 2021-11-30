@@ -8,6 +8,7 @@ var session = require('express-session');
 app.set('view engine', 'ejs');
 const bcrypt = require("bcrypt");
 const UserProfile=require("./model/UserProfile");
+const Booking = require("./model/Booking");
 const config = require('./config');
 
 //use cors to allow cross origin resource sharing
@@ -76,6 +77,7 @@ app.post('/signup', async function (req, res) {
     if (error) {
       res.status(500).end("Error Occured");
     } else {
+      data.password="";
       var JSONStr = JSON.stringify(data);
       res.status(200).end(JSONStr);
     }
@@ -95,14 +97,8 @@ app.post('/login', async function (req, res) {
         function (err, matchPassword) {
           if (err) return error;
           if (matchPassword) {
-            const userData = {
-              _id: user._id,
-              firstName: user.name,
-              lastName: user.lastName,
-              email: user.email,
-              address:user.address,
-            };
-            var JSONStr = JSON.stringify(userData);
+            user.password="";
+            var JSONStr = JSON.stringify(user);
             res.status(200).end(JSONStr);
           } else {
             res.status(500).end("UnSuccessful Login");
@@ -115,8 +111,6 @@ app.post('/login', async function (req, res) {
   });
 });
 
-
-const Booking = require("./model/Booking");
 
 app.post("/getbookings", async (req, res, next) => {
   try {
