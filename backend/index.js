@@ -192,6 +192,36 @@ app.post("/getSeatInfoFromBookings", async (req, res, next) => {
   }
 });
 
+
+app.post("/getbookings", async (req, res, next) => {
+  try {
+    const bookings = [];
+    if (req.body.isadmin == false){ //adding conditions for isAdmin 
+     bookings = await Booking.find({ userId: req.body.userId })
+      .populate("userId", ["firstName", "lastName"])
+      .populate("flightId", ["departureAirport", "arrivalAirport", "arrivalDateTime", "departureDateTime"])
+      .sort({ Time: "desc" });
+    }
+    else{
+      bookings = await Booking.find() 
+      .populate("userId", ["firstName", "lastName"])
+      .populate("flightId", ["departureAirport", "arrivalAirport", "arrivalDateTime", "departureDateTime"])
+      .sort({ Time: "desc" });
+    }
+    return res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: "Server Error " + err,
+    });
+  }
+});
+
+
 app.get("/allAirports", function (req, res) {
   Airport.find().exec((error, result) => {
     if (error) {
