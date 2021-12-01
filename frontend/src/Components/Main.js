@@ -12,8 +12,6 @@ class Main extends Component {
   render() {
     return (
       <div>
-        {/*Render Different Component based on Route*/}
-        {/* added temporarily for home*/}
         <Routes>
           <Route path="/" element={<SignUp />} />
           <Route path="/register" element={<SignUp />} />

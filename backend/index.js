@@ -84,6 +84,7 @@ app.post("/signup", async function (req, res) {
     email: req.body.email,
     password: req.body.password,
     address: req.body.address,
+    mileagePoints:0
   };
   new UserProfile(newUser).save((error, data) => {
     if (error) {
@@ -156,6 +157,8 @@ app.post("/createReservation", async (req, res, next) => {
     bookingStatus: req.body.bookingStatus,
     price: req.body.price,
     isMileage: req.body.isMileage,
+    departureTime: req.body.departureTime, 
+    arrivalTime: req.body.arrivalTime
   };
   new Booking(newBooking).save((error, data) => {
     if (error) {
@@ -169,7 +172,7 @@ app.post("/createReservation", async (req, res, next) => {
 
 app.post("/getSeatInfoFromBookings", async (req, res, next) => {
   try {
-    const bookings = await Booking.find({ flightId: req.body.flightId })
+    const bookings = await Booking.find({ flightId: req.body.flightId, departureTime: req.body.departureTime, arrivalTime: req.body.arrivalTime })
       .populate("userId", ["firstName", "lastName"])
       .populate("flightId", [
         "departureAirport",
@@ -265,6 +268,24 @@ app.get("/flights", function (req, res) {
         res.status(200).send(response);
       }
     });
+});
+
+
+app.post("/updatePoints", async function (req, res) {
+
+  UserProfile.findOneAndUpdate({ _id: req.body.userId }, { $set: {mileagePoint:req.body.price} }, { new: true }).then(result => {
+    return res.status(200).json({
+      success: true,
+      data: result
+    });
+  })
+  .catch(err => {
+    return res.status(500).json({
+      success: false,
+      error: "Server Error " + err,
+    });
+  });
+
 });
 
 app.listen(3001);
