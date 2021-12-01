@@ -6,39 +6,17 @@ import "./Bookings.css";
 
 const Bookings = ({ user }) => {
   const [bookings, setBookings] = useState([]);
-  const getBookings = () => {
-    axios.get(`http://jsonplaceholder.typicode.com/users`).then((res) => {
-      setBookings(res.data);
-      console.log(res.data);
-    });
-  };
-  useEffect(() => {
-    getBookings()
-  })
-  
 
-  const bookings2 = [
-    {
-      userId: 12345,
-      flightId: 4321,
-      bookingDate: { type: Date, default: Date.now() },
-      seatId: "A1",
-      bookingStatus: "Booked",
-      mileageId: "00000",
-  },
-  {
-    userId: 12345,
-    flightId: 4321,
-    bookingDate: { type: Date, default: Date.now() },
-    seatId: "A1",
-    bookingStatus: "Booked",
-    mileageId: "00000",
-},
-    
-  ]
 
-  
-
+  useEffect(async () => {
+    const result = await axios
+      .post("http://localhost:3001/getBooking")
+      // .then((res) => {
+      //   console.log(res.data);
+      // });
+    console.log(result.data.data);
+    setBookings(result.data.data);
+  },[]);
 
   return (
     <div className="past-flights">
@@ -56,7 +34,7 @@ const Bookings = ({ user }) => {
                       <h2
                         className="heading heading_semi-large header-bar--heading header-bar--heading_focusable"
                         id="past"
-                        tabindex="-1"
+                        tabIndex="-1"
                       >
                         {bookings.length} past flights
                       </h2>
@@ -74,14 +52,12 @@ const Bookings = ({ user }) => {
                       </span> */}
 
                       <div className="bwrapper">
-                        <div class="btable">
-                          <div class="browH">
-                            <div class="bcell">Trip</div>
-                            <div class="bcell">Date</div>
-                            <div class="bcell">Traveller</div>
-                            <div class="bcell">
-                             Location
-                            </div>
+                        <div className="btable">
+                          <div className="browH">
+                            <div className="bcell">Trip</div>
+                            <div className="bcell">Date</div>
+                            <div className="bcell">Traveller</div>
+                            <div className="bcell">Location</div>
                           </div>
                           {/* <BookingsItem /> */}
 
