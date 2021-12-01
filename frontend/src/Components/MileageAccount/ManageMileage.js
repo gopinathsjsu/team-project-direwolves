@@ -14,7 +14,7 @@ class ManageMileage extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        userinfo: {
+        userInfo: {
           firstName:"",
           lastName:"",
           email:"",
@@ -22,6 +22,7 @@ class ManageMileage extends Component {
           mileagePoints:0,
           isAdmin:false,
         },
+        mileageActivity:[],
         error:"",
         isSuccess: false,
       };
@@ -67,26 +68,40 @@ class ManageMileage extends Component {
     
   };
 
+
+
   //// 
   getMileageActivity(){
-    axios.get(`http//localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`).then(response=>{
-
+    axios.get(`http://localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`).then(response=>{
+        if(response.status==200){
+            console.log(response.data);
+            this.setState({
+              mileageActivity:response.data.data
+            })
+            console.log(this.state.mileageActivity);
+        }else{
+            this.setState({
+                error:response.error
+            })
+        }
     }).catch(()=>{
-        
+        this.setState({
+            error:"Error while getting mileage points"
+        })
     })
-
   }
 
   componentDidMount() {
     if (typeof Storage !== "undefined") {
       if (localStorage.key("userData")) {
-        this.getMileageActivity();
         this.setState({
-          userinfo: Object.assign(
-            this.state.userinfo,
+            userInfo: Object.assign(
+            this.state.userInfo,
             JSON.parse(localStorage.getItem("userData"))
           )
         });
+
+        this.getMileageActivity();
       }
     }
   }
@@ -99,15 +114,40 @@ class ManageMileage extends Component {
   }
 
   render() {
+    let mileage = null;
     if (this.state.isSuccess) {
       return <Navigate to='/createReservation' />
+    }
+
+    if(this.state.mileageActivity!=null && this.state.mileageActivity.length>0) { 
+      mileage=this.state.mileageActivity.map((activity,idx)=>{
+        console.log(activity);
+        if(activity.isMileage){
+          return (
+            <tr key={idx} >
+              <td>
+                you got {activity.price*1000} mileage rewards points by booking your flight {activity.flightId.name}
+              </td>
+            </tr>
+          );
+        }else{
+          return (
+            <tr key={idx} >
+              <td>
+                you used {activity.price} mileage rewards points for booking your flight {activity.flightId.name} 
+              </td>
+            </tr>
+          );
+        }
+      });  
     }
     return (
         <div className="container-fluid form-cont">
           <div className="flex-container">
             <div className="row" style={{paddingTop:"80px", paddingBottom:"40px"}}>
-             <div className="col-sm-2">Hi {this.state.userinfo.firstName}</div>
+             <div className="col-sm-2">Hi {this.state.userInfo.firstName}</div>
              <div className="col-sm-6"><h3><center>Manage Mileage Rewards</center></h3></div>
+             <div className="col-sm-3">Your Current Mileage Points : {this.state.userInfo.mileagePoints}</div>
              </div>
             <div className="row">
               <div className="col col-sm-3"></div>
@@ -191,6 +231,11 @@ class ManageMileage extends Component {
                   </FormGroup>
                 </Form>
               </div>
+            </div>
+            <div className="row shadow p-3 mb-5 bg-light rounded">
+              <table className="table">
+                <tbody>{mileage}</tbody>
+              </table>
             </div>
           </div>
         </div>

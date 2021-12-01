@@ -170,6 +170,25 @@ app.post("/createReservation", async (req, res, next) => {
   });
 });
 
+app.get("/getMileageActivity", async (req, res, next) => {
+  try {
+    const bookings = await Booking.find({ userId: req.query.userId })
+      .populate("flightId", ["name"])
+      .sort({ Time: "desc" });
+
+    return res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: "Server Error " + err,
+    });
+  }
+});
+
 app.post("/getSeatInfoFromBookings", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ flightId: req.body.flightId, departureTime: req.body.departureTime, arrivalTime: req.body.arrivalTime })
