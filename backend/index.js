@@ -1,27 +1,33 @@
 //import the require dependencies
-var express = require('express');
+var express = require("express");
 var app = express();
 
-var bodyParser = require('body-parser');
-var cors = require('cors');
-var session = require('express-session');
-app.set('view engine', 'ejs');
+var bodyParser = require("body-parser");
+var cors = require("cors");
+var session = require("express-session");
+app.set("view engine", "ejs");
 const bcrypt = require("bcrypt");
-const UserProfile=require("./model/UserProfile");
+const UserProfile = require("./model/UserProfile");
 const Booking = require("./model/Booking");
-const config = require('./config');
+const config = require("./config");
+const Flight = require("./model/Flight");
+const Airplane = require("./model/Airplane");
+const Airline = require("./model/Airline");
+const Airport = require("./model/Airport");
 
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: config.frontEnd, credentials: true }));
 
 //use express session to maintain session data
-app.use(session({
-  secret: 'cmpe202_airline',
-  resave: false, // Forces the session to be saved back to the session store, even if the session was never modified during the request
-  saveUninitialized: false, // Force to save uninitialized session to db. A session is uninitialized when it is new but not modified.
-  duration: 60 * 60 * 1000,    // Overall duration of Session : 30 minutes : 1800 seconds
-  activeDuration: 5 * 60 * 1000
-}));
+app.use(
+  session({
+    secret: "cmpe202_airline",
+    resave: false, // Forces the session to be saved back to the session store, even if the session was never modified during the request
+    saveUninitialized: false, // Force to save uninitialized session to db. A session is uninitialized when it is new but not modified.
+    duration: 60 * 60 * 1000, // Overall duration of Session : 30 minutes : 1800 seconds
+    activeDuration: 5 * 60 * 1000,
+  })
+);
 
 // app.use(bodyParser.urlencoded({
 //     extended: true
@@ -29,40 +35,46 @@ app.use(session({
 app.use(bodyParser.json());
 //Allow Access Control
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', config.frontEnd);
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader("Access-Control-Allow-Origin", config.frontEnd);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
+  res.setHeader("Cache-Control", "no-cache");
   next();
 });
 
 const db = config.mongoURI;
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 var options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   poolSize: 500,
-  bufferMaxEntries: 0
+  bufferMaxEntries: 0,
 };
+
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
 mongoose.connect(db, options, (err, res) => {
   if (err) {
-      console.log(err);
-      console.log(`MongoDB Connection Failed`);
+    console.log(err);
+    console.log(`MongoDB Connection Failed`);
   } else {
-      console.log(`MongoDB Connected`);
+    console.log(`MongoDB Connected`);
   }
 });
 
+app.get("/", (req, res) => {});
 
-app.get("/", (req, res) => {
-
-});
-
-
-app.post('/signup', async function (req, res) {
+app.post("/signup", async function (req, res) {
   const salt = await bcrypt.genSalt(10);
   req.body.password = await bcrypt.hash(req.body.password, salt);
   console.log("Registering New User");
@@ -71,21 +83,20 @@ app.post('/signup', async function (req, res) {
     lastName: req.body.lastName,
     email: req.body.email,
     password: req.body.password,
-    address:req.body.address,
+    address: req.body.address,
   };
   new UserProfile(newUser).save((error, data) => {
     if (error) {
       res.status(500).end("Error Occured");
     } else {
-      data.password="";
+      data.password = "";
       var JSONStr = JSON.stringify(data);
       res.status(200).end(JSONStr);
     }
-  })
+  });
 });
 
-
-app.post('/login', async function (req, res) {
+app.post("/login", async function (req, res) {
   UserProfile.findOne({ email: req.body.email }, (error, user) => {
     if (error) {
       res.status(500).end("User Not Found");
@@ -97,7 +108,7 @@ app.post('/login', async function (req, res) {
         function (err, matchPassword) {
           if (err) return error;
           if (matchPassword) {
-            user.password="";
+            user.password = "";
             var JSONStr = JSON.stringify(user);
             res.status(200).end(JSONStr);
           } else {
@@ -111,12 +122,16 @@ app.post('/login', async function (req, res) {
   });
 });
 
-
 app.post("/getbookings", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ userId: req.body.userId })
       .populate("userId", ["firstName", "lastName"])
-      .populate("flightId", ["departureAirport", "arrivalAirport", "arrivalDateTime", "departureDateTime"])
+      .populate("flightId", [
+        "departureAirport",
+        "arrivalAirport",
+        "arrivalDateTime",
+        "departureDateTime",
+      ])
       .sort({ Time: "desc" });
 
     return res.status(200).json({
@@ -132,16 +147,15 @@ app.post("/getbookings", async (req, res, next) => {
   }
 });
 
-
 app.post("/createReservation", async (req, res, next) => {
   const newBooking = {
     userId: req.body.userId,
     flightId: req.body.flightId,
     bookingDate: req.body.bookingDate,
     seatNumber: req.body.seatNumber,
-    bookingStatus:req.body.bookingStatus,
+    bookingStatus: req.body.bookingStatus,
     price: req.body.price,
-    isMileage: req.body.isMileage
+    isMileage: req.body.isMileage,
   };
   new Booking(newBooking).save((error, data) => {
     if (error) {
@@ -150,15 +164,19 @@ app.post("/createReservation", async (req, res, next) => {
       var JSONStr = JSON.stringify(data);
       res.status(200).end(JSONStr);
     }
-  })
+  });
 });
-
 
 app.post("/getSeatInfoFromBookings", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ flightId: req.body.flightId })
       .populate("userId", ["firstName", "lastName"])
-      .populate("flightId", ["departureAirport", "arrivalAirport", "arrivalDateTime", "departureDateTime"])
+      .populate("flightId", [
+        "departureAirport",
+        "arrivalAirport",
+        "arrivalDateTime",
+        "departureDateTime",
+      ])
       .sort({ Time: "desc" });
 
     return res.status(200).json({
@@ -172,6 +190,51 @@ app.post("/getSeatInfoFromBookings", async (req, res, next) => {
       error: "Server Error " + err,
     });
   }
+});
+
+app.get("/allAirports", function (req, res) {
+  Airport.find().exec((error, result) => {
+    if (error) {
+      // console.log(error);
+      res.status(404).end();
+    } else {
+      let response = {};
+      result.map((item) => {
+        response[item.city] = item;
+      });
+      console.log(response);
+      res.status(200).send(response);
+    }
+  });
+});
+
+app.get("/flights", function (req, res) {
+  Flight.find({
+    departureAirport: mongoose.Types.ObjectId(req.query.departLoc),
+    arrivalAirport: mongoose.Types.ObjectId(req.query.arriveLoc),
+  })
+    .populate(["airplaneId", "airlineId", "departureAirport", "arrivalAirport"])
+    .exec((error, result) => {
+      if (error) {
+        // console.log(error);
+        res.status(404).end();
+      } else {
+        let response = [];
+        result.map((item) => {
+          let remainingSeats =
+            item.airplaneId.noOfSeats - item.airplaneId.seats.length;
+          if (
+            item.departureDateTime.toDateString() ===
+              new Date(req.query.departDate).toDateString() &&
+            req.query.passengers <= remainingSeats
+          ) {
+            item.airplaneId.seats = null;
+            response.push(item);
+          }
+        });
+        res.status(200).send(response);
+      }
+    });
 });
 
 app.listen(3001);
