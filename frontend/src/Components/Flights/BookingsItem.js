@@ -3,17 +3,17 @@ import "./BookingsItem.css"
 
 const BookingList2 = ({booking}) => {
   return (
-    <div class="row">
-      <div class="cell" data-title="Name">
+    <div class="brow">
+      <div class="bcell" data-title="Name">
         San Francisco
       </div>
-      <div class="cell" data-title="Age">
+      <div class="bcell" data-title="Age">
         Aug 09 2021
       </div>
-      <div class="cell" data-title="Occupation">
+      <div class="bcell" data-title="Occupation">
         John Doe
       </div>
-      <div class="cell" data-title="Location">
+      <div class="bcell" data-title="Location">
         BOM - SFO
       </div>
     </div>

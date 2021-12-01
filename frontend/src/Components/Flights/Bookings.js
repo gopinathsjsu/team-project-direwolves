@@ -1,17 +1,21 @@
 import React from "react";
 import BookingsItem from "./BookingsItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Bookings.css";
 
 const Bookings = ({ user }) => {
-  const [bookings, setBookings] = useState("");
+  const [bookings, setBookings] = useState([]);
   const getBookings = () => {
     axios.get(`http://jsonplaceholder.typicode.com/users`).then((res) => {
       setBookings(res.data);
       console.log(res.data);
     });
   };
+  useEffect(() => {
+    getBookings()
+  })
+  
 
   const bookings2 = [
     {
@@ -54,7 +58,7 @@ const Bookings = ({ user }) => {
                         id="past"
                         tabindex="-1"
                       >
-                        0 past flights
+                        {bookings.length} past flights
                       </h2>
                     </div>
                   </div>
@@ -69,14 +73,14 @@ const Bookings = ({ user }) => {
                         You have no past flights.
                       </span> */}
 
-                      <div className="wrapper">
-                        <div class="table">
-                          <div class="row-header">
-                            <div class="cell">Trip</div>
-                            <div class="cell">Date</div>
-                            <div class="cell">Traveller</div>
-                            <div class="cell">
-                              <button onClick={getBookings}> </button>Location
+                      <div className="bwrapper">
+                        <div class="btable">
+                          <div class="browH">
+                            <div class="bcell">Trip</div>
+                            <div class="bcell">Date</div>
+                            <div class="bcell">Traveller</div>
+                            <div class="bcell">
+                             Location
                             </div>
                           </div>
                           {/* <BookingsItem /> */}

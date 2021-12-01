@@ -9,12 +9,12 @@
   
   
   
-  .cell {
+  .bcell {
     padding: 6px 12px;
     display: table-cell;
   }
   
-  /* .row {
+  .brow {
     display: table-row;
     background: #f6f6f6;
-  } */
+  }

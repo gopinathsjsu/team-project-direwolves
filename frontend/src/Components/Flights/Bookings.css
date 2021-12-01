@@ -60,25 +60,26 @@
   padding: 27px 0 22px;
 }
 
-.wrapper {
+.bwrapper {
     margin: 0 auto;
     padding: 40px;
     max-width: 800px;
 }
 
-.table {
+.btable {
     margin: 0 0 40px 0;
     width: 100%;
     box-shadow: 0 1px 3px rgb(0 0 0 / 20%);
     display: table;
 }
 
-.row-header {
+.browH {
     font-weight: 900;
     color: #ffffff;
     background: #ea6153;
+    display: table-row;
 }
-.cell {
+.bcell {
     padding: 6px 12px;
     display: table-cell;
 }

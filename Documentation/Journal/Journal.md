@@ -97,14 +97,14 @@ Completed the basic layout designs. Pushed front end and backend base. (Initiall
     Divya- Base setup changed from java to Node JS. Checked in changes related to signup and login. Still working on the files.
     Nikhil-
     Vinay- Base setup with minor changes. Models creation.
-    Rugved-
+    Rugved- Added base Setup with initial frameworks.
 
 ## Tasks Planning to work Next
 
     Divya-Complete Login and Signup with Backend API Implementation
     Vinay- Start working on APIs of Reservation related aspects
     Nikhil-
-    Rugved-
+    Rugved-Started working on booking APIs
 
 ## Blocked Tasks
 
@@ -128,14 +128,14 @@ Completed APIs and initial screen designs. Login and Signup functionality added.
     Divya- Login and sign up. Database connectivity with backend.
     Nikhil-
     Vinay- API design and models update specific to Reservations.
-    Rugved-
+    Rugved- API configuration and test in Postman.
 
 ## Tasks Planning to work Next
 
     Divya-Start implementation for Mileage Account API
     Vinay- Fully finalise the screen implemntation and test the application end to end. Multiple passengers functionality added
     Nikhil-
-    Rugved-
+    Rugved- Adding worker booking implementation
 
 ## Blocked Tasks
 
@@ -159,14 +159,14 @@ Completing APIs and screen designs. Finalising the end to end functionalities an
     Divya- Mileage Account implementation in progress. Saving signup details in the local storage to use it in the entire application.
     Nikhil-
     Vinay- Seat booking UI design as in actual plane. Multiple passengers functionality commented out
-    Rugved-
+    Rugved- Completed Frontend and patched the backend
 
 ## Tasks Planning to work Next
 
     Divya-
     Vinay- Fully test the application end to end.
     Nikhil-
-    Rugved-
+    Rugved- Testing application
 
 ## Blocked Tasks
 
