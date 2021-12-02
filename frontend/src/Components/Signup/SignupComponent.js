@@ -77,7 +77,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.isSuccess) {
-      return <Redirect to='/createReservation' />
+      return <Redirect to='/flights' />
     }
     return (
         <div className="container-fluid form-cont">
