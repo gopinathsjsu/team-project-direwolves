@@ -19,7 +19,7 @@ const UserProfileSchema = new mongoose.Schema(
             type: String
         },
         mileagePoint:{
-            type: Number
+            type: Number, default:0
         },
         isAdmin:{
             type: Boolean, default: false
