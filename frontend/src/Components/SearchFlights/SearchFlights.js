@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { formatAMPM, getTimeDifference } from "./../Services/ControllerUtils";
+
 class SearchFlights extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +44,7 @@ class SearchFlights extends Component {
   getAirports = async () => {
     await axios.get(`http://localhost:3001/allAirports`).then((response) => {
       console.log(response.data);
-      if (response.status == 200) this.setState({ airports: response.data });
+      if (response.status === 200) this.setState({ airports: response.data });
     });
   };
 
@@ -61,12 +62,18 @@ class SearchFlights extends Component {
       })
       .then((response) => {
         console.log(response.data);
-        if (response.status == 200)
+        if (response.status === 200)
           this.setState({ flights: response.data, showResults: true });
       });
   };
   render() {
     console.log(this.state);
+    let airportList = Object.keys(this.state.airports).map((key) => (
+      <option
+        value={this.state.airports[key].city}
+        key={this.state.airports[key].city}
+      />
+    ));
     return (
       <>
         <div style={{ backgroundColor: "red" }}>NavBar - to be implemented</div>
@@ -97,18 +104,17 @@ class SearchFlights extends Component {
                           departLoc: airport.shortCode,
                           departLocation: airport.city,
                         });
+                      } else {
+                        this.setState({
+                          departLocId: "",
+                          departLoc: e.target.value,
+                          departLocation: "",
+                        });
                       }
                     }}
                   />
                 </InputGroup>
-                <datalist id="airportDataList">
-                  {Object.keys(this.state.airports).map((key) => (
-                    <option
-                      value={this.state.airports[key].city}
-                      key={this.state.airports[key].city}
-                    />
-                  ))}
-                </datalist>
+                <datalist id="airportDataList">{airportList}</datalist>
                 <span>{this.state.departLocation}</span>
               </Col>
               <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
@@ -126,18 +132,17 @@ class SearchFlights extends Component {
                           arriveLoc: airport.shortCode,
                           arriveLocation: airport.city,
                         });
+                      } else {
+                        this.setState({
+                          arriveLocId: "",
+                          arriveLoc: e.target.value,
+                          arriveLocation: "",
+                        });
                       }
                     }}
                   />
                 </InputGroup>
-                <datalist id="airportDataList">
-                  {Object.keys(this.state.airports).map((key) => (
-                    <option
-                      value={this.state.airports[key].city}
-                      key={this.state.airports[key].city}
-                    />
-                  ))}
-                </datalist>
+                <datalist id="airportDataList">{airportList}</datalist>
                 <span>{this.state.arriveLocation}</span>
               </Col>
               <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
@@ -211,7 +216,6 @@ class SearchFlights extends Component {
           {this.state.showResults &&
             this.state.flights.map((item) => (
               <Container>
-                <Link to={{pathname:"/createReservation", query:item, modeOfPayment: this.state.currency}}>HELLO</Link>
                 <Row>
                   <div>
                     #{item.name} - number {item.number}
@@ -246,13 +250,26 @@ class SearchFlights extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  <div>
-                    Price : {this.state.currency == "D" ? "$" : ""}
-                    {this.state.currency == "D"
-                      ? item.price
-                      : 1000 * item.price}{" "}
-                    {this.state.currency == "P" ? "Points" : ""}
-                  </div>
+                  <Col>
+                    <div>
+                      Price : {this.state.currency === "D" ? "$" : ""}
+                      {this.state.currency === "D"
+                        ? item.price
+                        : 1000 * item.price}{" "}
+                      {this.state.currency === "P" ? "Points" : ""}
+                    </div>
+                  </Col>
+                  <Col>
+                    <Link
+                      to={{
+                        pathname: "/createReservation",
+                        query: item,
+                        modeOfPayment: this.state.currency,
+                      }}
+                    >
+                      Book Flight
+                    </Link>
+                  </Col>
                 </Row>
               </Container>
             ))}

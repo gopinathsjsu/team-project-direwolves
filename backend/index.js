@@ -258,7 +258,7 @@ app.get("/allAirports", function (req, res) {
       result.map((item) => {
         response[item.city] = item;
       });
-      console.log(response);
+      // console.log(response);
       res.status(200).send(response);
     }
   });
@@ -288,6 +288,7 @@ app.get("/flights", function (req, res) {
             response.push(item);
           }
         });
+        console.log(response);
         res.status(200).send(response);
       }
     });
