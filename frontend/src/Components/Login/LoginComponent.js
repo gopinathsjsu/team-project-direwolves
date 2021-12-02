@@ -37,11 +37,11 @@ class Login extends Component {
         .then((response) => {
           console.log("Status Code : ", response.status);
           if (response.status === 200) {
+            this.SetLocalStorage(JSON.stringify(response.data));
             this.setState({
               error: "",
               isSuccess:true
             });
-            this.SetLocalStorage(JSON.stringify(response.data));
           } else {
             this.setState({
               error: "Please enter correct credentials",
