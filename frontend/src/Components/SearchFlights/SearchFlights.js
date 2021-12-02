@@ -301,7 +301,7 @@ class SearchFlights extends Component {
                       Price : {this.state.currency === "D" ? "$" : ""}
                       {this.state.currency === "D"
                         ? item.price
-                        : 1000 * item.price}{" "}
+                        : 10 * item.price}{" "}
                       {this.state.currency === "P" ? "Points" : ""}
                     </div>
                     <div>

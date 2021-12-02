@@ -10,5 +10,6 @@ const FlightSchema = new mongoose.Schema({
   arrivalDateTime: { type: Date },
   departureDateTime: { type: Date },
   price: { type: Number },
+  premiumSeatPrice:{ type:Number, default:100 }
 });
 module.exports = mongoose.model("Flight", FlightSchema);

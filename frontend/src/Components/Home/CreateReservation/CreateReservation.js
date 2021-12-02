@@ -18,40 +18,39 @@ class CreateReservation extends Component {
     constructor(props) {
         super(props);
         let profile = getUserProfile();
+        let flightDetails = this.props.location.query;
 
         console.log(this.props);
         console.log(this.props.location);
         console.log(this.props.match);
-
-        console.log("AAAAA"+localStorage.getItem("FlightToBook"));
-
         // console.log(profile);
         this.state = {
-            firstName: profile.firstName,
-            lastName: profile.lastName,
+            firstName: profile ? profile.firstName : "",
+            lastName: profile ? profile.lastName : "",
             trip: "O",
-            userId: profile._id,
+            availablePoints: profile? profile.mileagePoint:0,
+            userId: profile ? profile._id : "",
             show: false,
-            flightName: "Flight1",
-            flightNumber: "4444",
-            flightId: "61a59d05f5712005236a97bd",
-            departureFlightsdafsdfdsfTime: "2021-11-29T00:00:00.000+00:00",
-            source: "SJC",
-            destination: "HYD",
-            noOfSeats: "100",
-            airline: "AL1",
-            departureTime: "11/22/2022 11:45",
-            arrivalTime: "11/23/2022 11:45",
+            flightName: flightDetails.name,
+            flightNumber: flightDetails.number,
+            flightId: flightDetails._id,
+            departureDateTime: flightDetails.departureDateTime,
+            arrivalDateTime: flightDetails.arrivalDateTime,
+            departureShortCode: flightDetails.departureAirport.shortCode,
+            arrivalShortCode: flightDetails.arrivalAirport.shortCode,
+            departure: flightDetails.departureAirport.name,
+            arrival: flightDetails.arrivalAirport.name,
+            noOfSeats: flightDetails.airplaneId.noOfSeats,
+            premiumSeatPrice: flightDetails.premiumSeatPrice,
             radios: [
                 { name: "One Way", value: "O" },
                 { name: "Two Way", value: "T" },
             ],
             numberOfPassengers: 1,
-            mileagePay: false,
+            isMileage: this.props.location.modeOfPayment === "P",
             passengerData: [],
-            numberOfSeatsInFlight: 150,
-            price: 100,
-            mileagePoints: 120,
+            actualPrice: Number(flightDetails.price),
+            price: Math.round(this.props.location.modeOfPayment === "P"?Number(flightDetails.price)*10:Number(flightDetails.price)),
             blockedList: []
         };
     }
@@ -59,15 +58,15 @@ class CreateReservation extends Component {
     componentDidMount() {
         axios.post(`http://localhost:3001/getSeatInfoFromBookings`, {
             flightId: this.state.flightId,
-            departureTime: this.state.departureFlightsdafsdfdsfTime,
-            arrivalTime: this.state.departureFlightsdafsdfdsfTime
+            departureTime: this.state.departureDateTime,
+            arrivalTime: this.state.arrivalDateTime
         })
             .then((response) => {
                 console.log("Status Code : ", response.status);
                 let temp = [];
                 if (response.status === 200) {
                     for (let item of response.data.data) {
-                        temp.push(Number(item.seatNumber)-1);
+                        temp.push(Number(item.seatNumber) - 1);
                     }
                 }
                 this.setState({ blockedList: temp });
@@ -78,16 +77,16 @@ class CreateReservation extends Component {
         event.preventDefault();
     };
 
-    updateCustomerPoints(data){
-        let p = Number(getUserProfile().mileagePoint);
+    updateCustomerPoints(data) {
+        let p = this.state.availablePoints;
         let params = {
-            userId: data.userId, 
-            price: (p?p:0) + (data.isMileage? 1:-1)*data.price, 
+            userId: data.userId,
+            price: Math.round(p + (data.isMileage ? - data.price : (data.price*0.1) )),
         };
         axios.post(`http://localhost:3001/updatePoints`, params).then((response) => {
-                console.log("resp for updatePoints ", response);
-                localStorage.setItem("userData", JSON.stringify(response.data.data))
-            });
+            console.log("resp for updatePoints ", response);
+            localStorage.setItem("userData", JSON.stringify(response.data.data))
+        });
     }
 
     getSeat(i) {
@@ -96,12 +95,16 @@ class CreateReservation extends Component {
         );
     }
 
+    isPremiumSeat(i){
+        return (i%6===0 || i%6===5)
+    }
+
     render() {
         return (
             <React.Fragment>
 
-                <pre>{JSON.stringify(this.props, "", 2)}</pre>
-                <hr />
+                <pre>{JSON.stringify(this.state, "", 2)}</pre>
+                {/* <hr /> */}
                 <Card style={{ padding: "10%", margin: "1% 10% 0 10%" }}>
                     <Row>
                         <h3>Your Selected flight details</h3>
@@ -151,12 +154,12 @@ class CreateReservation extends Component {
                         <br />
                         <Row>
                             <Col>
-                                <Row>Source</Row>
-                                <Row>{this.state.source}</Row>
+                                <Row>Departure Airport</Row>
+                                <Row>{this.state.departureShortCode} - {this.state.departure}</Row>
                             </Col>
                             <Col>
-                                <Row>Destination</Row>
-                                <Row>{this.state.destination}</Row>
+                                <Row>Arrival Airport</Row>
+                                <Row>{this.state.arrivalShortCode} - {this.state.arrival}</Row>
                             </Col>
                         </Row>
                         <br />
@@ -165,11 +168,11 @@ class CreateReservation extends Component {
                         <Row>
                             <Col>
                                 <Row>Departure Date Time</Row>
-                                <Row>{getTimeFromStr(this.state.departureTime)}</Row>
+                                <Row>{getTimeFromStr(this.state.departureDateTime)}</Row>
                             </Col>
                             <Col>
                                 <Row>Arrival Date Time</Row>
-                                <Row>{getTimeFromStr(this.state.arrivalTime)}</Row>
+                                <Row>{getTimeFromStr(this.state.arrivalDateTime)}</Row>
                             </Col>
                         </Row>
                         <br />
@@ -181,14 +184,12 @@ class CreateReservation extends Component {
                                     <span style={{ padding: "0" }}>
                                         Paying with{" "}
                                         <b>
-                                            {this.state.payingWith === "C" ? "USD" : "Mileage Points"}
+                                            {!this.state.isMileage ? "USD" : "Mileage Points"}
                                         </b>
                                     </span>
                                 </Row>
                                 <Row>
-                                    {this.state.payingWith === "C"
-                                        ? this.state.price
-                                        : this.state.mileagePoints}
+                                    {this.state.isMileage?"":"$ "}{this.state.price}{this.state.isMileage?" Pts":""} {this.state.premiumSeatSelected?"+ $"+this.state.premiumSeatPrice:""} , Available Points: {this.state.availablePoints}
                                 </Row>
                             </Col>
                         </Row>
@@ -268,13 +269,6 @@ class CreateReservation extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <center>
-                                {this.state.selectedSeat && (
-                                    <div>
-                                        Selected Seat: {this.getSeat(this.state.selectedSeat - 1)}
-                                    </div>
-                                )}
-                            </center>
                             <center className="air">
                                 <div
                                     style={{
@@ -283,11 +277,22 @@ class CreateReservation extends Component {
                                         borderRadius: "200px 200px 0px 0px",
                                         padding: "2%",
                                         margin: "3%",
-                                        paddingTop: "50%",
+                                        paddingTop: "30%",
                                     }}
                                 >
+                                    <div style={{paddingBottom:"16%"}}>
+                                        <div>Free Seat: <img src={ unoccupiedSeat} alt="seat" width="40px" /></div>
+                                        <div>Selected Seat: <img src={ selectedSeat} alt="seat" width="40px" /></div>
+                                        <div>Already Booked: <img src={ seatSVG} alt="seat" width="40px" /></div>
+                                    </div>
+                                    {this.state.selectedSeat && (
+                                            <div>
+                                                Selected Seat: {this.getSeat(this.state.selectedSeat - 1)}
+                                            </div>
+                                        )}
+                                    <hr/>
                                     <Grid container>
-                                        {[...Array(this.state.numberOfSeatsInFlight)].map(
+                                        {[...Array(this.state.noOfSeats)].map(
                                             (e, i) => (
                                                 <Grid
                                                     key={i}
@@ -296,23 +301,20 @@ class CreateReservation extends Component {
                                                     md={2}
                                                     style={{ justifyContent: "center", fontSize: "10px" }}
                                                 >
-                                                    <div style={{ fontWeight: "bold" }}>
+                                                    <div style={{ fontWeight: "bold", color:(this.isPremiumSeat(i))?"red":"black" }}>
                                                         {this.getSeat(i)}
                                                     </div>
-                                                    <div
-                                                        onClick={(e) => {
-                                                            if (!this.state.blockedList.includes(i))
-                                                                this.setState({ selectedSeat: i + 1 });
-                                                        }}
-                                                    >
-                                                        <img
-                                                            src={
-                                                                this.state.blockedList.includes(i)
-                                                                    ? seatSVG
-                                                                    : this.state.selectedSeat - 1 === i
-                                                                        ? selectedSeat
-                                                                        : unoccupiedSeat
+                                                    <div onClick={(e) => {
+                                                            if (!this.state.blockedList.includes(i)) {
+                                                                if(this.isPremiumSeat(i)){
+                                                                    if(window.confirm("Premium seat selected, Extra charge of $"+this.state.premiumSeatPrice+" is applicable"))
+                                                                        this.setState({ selectedSeat: i + 1, premiumSeatSelected:true });
+                                                                }else{
+                                                                    this.setState({ selectedSeat: i + 1 , premiumSeatSelected:false});
+                                                                }
                                                             }
+                                                        }} >
+                                                        <img src={ this.state.blockedList.includes(i) ? seatSVG : this.state.selectedSeat - 1 === i ? selectedSeat : unoccupiedSeat }
                                                             style={{ color: "pink" }}
                                                             alt="seat"
                                                             width="40px"
@@ -333,16 +335,13 @@ class CreateReservation extends Component {
                                     let data = {
                                         userId: getUserProfile()._id,
                                         flightId: this.state.flightId,
-                                        departureTime: this.state.departureFlightsdafsdfdsfTime,
-                                        arrivalTime: this.state.departureFlightsdafsdfdsfTime,
+                                        departureTime: this.state.departureDateTime,
+                                        arrivalTime: this.state.arrivalDateTime,
                                         bookingDate: new Date(),
                                         seatNumber: this.state.selectedSeat,
                                         bookingStatus: "Confirmed",
-                                        price:
-                                            this.state.payingWith === "M"
-                                                ? this.state.mileagePoints
-                                                : this.state.price,
-                                        isMileage: this.state.payingWith === "M",
+                                        price: this.state.price + (this.state.premiumSeatSelected?this.state.premiumSeatPrice:0),
+                                        isMileage: this.state.isMileage,
                                     };
                                     axios
                                         .post(`http://localhost:3001/createReservation`, data)

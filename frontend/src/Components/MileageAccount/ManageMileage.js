@@ -130,7 +130,7 @@ class ManageMileage extends Component {
           return (
             <tr key={idx} >
               <td>
-                you got {activity.price*1000} mileage rewards points by booking your flight {activity.flightId.name}
+                you got {activity.price*10} mileage rewards points by booking your flight {activity.flightId.name}
               </td>
             </tr>
           );

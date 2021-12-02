@@ -5,8 +5,11 @@ const AirplaneSchema = new mongoose.Schema(
             type: Number
         },
         premiumSeatPrice:{
-            type:Number, default:3
-        }
+            type:Number, default:100
+        },
+        seats:[{
+            seatId: { type: mongoose.Schema.Types.ObjectId, ref:"Seat" }
+        }],
     }
 );
 
