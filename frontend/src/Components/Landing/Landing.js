@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./landing.css";
+import { Link } from "react-router-dom";
 
 class Landing extends Component {
   constructor(props) {
@@ -10,7 +11,19 @@ class Landing extends Component {
     return (
       <div className="container-fluid">
         <div className="landing_img">
-        <p style={{fontFamily:"Cursive", fontWeight:"50px", padding:"20px"}}>Welcome to Direwolves Airlines</p>
+        <div className="row">
+            <div className="col-sm-9">
+                <p style={{fontFamily:"cursive", fontWeight:"50px", paddingLeft:"250px",color:"black"}}>Welcome to Direwolves Airlines</p>
+            </div>
+            <div className="col-sm-3">
+            <Link to="/login" style={{padding:"20px"}}>
+                <button className="btn buttonColor ">Login</button>
+            </Link>
+            <Link to="/register">
+                <button className="btn buttonColor">Register</button>
+            </Link>
+            </div>
+            </div>
         </div>
       </div>
     );
@@ -18,28 +31,3 @@ class Landing extends Component {
 }
 
 export default Landing;
-
-{/* <div className="col col-sm-1"></div>
-<div className="col col-sm-3"></div>
-</div>
-<div id="footer" className="row">
-<h1
-  style={{
-    fontWeight: "bold",
-    alignSelf: "center",
-    textAlign: "center",
-    marginLeft: 350,
-  }}
->
-  Less stress when sharing expenses with anyone
-</h1>
-<p
-  style={{
-    alignSelf: "center",
-    textAlign: "center",
-    marginLeft: 350,
-  }}
->
-  Keep track of your shared expenses and balances with housemates,
-  trips, groups, friends, and family
-</p> */}

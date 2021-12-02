@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import Flight from '../svg/Flight.jpeg';
 
 class Login extends Component {
   constructor(props) {
@@ -65,8 +66,10 @@ class Login extends Component {
       <div className="container-fluid form-cont">
         <div className="flex-container">
           <div className="row" style={{ padding: "120px" }}>
-            <div className="col col-sm-3"></div>
-            <div className="col col-sm-6">
+          <div className="col">
+                <img src={Flight}></img>
+              </div>
+            <div className="col">
               <div
                 id="errorLogin"
                 hidden={this.state.error.length > 0 ? false : true}
@@ -124,6 +127,7 @@ class Login extends Component {
                   </Col>
                 </FormGroup>
               </Form>
+              <div>Not a Member?<a href="/register">SignUp</a></div>
             </div>
           </div>
         </div>

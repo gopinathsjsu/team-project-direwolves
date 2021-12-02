@@ -173,6 +173,7 @@ class SignUp extends Component {
                     </Col>
                   </FormGroup>
                 </Form>
+                <div>Already a Member?<a href="/login">Login</a></div>
               </div>
             </div>
           </div>
