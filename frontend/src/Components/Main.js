@@ -12,16 +12,13 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Routes>
-          <Route path="/" element={<SignUp />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/flights" element={<SearchFlights />} />
-          <Route path="/createReservation" element={<CreateReservation />} />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="/manageProfile" element={<ManageMileage />} />
-
-        </Routes>
+          <Route exact path="/" component={SignUp} />
+          <Route path="/register" component={SignUp} />
+          <Route path="/login" component={Login} />
+          <Route path="/flights" component={SearchFlights} />
+          <Route path="/createReservation" component={CreateReservation} />
+          <Route path="/bookings" component={Bookings} />
+          <Route path="/manageProfile" component={ManageMileage} />
       </div>
     );
   }

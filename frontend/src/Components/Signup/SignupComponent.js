@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import "../styles/loginStyle.css";
-import {Navigate} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +76,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.isSuccess) {
-      return <Navigate to='/createReservation' />
+      return <Redirect to='/createReservation' />
     }
     return (
         <div className="container-fluid form-cont">

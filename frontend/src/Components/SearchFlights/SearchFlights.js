@@ -10,6 +10,7 @@ import {
   Button,
   ButtonGroup,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { formatAMPM, getTimeDifference } from "./../Services/ControllerUtils";
 class SearchFlights extends Component {
   constructor(props) {
@@ -210,6 +211,7 @@ class SearchFlights extends Component {
           {this.state.showResults &&
             this.state.flights.map((item) => (
               <Container>
+                <Link to={{pathname:"/createReservation", query:item, modeOfPayment: this.state.currency}}>HELLO</Link>
                 <Row>
                   <div>
                     #{item.name} - number {item.number}

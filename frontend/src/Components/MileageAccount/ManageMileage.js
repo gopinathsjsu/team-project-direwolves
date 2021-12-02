@@ -9,7 +9,7 @@ import {
   Row
 } from "reactstrap";
 import axios from "axios";
-import {Navigate} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 class ManageMileage extends Component {
   constructor(props) {
     super(props);
@@ -116,7 +116,7 @@ class ManageMileage extends Component {
   render() {
     let mileage = null;
     if (this.state.isSuccess) {
-      return <Navigate to='/createReservation' />
+      return <Redirect to='/createReservation' />
     }
 
     if(this.state.mileageActivity!=null && this.state.mileageActivity.length>0) { 

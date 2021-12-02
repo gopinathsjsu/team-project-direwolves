@@ -21,6 +21,7 @@ class CreateReservation extends Component {
 
         console.log(this.props);
         console.log(this.props.location);
+        console.log(this.props.match);
 
         console.log("AAAAA"+localStorage.getItem("FlightToBook"));
 

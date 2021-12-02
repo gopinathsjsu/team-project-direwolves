@@ -8,7 +8,7 @@ import {
   Col
 } from "reactstrap";
 import axios from "axios";
-import {Navigate} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Login extends Component {
 
   render() {
     if (this.state.isSuccess) {
-      return <Navigate to='/createReservation' />
+      return <Redirect to='/createReservation' />
     }
     return (
       <div className="container-fluid form-cont">
