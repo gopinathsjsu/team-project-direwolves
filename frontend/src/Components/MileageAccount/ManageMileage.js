@@ -119,6 +119,10 @@ class ManageMileage extends Component {
       return <Redirect to='/createReservation' />
     }
 
+    if(!localStorage.key("userData")){
+      return <Redirect to='/login' />
+    }
+
     if(this.state.mileageActivity!=null && this.state.mileageActivity.length>0) { 
       mileage=this.state.mileageActivity.map((activity,idx)=>{
         console.log(activity);
@@ -173,6 +177,7 @@ class ManageMileage extends Component {
                             name="name"
                             placeholder="First Name"
                             onChange={this.handleChange}
+                            value={this.state.userInfo.firstName}
                             required
                             ></Input>
                         </FormGroup>
@@ -187,6 +192,7 @@ class ManageMileage extends Component {
                             id="lastName"
                             name="lastName"
                             placeholder="Last Name"
+                            value={this.state.userInfo.lastName}
                             onChange={this.handleChange}
                             required
                             ></Input>
@@ -203,6 +209,7 @@ class ManageMileage extends Component {
                       id="email"
                       name="email"
                       placeholder="Email"
+                      value={this.state.userInfo.email}
                       onChange={this.handleChange}
                       required
                     ></Input>
@@ -216,6 +223,7 @@ class ManageMileage extends Component {
                       id="address"
                       name="address"
                       placeholder="Address"
+                      value={this.state.userInfo.address}
                       onChange={this.handleChange}
                     ></Input>
                   </FormGroup>
@@ -232,7 +240,7 @@ class ManageMileage extends Component {
                 </Form>
               </div>
             </div>
-            <div className="row shadow p-3 mb-5 bg-light rounded">
+            <div className="row shadow p-4 bg-light rounded">
               <table className="table">
                 <tbody>{mileage}</tbody>
               </table>
