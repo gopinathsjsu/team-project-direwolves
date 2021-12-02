@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { formatAMPM, getTimeDifference } from "./../Services/ControllerUtils";
+import "./SearchFlights.css";
 
 class SearchFlights extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class SearchFlights extends Component {
       currency: "D",
       airports: {},
       showResults: false,
+      passengerType: "",
     };
   }
 
@@ -78,21 +80,35 @@ class SearchFlights extends Component {
       <>
         <div style={{ backgroundColor: "red" }}>NavBar - to be implemented</div>
         <div>Search Flights</div>
-        <Container fluid>
+        <Container fluid style={{ padding: "0 100px", margin: "30px 0" }}>
           <Form>
-            <Row>
-              <Col>DEPART</Col>
-              <Col>ARRIVE</Col>
-              <Col>DEPART DATE</Col>
-              <Col>PASSENGERS</Col>
-              <Col>CURRENCY</Col>
+            <Row className="aboveRow">
+              <Col>
+                <div style={{ paddingLeft: "5px" }}>DEPART</div>
+              </Col>
+              <Col>
+                <div style={{ paddingLeft: "5px" }}>ARRIVE</div>
+              </Col>
+              <Col>
+                <div style={{ paddingLeft: "5px" }}>DEPART DATE</div>
+              </Col>
+              <Col>
+                <div style={{ paddingLeft: "5px" }}>PASSENGERS</div>
+              </Col>
+              <Col>
+                <div style={{ paddingLeft: "12px" }}>CURRENCY</div>
+              </Col>
               <Col></Col>
             </Row>
             <Row>
-              <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
-                <InputGroup size="lg">
+              <Col className="flexColumn" md={2}>
+                <InputGroup
+                  size="sm"
+                  className="mb-0"
+                  style={{ margin: "0!important" }}
+                >
                   <FormControl
-                    aria-label="Large"
+                    aria-label="Small"
                     aria-describedby="inputGroup-sizing-sm"
                     list="airportDataList"
                     value={this.state.departLoc}
@@ -115,10 +131,13 @@ class SearchFlights extends Component {
                   />
                 </InputGroup>
                 <datalist id="airportDataList">{airportList}</datalist>
-                <span>{this.state.departLocation}</span>
               </Col>
-              <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
-                <InputGroup size="lg">
+              <Col className="flexColumn" md={2}>
+                <InputGroup
+                  size="sm"
+                  className="mb-0"
+                  style={{ margin: "0!important" }}
+                >
                   <FormControl
                     aria-label="Large"
                     aria-describedby="inputGroup-sizing-sm"
@@ -143,13 +162,12 @@ class SearchFlights extends Component {
                   />
                 </InputGroup>
                 <datalist id="airportDataList">{airportList}</datalist>
-                <span>{this.state.arriveLocation}</span>
               </Col>
-              <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
+              <Col className="flexColumn" md={2}>
                 <Form.Group controlId="departDate">
                   <Form.Control
                     type="date"
-                    size="lg"
+                    size="sm"
                     defaultValue={this.state.departDate}
                     onChange={(e) => {
                       this.setState({
@@ -161,29 +179,30 @@ class SearchFlights extends Component {
                     }}
                   />
                 </Form.Group>
-                <span>{this.state.departDateString}</span>
               </Col>
-              <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
+              <Col className="flexColumn" md={2}>
                 <Form.Group controlId="departDate">
                   <Form.Control
                     type="number"
-                    size="lg"
+                    size="sm"
                     defaultValue={this.state.passengers}
                     onChange={(e) => {
                       this.setState({
                         passengers: e.target.value,
+                        passengerType: "Adult",
                       });
                     }}
                   />
                 </Form.Group>
               </Col>
-              <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
+              <Col className="flexColumn" md={2}>
                 <ButtonGroup toggle="true">
                   {this.state.radios.map((radio, idx) => (
                     <Button
                       key={idx}
+                      style={{ padding: "0" }}
                       type="radio"
-                      variant={"light"}
+                      variant="Info"
                       name="radio"
                       value={radio.value}
                       checked={this.state.currency === radio.value}
@@ -198,7 +217,7 @@ class SearchFlights extends Component {
                   ))}
                 </ButtonGroup>
               </Col>
-              <Col style={{ display: "flex", flexDirection: "column" }} md={2}>
+              <Col className="flexColumn" md={2}>
                 <Button
                   type="submit"
                   onClick={(e) => {
@@ -210,47 +229,74 @@ class SearchFlights extends Component {
                 </Button>
               </Col>
             </Row>
+            <Row className="bottomRow">
+              <Col>
+                <div>{this.state.departLocation}</div>
+              </Col>
+              <Col>
+                <div>{this.state.arriveLocation}</div>
+              </Col>
+              <Col>
+                <div>{this.state.departDateString}</div>
+              </Col>
+              <Col>
+                <div>{this.state.passengerType}</div>
+              </Col>
+              <Col></Col>
+              <Col></Col>
+            </Row>
           </Form>
         </Container>
         <Container>
           {this.state.showResults &&
             this.state.flights.map((item) => (
-              <Container>
+              <Container
+                style={{
+                  padding: "20px",
+                  border: "1px solid #ddd",
+                  borderRadius: "15px",
+                }}
+                className="flight"
+              >
                 <Row>
-                  <div>
-                    #{item.name} - number {item.number}
-                  </div>
-                </Row>
-                <Row>
-                  <Col>
-                    {item.departureAirport.name}, {item.departureAirport.city}
+                  <Col md={9}>
+                    <Row className="item">
+                      <div>
+                        #
+                        <span style={{ fontWeight: "bold" }}>
+                          {item.name} {item.number}
+                        </span>
+                      </div>
+                    </Row>
+                    <Row className="item">
+                      <Col>
+                        {item.departureAirport.name},{" "}
+                        {item.departureAirport.city}
+                        <span style={{ margin: "0 24px" }}>To</span>
+                        {item.arrivalAirport.name}, {item.arrivalAirport.city}
+                      </Col>
+                    </Row>
+                    <Row className="item" style={{ width: "85%" }}>
+                      <Col className="time">
+                        <div>Depart at </div>
+                        <div>{formatAMPM(item.departureDateTime)}</div>
+                      </Col>
+                      <Col className="time">
+                        <div>Arrives at </div>
+                        <div>{formatAMPM(item.arrivalDateTime)}</div>
+                      </Col>
+                      <Col className="time">
+                        <div>Duration </div>
+                        <div>
+                          {getTimeDifference(
+                            item.arrivalDateTime,
+                            item.departureDateTime
+                          )}
+                        </div>
+                      </Col>
+                    </Row>
                   </Col>
-                  <Col> To </Col>
-                  <Col>
-                    {item.arrivalAirport.name}, {item.arrivalAirport.city}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <div>Depart at</div>
-                    <div>{formatAMPM(item.departureDateTime)}</div>
-                  </Col>
-                  <Col>
-                    <div>Arrives at</div>
-                    <div>{formatAMPM(item.arrivalDateTime)}</div>
-                  </Col>
-                  <Col>
-                    <div>Duration</div>
-                    <div>
-                      {getTimeDifference(
-                        item.arrivalDateTime,
-                        item.departureDateTime
-                      )}
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
+                  <Col md={3} className="right">
                     <div>
                       Price : {this.state.currency === "D" ? "$" : ""}
                       {this.state.currency === "D"
@@ -258,17 +304,18 @@ class SearchFlights extends Component {
                         : 1000 * item.price}{" "}
                       {this.state.currency === "P" ? "Points" : ""}
                     </div>
-                  </Col>
-                  <Col>
-                    <Link
-                      to={{
-                        pathname: "/createReservation",
-                        query: item,
-                        modeOfPayment: this.state.currency,
-                      }}
-                    >
-                      Book Flight
-                    </Link>
+                    <div>
+                      <Link
+                        className="bookFlight"
+                        to={{
+                          pathname: "/createReservation",
+                          query: item,
+                          modeOfPayment: this.state.currency,
+                        }}
+                      >
+                        Book Flight
+                      </Link>
+                    </div>
                   </Col>
                 </Row>
               </Container>
