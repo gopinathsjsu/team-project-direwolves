@@ -1,5 +1,13 @@
 import React from "react";
 import "./BookingsItem.css"
+import {
+  getDateFromStr,
+  getDateFromUtils,
+  getTimeFromStr,
+  getUserProfile,
+} from "../Services/ControllerUtils";
+
+
 
 const BookingList2 = ({booking}) => {
   return (
@@ -8,7 +16,7 @@ const BookingList2 = ({booking}) => {
         {booking.flightId.arrivalAirport.city}
       </div>
       <div class="bcell" data-title="Age">
-        {booking.flightId.arrivalDateTime}
+        {getDateFromStr(booking.flightId.arrivalDateTime)}
       </div>
       <div class="bcell" data-title="Occupation">
         {booking.userId.firstName} {booking.userId.lastName}

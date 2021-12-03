@@ -19,12 +19,14 @@ const Bookings = ({ user }) => {
 
   useEffect(async () => {
     if (profile) {
-      const result = await axios.post("http://localhost:3001/getBooking", {
-        body: JSON.stringify({
-          email: profile.email,
+      const result = await axios
+      .post("http://localhost:3001/getBooking", {
+        
+          userId: profile._id,
           isAdmin: profile.isAdmin,
-        }),
-      });
+          
+      
+      })
       // .then((res) => {
       //   console.log(res.data);
       // });

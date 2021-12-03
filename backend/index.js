@@ -255,62 +255,65 @@ app.post("/getSeatInfoFromBookings", async (req, res, next) => {
 
 app.post("/getBooking", async (req, res, next) => {
   try {
-    if (req.body.isAdmin === true) {
-      const bookings = await Booking.find()
-        .populate("userId")
-        .populate({
-          path: "flightId",
-          model: "Flight",
-          populate: [
-            {
-              path: "arrivalAirport",
-              model: "Airport",
-            },
-            {
-              path: "departureAirport",
-              model: "Airport",
-            },
-          ],
-        })
-        .sort({ Time: "desc" });
+    if (req.body.isAdmin  === true){
+    const bookings = await Booking.find()
+      .populate("userId")
+      .populate({
+        path: "flightId",
+        model: "Flight",
+        populate: [
+          {
+            path: "arrivalAirport",
+            model: "Airport",
+          },
+          {
+            path: "departureAirport",
+            model: "Airport",
+          },
+        ],
+      })
+      .sort({ Time: "desc" });
 
-      return res.status(200).json({
-        success: true,
-        count: bookings.length,
-        data: bookings,
-      });
-    } else {
-      const bookings = await Booking.find({ userId: req.query.userId })
-        .populate("userId")
-        .populate({
-          path: "flightId",
-          model: "Flight",
-          populate: [
-            {
-              path: "arrivalAirport",
-              model: "Airport",
-            },
-            {
-              path: "departureAirport",
-              model: "Airport",
-            },
-          ],
-        })
-        .sort({ Time: "desc" });
+    return res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings,
+    });
+  } else {
+    const userId = req.body.userId 
+    const bookings = await Booking.find({ userId: req.body.userId })
+      .populate("userId")
+      .populate({
+        path: "flightId",
+        model: "Flight",
+        populate: [
+          {
+            path: "arrivalAirport",
+            model: "Airport",
+          },
+          {
+            path: "departureAirport",
+            model: "Airport",
+          },
+        ],
+      })
+      .sort({ Time: "desc" });
 
-      return res.status(200).json({
-        success: true,
-        count: bookings.length,
-        data: bookings,
-      });
-    }
+    return res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings,
+    });
+  }
   } catch (err) {
     return res.status(500).json({
       success: false,
       error: "Server Error " + err,
     });
   }
-});
+
+}
+);
 
 app.get("/allAirports", function (req, res) {
   Airport.find().exec((error, result) => {

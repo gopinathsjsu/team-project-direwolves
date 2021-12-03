@@ -1,7 +1,8 @@
 .past-flights {
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
   margin-top: 10px;
+  font-weight: 400;
 }
 .transform {
   perspective: 10000px;
@@ -74,9 +75,9 @@
 }
 
 .browH {
-    font-weight: 900;
+    font-weight: 400;
     color: #ffffff;
-    background: #ea6153;
+    background: rgb(33,37,41);
     display: table-row;
 }
 .bcell {
