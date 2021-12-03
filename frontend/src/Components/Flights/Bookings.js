@@ -10,6 +10,8 @@ import {
 } from "../Services/ControllerUtils";
 import NavigationBar from "../Navbar/Navbar";
 import { useHistory } from "react-router";
+import { Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 const Bookings = ({ user }) => {
   const [bookings, setBookings] = useState([]);
@@ -17,21 +19,19 @@ const Bookings = ({ user }) => {
   let profile = getUserProfile();
   console.log(profile);
 
-  useEffect(async () => {
+
+  const fetchBookings = async () => {
+    const result = await axios.post("http://localhost:3001/getBooking", {
+      userId: profile._id,
+      isAdmin: profile.isAdmin,
+    })
+    setBookings(result.data.data);
+  }
+
+
+  useEffect(() => {
     if (profile) {
-      const result = await axios
-      .post("http://localhost:3001/getBooking", {
-        
-          userId: profile._id,
-          isAdmin: profile.isAdmin,
-          
-      
-      })
-      // .then((res) => {
-      //   console.log(res.data);
-      // });
-      console.log(result.data.data, "  Result");
-      setBookings(result.data.data);
+      fetchBookings();
     }
   }, []);
 
@@ -77,17 +77,41 @@ const Bookings = ({ user }) => {
                               <div className="bcell">Date</div>
                               <div className="bcell">Traveller</div>
                               <div className="bcell">Location</div>
+                              <div className="bcell"></div>
                             </div>
                             {/* <BookingsItem /> */}
 
                             {bookings.length == 0
                               ? "Click here to book Flights"
                               : bookings.map((booking) => (
-                                  <BookingsItem
-                                    key={booking.id}
-                                    booking={booking}
-                                  />
-                                ))}
+                                <div class="brow" key={booking.id}>
+                                  <div class="bcell" data-title="Name">
+                                    {booking.flightId.arrivalAirport.city}
+                                  </div>
+                                  <div class="bcell" data-title="Age">
+                                    {getTimeFromStr(booking.flightId.arrivalDateTime)}
+                                  </div>
+                                  <div class="bcell" data-title="Occupation">
+                                    {booking.userId.firstName} {booking.userId.lastName}
+                                  </div>
+                                  <div class="bcell" data-title="Location">
+                                    {booking.flightId.departureAirport.shortCode} - {booking.flightId.arrivalAirport.shortCode}
+                                  </div>
+                                  <div class="bcell" data-title="Location">
+                                    <Link to={{
+                                      pathname: "/createReservation",
+                                      query: booking,
+                                      modeOfPayment: !booking.isMileage ? "D" : "P",
+                                      sourcePage: "E"
+                                    }}><Button variant="outline-dark">Edit</Button></Link> <Button variant="outline-danger" onClick={(e) => {
+                                      axios.post(`http://localhost:3001/cancelReservation`, { bookingId: booking._id })
+                                        .then((response) => {
+                                          fetchBookings();
+                                        });
+                                    }}>Cancel</Button>
+                                  </div>
+                                </div>
+                              ))}
                           </div>
                         </div>
                       </div>
@@ -103,6 +127,6 @@ const Bookings = ({ user }) => {
   );
 };
 
-// /*bookings */
+
 
 export default Bookings;

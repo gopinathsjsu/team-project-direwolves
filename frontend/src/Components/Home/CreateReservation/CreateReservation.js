@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, Col, Row, Button, ButtonGroup } from "react-bootstrap";
-import { Link, withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import {
   //   getDateFromStr,
   //   getDateFromUtils,
@@ -20,11 +20,7 @@ class CreateReservation extends Component {
     super(props);
     let profile = getUserProfile();
     let flightDetails = this.props.location.query;
-
-    console.log(this.props);
-    console.log(this.props.location);
-    console.log(this.props.match);
-    // console.log(profile);
+    console.log(flightDetails);
     this.state = {
       firstName: profile ? profile.firstName : "",
       lastName: profile ? profile.lastName : "",
@@ -34,7 +30,8 @@ class CreateReservation extends Component {
       show: false,
       flightName: flightDetails.name,
       flightNumber: flightDetails.number,
-      flightId: flightDetails._id,
+      editPage: this.props.location.sourcePage === 'E',
+      flightId: this.props.location.sourcePage==='E'?flightDetails.flightId._id:flightDetails._id,
       departureDateTime: flightDetails.departureDateTime,
       arrivalDateTime: flightDetails.arrivalDateTime,
       departureShortCode: flightDetails.departureAirport.shortCode,
@@ -57,6 +54,8 @@ class CreateReservation extends Component {
           : Number(flightDetails.price)
       ),
       blockedList: [],
+      selectedSeat: Number(flightDetails.seatNumber),
+      isSuccess: false
     };
   }
 
@@ -72,7 +71,9 @@ class CreateReservation extends Component {
         let temp = [];
         if (response.status === 200) {
           for (let item of response.data.data) {
-            temp.push(Number(item.seatNumber) - 1);
+              let se = Number(item.seatNumber);
+              if(this.state.selectedSeat !== se)
+                temp.push(se - 1);
           }
         }
         this.setState({ blockedList: temp });
@@ -108,9 +109,11 @@ class CreateReservation extends Component {
   }
 
   render() {
+      if(this.state.isSuccess){
+          return <Redirect to="/bookings"/>
+      }
     return (
       <React.Fragment>
-        {/* <pre>{JSON.stringify(this.state, "", 2)}</pre> */}
         {/* <hr /> */}
         {localStorage.getItem("userData") ? (
           <NavigationBar />
@@ -123,6 +126,7 @@ class CreateReservation extends Component {
             <h3>Your Selected flight details</h3>
           </Row>
 
+          {/* <pre>{JSON.stringify(this.state, "", 2)}</pre> */}
           <Row>
             <Row>
               <Col>

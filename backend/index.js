@@ -180,13 +180,22 @@ app.post("/getbookings", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ userId: req.body.userId })
       .populate("userId", ["firstName", "lastName"])
-      .populate("flightId", [
-        "departureAirport",
-        "arrivalAirport",
-        "arrivalDateTime",
-        "departureDateTime",
-      ])
+      .populate("flightId"
+      // , [
+      //   "departureAirport",
+      //   "arrivalAirport",
+      //   "arrivalDateTime",
+      //   "departureDateTime",
+      // ]
+      )
       .sort({ Time: "desc" });
+
+      for(let booking of bookings){
+        booking.name = booking.flightId.name;
+        booking.number = booking.flightId.number;
+        booking.departureDateTime = booking.flightId.departureDateTime;
+        booking.arrivalDateTime = booking.flightId.arrivalDateTime;
+      }
 
     return res.status(200).json({
       success: true,
@@ -287,56 +296,46 @@ app.post("/getSeatInfoFromBookings", async (req, res, next) => {
 
 app.post("/getBooking", async (req, res, next) => {
   try {
-    if (req.body.isAdmin  === true){
-    const bookings = await Booking.find()
-      .populate("userId")
-      .populate({
-        path: "flightId",
-        model: "Flight",
-        populate: [
-          {
-            path: "arrivalAirport",
-            model: "Airport",
-          },
-          {
-            path: "departureAirport",
-            model: "Airport",
-          },
-        ],
-      })
-      .sort({ Time: "desc" });
-
+    // if (req.body.isAdmin  === true){
+    const bookings = await Booking.find(req.body.isAdmin?{}:{ userId: req.body.userId })
+    .populate("userId")
+    .populate({
+      path: "flightId",
+      model: "Flight",
+      populate: [
+        {
+          path: "arrivalAirport",
+          model: "Airport",
+        },
+        {
+          path: "departureAirport",
+          model: "Airport",
+        },
+        {
+          path: "airplaneId",
+          model: "Airplane",
+        }
+      ],
+    })
+    .sort({ Time: "desc" });
+    let d = JSON.parse(JSON.stringify(bookings));
+      for(let booking of d){
+        if(booking.flightId){
+          booking.name = booking.flightId.name;
+          booking.number = booking.flightId.number;
+          booking.departureDateTime = booking.flightId.departureDateTime;
+          booking.arrivalDateTime = booking.flightId.arrivalDateTime;
+          booking.departureAirport = booking.flightId.departureAirport;
+          booking.arrivalAirport = booking.flightId.arrivalAirport;
+          booking.airplaneId = booking.flightId.airplaneId;
+        }
+      }
+      console.log("DDDDDD",d);
     return res.status(200).json({
       success: true,
-      count: bookings.length,
-      data: bookings,
+      count: d.length,
+      data: d,
     });
-  } else {
-    const userId = req.body.userId 
-    const bookings = await Booking.find({ userId: req.body.userId })
-      .populate("userId")
-      .populate({
-        path: "flightId",
-        model: "Flight",
-        populate: [
-          {
-            path: "arrivalAirport",
-            model: "Airport",
-          },
-          {
-            path: "departureAirport",
-            model: "Airport",
-          },
-        ],
-      })
-      .sort({ Time: "desc" });
-
-    return res.status(200).json({
-      success: true,
-      count: bookings.length,
-      data: bookings,
-    });
-  }
   } catch (err) {
     return res.status(500).json({
       success: false,
