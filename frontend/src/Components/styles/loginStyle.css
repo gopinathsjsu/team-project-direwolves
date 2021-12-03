@@ -15,8 +15,9 @@
 .landing_img {
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
-  background-color: #30cdc0;
+  padding-top:10rem;
+  background-size: 60rem;
+  /* background-color: #30cdc0; */
   height: 100vh;
   position: relative;
   text-align: center;

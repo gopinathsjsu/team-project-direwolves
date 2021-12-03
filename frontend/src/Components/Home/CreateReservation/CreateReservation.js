@@ -397,6 +397,7 @@ class CreateReservation extends Component {
                         let data = {
                             bookingId: this.state.bookingId,
                             seatNumber: this.state.selectedSeat,
+                            bookingStatus: "Updated",
                           };
                           axios
                             .post(`http://localhost:3001/updateReservation`, data)
@@ -441,7 +442,7 @@ class CreateReservation extends Component {
                   
                 }}
               >
-                Book Flight
+                {this.state.editPage?"Update Flight":"Book Flight"}
               </Button>
             </center>
           </Row>

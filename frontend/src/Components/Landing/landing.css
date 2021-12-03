@@ -1,10 +1,11 @@
 .landing_img {
-    background-image: url(../svg/airplane.jpeg);
+    background-image: url("https://thumbs.dreamstime.com/b/airplane-flight-concept-people-suitcase-couple-boarding-plane-travel-characters-love-waiting-honeymoon-journey-man-185146573.jpg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: 60rem;
     padding-top: 10px;
-    height: 100vh;
+    height: 110vh;
+
     position: relative;
     text-align: center;
     font-size: 50px;

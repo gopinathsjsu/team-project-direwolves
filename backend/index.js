@@ -119,7 +119,7 @@ app.post("/cancelReservation", async function (req, res) {
 
 app.post("/updateReservation", async function (req, res) {
   try {
-    const update = { $set: { seatNumber: req.body.seatNumber } };
+    const update = { $set: { seatNumber: req.body.seatNumber, bookingStatus: req.body.bookingStatus } };
     const bookings = await Booking.findOneAndUpdate(
       { _id: req.body.bookingId },
       update,

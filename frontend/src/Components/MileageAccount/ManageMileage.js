@@ -306,14 +306,13 @@ class ManageMileage extends Component {
                       </Col>
                       <Col md={3} className="right">
                         <div style={{ textAlign: "center" }}>
-                          Price : {item.price}
+                          Price : {(item.isMileage?"":"$ ")+ item.price+(item.isMileage?" Pts":"")}
                           <br />
                           MileagePoint:
                           {item.isMileage ? (
-                            <span style={{ color: "red" }}>-{item.price}</span>
+                            <span style={{ color: "red" }}> -{item.price}</span>
                           ) : (
-                            <span style={{ color: "green" }}>
-                              +{Math.round(item.price * 0.1)}
+                            <span style={{ color: "green" }}> +{Math.round(item.price * 0.1)}
                             </span>
                           )}
                         </div>

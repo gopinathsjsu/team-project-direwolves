@@ -21,25 +21,26 @@ class Landing extends Component {
         <div className="landing_img">
           <div className="row">
             <div className="col-sm-9">
-              <img
+              {/* <img
                 src={icon}
                 style={{
                   width: "50px",
-                  left: "280px",
+                  left: "180px",
                   position: "absolute",
                   paddingTop: "10px",
+                  color:"#32689a"
                 }}
-              />
+              /> */}
               <p
                 style={{
                   fontFamily: "system-ui",
                   fontWeight: "50px",
-                  paddingLeft: "250px",
+                  paddingLeft: "355px",
                   paddingTop: "10px",
-                  color: "#7e0f0f",
+                  color: "#32689a",
                 }}
               >
-                Welcome to Direwolves Airlines
+                Direwolves Airlines
               </p>
             </div>
             <div className="col-sm-3">

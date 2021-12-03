@@ -105,23 +105,24 @@ const Bookings = ({ user }) => {
                                     {booking.seatNumber} 
                                   </div>
                                   <div class="bcell" data-title="Price">
-                                    {booking.price}
+                                    {(booking.isMileage?"":"$ ")+ booking.price+(booking.isMileage?" Pts":"")}
                                   </div>
                                   <div class="bcell" data-title="Price">
                                     {booking.bookingStatus}
                                   </div>
                                   <div class="bcell" data-title="Location">
-                                    <Link to={{
+                                    {booking.bookingStatus !=="Cancelled" && <div><Link to={{
                                       pathname: "/createReservation",
                                       query: booking,
                                       modeOfPayment: !booking.isMileage ? "D" : "P",
                                       sourcePage: "E"
-                                    }}><Button variant="outline-dark">Edit</Button></Link> <Button variant="outline-danger" onClick={(e) => {
+                                    }}><Button variant="outline-dark">Update</Button></Link> <Button variant="outline-danger" onClick={(e) => {
                                       axios.post(`http://localhost:3001/cancelReservation`, { bookingId: booking._id })
                                         .then((response) => {
                                           fetchBookings();
                                         });
                                     }}>Cancel</Button>
+                                    </div>}
                                   </div>
                                 </div>
                               ))}
