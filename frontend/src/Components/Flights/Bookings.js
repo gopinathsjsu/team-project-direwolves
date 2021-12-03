@@ -69,20 +69,24 @@ const Bookings = ({ user }) => {
                         {/* <span className="my-account-no-results-content--title">
                         You have no past flights.
                       </span> */}
-
+                        
                         <div className="bwrapper">
                           <div className="btable">
+                          {bookings.length >=0 ? 
                             <div className="browH">
                               <div className="bcell">Trip</div>
                               <div className="bcell">Date</div>
                               <div className="bcell">Traveller</div>
                               <div className="bcell">Location</div>
+                              <div className="bcell">Seat No</div>
+                              <div className="bcell">Price</div>
+                              <div className="bcell">Booking Status</div>
                               <div className="bcell"></div>
-                            </div>
+                            </div> : "" }
                             {/* <BookingsItem /> */}
 
                             {bookings.length == 0
-                              ? "Click here to book Flights"
+                              ? ""
                               : bookings.map((booking) => (
                                 <div class="brow" key={booking.id}>
                                   <div class="bcell" data-title="Name">
@@ -96,6 +100,15 @@ const Bookings = ({ user }) => {
                                   </div>
                                   <div class="bcell" data-title="Location">
                                     {booking.flightId.departureAirport.shortCode} - {booking.flightId.arrivalAirport.shortCode}
+                                  </div>
+                                  <div class="bcell" data-title="Seat No">
+                                    {booking.seatNumber} 
+                                  </div>
+                                  <div class="bcell" data-title="Price">
+                                    {booking.price}
+                                  </div>
+                                  <div class="bcell" data-title="Price">
+                                    {booking.bookingStatus}
                                   </div>
                                   <div class="bcell" data-title="Location">
                                     <Link to={{
