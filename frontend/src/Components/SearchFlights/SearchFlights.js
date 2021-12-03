@@ -10,7 +10,8 @@ import {
   Button,
   ButtonGroup,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import NavigationBar from "../Navbar/Navbar";
 import { formatAMPM, getTimeDifference } from "./../Services/ControllerUtils";
 import "./SearchFlights.css";
 
@@ -68,6 +69,7 @@ class SearchFlights extends Component {
           this.setState({ flights: response.data, showResults: true });
       });
   };
+
   render() {
     console.log(this.state);
     let airportList = Object.keys(this.state.airports).map((key) => (
@@ -79,7 +81,11 @@ class SearchFlights extends Component {
     let userData = JSON.parse(localStorage.getItem("userData"));
     return (
       <>
-        <div style={{ backgroundColor: "red" }}>NavBar - to be implemented</div>
+        {localStorage.getItem("userData") ? (
+          <NavigationBar />
+        ) : (
+          this.props.history.push("/")
+        )}
         <Container className="main">Search Flights</Container>
         <Container style={{ margin: "15px auto", padding: "0 120px" }}>
           <Form>
@@ -335,4 +341,4 @@ class SearchFlights extends Component {
   }
 }
 
-export default SearchFlights;
+export default withRouter(SearchFlights);
