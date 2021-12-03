@@ -19,7 +19,7 @@ class ManageMileage extends Component {
           lastName:"",
           email:"",
           address:"",
-          mileagePoints:0,
+          mileagePoint:0,
           isAdmin:false,
         },
         mileageActivity:[],
@@ -151,7 +151,7 @@ class ManageMileage extends Component {
             <div className="row" style={{paddingTop:"80px", paddingBottom:"40px"}}>
              <div className="col-sm-2">Hi {this.state.userInfo.firstName}</div>
              <div className="col-sm-6"><h3><center>Manage Mileage Rewards</center></h3></div>
-             <div className="col-sm-3">Your Current Mileage Points : {this.state.userInfo.mileagePoints}</div>
+             <div className="col-sm-3">Your Current Mileage Points : {this.state.userInfo.mileagePoint}</div>
              </div>
             <div className="row">
               <div className="col col-sm-3"></div>
