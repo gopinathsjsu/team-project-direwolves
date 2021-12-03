@@ -20,11 +20,12 @@ class CreateReservation extends Component {
     super(props);
     let profile = getUserProfile();
     let flightDetails = this.props.location.query;
-    console.log(flightDetails);
+    // console.log(flightDetails);
     this.state = {
       firstName: profile ? profile.firstName : "",
       lastName: profile ? profile.lastName : "",
       trip: "O",
+      bookingId: flightDetails._id,
       availablePoints: profile ? profile.mileagePoint : 0,
       userId: profile ? profile._id : "",
       show: false,
@@ -54,7 +55,7 @@ class CreateReservation extends Component {
           : Number(flightDetails.price)
       ),
       blockedList: [],
-      selectedSeat: Number(flightDetails.seatNumber),
+      selectedSeat: flightDetails.seatNumber?Number(flightDetails.seatNumber):"",
       isSuccess: false
     };
   }
@@ -121,7 +122,7 @@ class CreateReservation extends Component {
           this.props.history.push("/")
         )}
 
-        <Card style={{ padding: "10%", margin: "1% 10% 0 10%" }}>
+        <Card style={{ padding: "2% 10%", margin: "1% 10% 0 10%" }}>
           <Row>
             <h3>Your Selected flight details</h3>
           </Row>
@@ -391,35 +392,51 @@ class CreateReservation extends Component {
                 disabled={!this.state.selectedSeat}
                 variant="outline-success"
                 onClick={() => {
-                  let data = {
-                    userId: getUserProfile()._id,
-                    flightId: this.state.flightId,
-                    departureTime: this.state.departureDateTime,
-                    arrivalTime: this.state.arrivalDateTime,
-                    bookingDate: new Date(),
-                    seatNumber: this.state.selectedSeat,
-                    bookingStatus: "Confirmed",
-                    price:
-                      this.state.price +
-                      (this.state.premiumSeatSelected
-                        ? this.state.premiumSeatPrice
-                        : 0),
-                    isMileage: this.state.isMileage,
-                  };
-                  axios
-                    .post(`http://localhost:3001/createReservation`, data)
-                    .then((response) => {
-                      console.log("Status Code : ", response.status);
-                      if (response.status === 200) {
-                        this.updateCustomerPoints(response.data);
-                      } else {
-                        // this.setState({
-                        //   loginError: "User is already registered",
-                        //   authFlag: false,
-                        //   error: {},
-                        // });
-                      }
-                    });
+                    if(this.state.editPage){
+                        let data = {
+                            bookingId: this.state.bookingId,
+                            seatNumber: this.state.selectedSeat,
+                          };
+                          axios
+                            .post(`http://localhost:3001/updateReservation`, data)
+                            .then((response) => {
+                              console.log("Status Code : ", response.status);
+                              if (response.status === 200) {
+                                  this.setState({isSuccess:true});
+                              } 
+                            });
+                    }else{
+                        let data = {
+                            userId: getUserProfile()._id,
+                            flightId: this.state.flightId,
+                            departureTime: this.state.departureDateTime,
+                            arrivalTime: this.state.arrivalDateTime,
+                            bookingDate: new Date(),
+                            seatNumber: this.state.selectedSeat,
+                            bookingStatus: "Confirmed",
+                            price:
+                              this.state.price +
+                              (this.state.premiumSeatSelected
+                                ? this.state.premiumSeatPrice
+                                : 0),
+                            isMileage: this.state.isMileage,
+                          };
+                          axios
+                            .post(`http://localhost:3001/createReservation`, data)
+                            .then((response) => {
+                              console.log("Status Code : ", response.status);
+                              if (response.status === 200) {
+                                this.updateCustomerPoints(response.data);
+                              } else {
+                                // this.setState({
+                                //   loginError: "User is already registered",
+                                //   authFlag: false,
+                                //   error: {},
+                                // });
+                              }
+                            });
+                    }
+                  
                 }}
               >
                 Submit
