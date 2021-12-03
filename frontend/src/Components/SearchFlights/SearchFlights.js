@@ -76,31 +76,32 @@ class SearchFlights extends Component {
         key={this.state.airports[key].city}
       />
     ));
+    let userData = JSON.parse(localStorage.getItem("userData"));
     return (
       <>
         <div style={{ backgroundColor: "red" }}>NavBar - to be implemented</div>
-        <div>Search Flights</div>
-        <Container fluid style={{ padding: "0 100px", margin: "30px 0" }}>
+        <Container className="main">Search Flights</Container>
+        <Container style={{ margin: "15px auto", padding: "0 120px" }}>
           <Form>
-            <Row className="aboveRow">
-              <Col>
+            <Row className="aboveRow" style={{ justifyContent: "center" }}>
+              <Col md={2}>
                 <div style={{ paddingLeft: "5px" }}>DEPART</div>
               </Col>
-              <Col>
+              <Col md={2}>
                 <div style={{ paddingLeft: "5px" }}>ARRIVE</div>
               </Col>
-              <Col>
+              <Col md={3}>
                 <div style={{ paddingLeft: "5px" }}>DEPART DATE</div>
               </Col>
-              <Col>
+              {/* <Col>
                 <div style={{ paddingLeft: "5px" }}>PASSENGERS</div>
+              </Col> */}
+              <Col md={3}>
+                <div style={{ paddingLeft: "5px" }}>CURRENCY</div>
               </Col>
-              <Col>
-                <div style={{ paddingLeft: "12px" }}>CURRENCY</div>
-              </Col>
-              <Col></Col>
+              <Col md={2}></Col>
             </Row>
-            <Row>
+            <Row style={{ justifyContent: "center" }}>
               <Col className="flexColumn" md={2}>
                 <InputGroup
                   size="sm"
@@ -163,7 +164,7 @@ class SearchFlights extends Component {
                 </InputGroup>
                 <datalist id="airportDataList">{airportList}</datalist>
               </Col>
-              <Col className="flexColumn" md={2}>
+              <Col className="flexColumn" md={3}>
                 <Form.Group controlId="departDate">
                   <Form.Control
                     type="date"
@@ -180,7 +181,7 @@ class SearchFlights extends Component {
                   />
                 </Form.Group>
               </Col>
-              <Col className="flexColumn" md={2}>
+              {/* <Col className="flexColumn" md={2}>
                 <Form.Group controlId="departDate">
                   <Form.Control
                     type="number"
@@ -194,13 +195,13 @@ class SearchFlights extends Component {
                     }}
                   />
                 </Form.Group>
-              </Col>
-              <Col className="flexColumn" md={2}>
+              </Col> */}
+              <Col className="flexColumn" md={3}>
                 <ButtonGroup toggle="true">
                   {this.state.radios.map((radio, idx) => (
                     <Button
                       key={idx}
-                      style={{ padding: "0" }}
+                      style={{ padding: "3px", border: "1px solid #ccc" }}
                       type="radio"
                       variant="Info"
                       name="radio"
@@ -220,6 +221,7 @@ class SearchFlights extends Component {
               <Col className="flexColumn" md={2}>
                 <Button
                   type="submit"
+                  style={{ padding: "3px" }}
                   onClick={(e) => {
                     e.preventDefault();
                     this.searchFLights();
@@ -229,25 +231,25 @@ class SearchFlights extends Component {
                 </Button>
               </Col>
             </Row>
-            <Row className="bottomRow">
-              <Col>
+            <Row className="bottomRow" style={{ justifyContent: "center" }}>
+              <Col md={2}>
                 <div>{this.state.departLocation}</div>
               </Col>
-              <Col>
+              <Col md={2}>
                 <div>{this.state.arriveLocation}</div>
               </Col>
-              <Col>
+              <Col md={3}>
                 <div>{this.state.departDateString}</div>
               </Col>
-              <Col>
+              {/* <Col>
                 <div>{this.state.passengerType}</div>
-              </Col>
-              <Col></Col>
-              <Col></Col>
+              </Col> */}
+              <Col md={3}></Col>
+              <Col md={2}></Col>
             </Row>
           </Form>
         </Container>
-        <Container>
+        <Container style={{ padding: "0 50px" }}>
           {this.state.showResults &&
             this.state.flights.map((item) => (
               <Container
@@ -297,12 +299,18 @@ class SearchFlights extends Component {
                     </Row>
                   </Col>
                   <Col md={3} className="right">
-                    <div>
+                    <div style={{ textAlign: "center" }}>
                       Price : {this.state.currency === "D" ? "$" : ""}
                       {this.state.currency === "D"
                         ? item.price
                         : 10 * item.price}{" "}
                       {this.state.currency === "P" ? "Points" : ""}
+                      <div style={{ fontSize: "13px" }}>
+                        {this.state.currency === "P" &&
+                        userData.mileagePoint < item.price * 10
+                          ? "You don't have enough points"
+                          : ""}
+                      </div>
                     </div>
                     <div>
                       <Link
@@ -310,7 +318,11 @@ class SearchFlights extends Component {
                         to={{
                           pathname: "/createReservation",
                           query: item,
-                          modeOfPayment: this.state.currency,
+                          modeOfPayment:
+                            this.state.currency === "P" &&
+                            userData.mileagePoint < item.price * 10
+                              ? "D"
+                              : this.state.currency,
                         }}
                       >
                         Book Flight
