@@ -306,10 +306,8 @@ class SearchFlights extends Component {
                         : 10 * item.price}{" "}
                       {this.state.currency === "P" ? "Points" : ""}
                       <div style={{ fontSize: "13px" }}>
-                        {this.state.currency === "P" &&
-                        userData.mileagePoint < item.price * 10
-                          ? "You don't have enough points"
-                          : ""}
+                        {(this.state.currency === "P" &&
+                        userData.mileagePoint < item.price * 10) && <span style={{color:"red"}}>You don't have enough points</span>}
                       </div>
                     </div>
                     <div>
@@ -323,8 +321,7 @@ class SearchFlights extends Component {
                             userData.mileagePoint < item.price * 10
                               ? "D"
                               : this.state.currency,
-                        }}
-                      >
+                        }}>
                         Book Flight
                       </Link>
                     </div>
