@@ -97,6 +97,22 @@ app.post("/signup", async function (req, res) {
   });
 });
 
+app.post("/cancelReservation", async function (req,res){
+  try {
+    const update = { bookingStatus: "Cancelled" };
+    const bookings = await Booking.findOneAndUpdate({ userId: req.body.bookingId }, update,(error,data)=>{
+      if(error){
+        res.status(500).end("Error Occured");
+      }else{
+        var JSONStr = JSON.stringify(data);
+        res.status(200).end(JSONStr);
+      }
+    })
+  }catch{
+    res.status(500).end("Error Occured");
+  }
+});
+
 app.post("/updateProfile", async function (req, res) {
   const filter = { _id: req.body._id };
   const newUser = {
