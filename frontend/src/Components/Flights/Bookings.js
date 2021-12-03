@@ -3,23 +3,38 @@ import BookingsItem from "./BookingsItem";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Bookings.css";
+import {
+  getDateFromStr,
+  getDateFromUtils,
+  getTimeFromStr,
+  getUserProfile,
+} from "../Services/ControllerUtils";
+import NavigationBar from "../Navbar/Navbar";
 
 const Bookings = ({ user }) => {
   const [bookings, setBookings] = useState([]);
-
+  let profile = getUserProfile();
+  console.log(profile)
 
   useEffect(async () => {
     const result = await axios
-      .post("http://localhost:3001/getBooking")
+      .post("http://localhost:3001/getBooking", {
+        body: JSON.stringify({
+          email: profile.email,
+          isAdmin: profile.isAdmin,
+          
+      })
+      })
       // .then((res) => {
       //   console.log(res.data);
       // });
-    console.log(result.data.data);
+    console.log(result.data.data, "  Result");
     setBookings(result.data.data);
   },[]);
 
   return (
     <div className="past-flights">
+      <NavigationBar />
       <div className="transform endow rectangle">
         <div className="swap">
           <div className="transform endow rectangle card card--full my-account-past-flights-card">
