@@ -72,7 +72,7 @@ const Bookings = ({ user }) => {
                         
                         <div className="bwrapper">
                           <div className="btable">
-                          {bookings.length >=0 ? 
+                          {bookings.length >0 ? 
                             <div className="browH">
                               <div className="bcell">Trip</div>
                               <div className="bcell">Date</div>
