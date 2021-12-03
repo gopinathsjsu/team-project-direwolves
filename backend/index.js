@@ -84,7 +84,7 @@ app.post("/signup", async function (req, res) {
     email: req.body.email,
     password: req.body.password,
     address: req.body.address,
-    mileagePoints:0
+    mileagePoints: 0,
   };
   new UserProfile(newUser).save((error, data) => {
     if (error) {
@@ -105,9 +105,9 @@ app.post("/updateProfile", async function (req, res) {
       lastName: req.body.lastName,
       email: req.body.email,
       address: req.body.address,
-    }
+    },
   };
-  UserProfile.updateOne(filter,newUser,(error, data)=>{
+  UserProfile.updateOne(filter, newUser, (error, data) => {
     if (error) {
       res.status(500).end("Error Occured");
     } else {
@@ -178,8 +178,8 @@ app.post("/createReservation", async (req, res, next) => {
     bookingStatus: req.body.bookingStatus,
     price: req.body.price,
     isMileage: req.body.isMileage,
-    departureTime: req.body.departureTime, 
-    arrivalTime: req.body.arrivalTime
+    departureTime: req.body.departureTime,
+    arrivalTime: req.body.arrivalTime,
   };
   new Booking(newBooking).save((error, data) => {
     if (error) {
@@ -194,19 +194,20 @@ app.post("/createReservation", async (req, res, next) => {
 app.get("/getMileageActivity", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ userId: req.query.userId })
-      .populate({ 
-        path:'flightId',
-        model:'Flight',
-        populate:{
-          path:'departureAirport',
-          model:'Airport'
+      .populate({
+        path: "flightId",
+        model: "Flight",
+        populate: {
+          path: "departureAirport",
+          model: "Airport",
         },
-      }).populate({ 
-        path:'flightId',
-        model:'Flight',
-        populate:{
-          path:'arrivalAirport',
-          model:'Airport'
+      })
+      .populate({
+        path: "flightId",
+        model: "Flight",
+        populate: {
+          path: "arrivalAirport",
+          model: "Airport",
         },
       })
       .sort({ Time: "desc" });
@@ -225,7 +226,11 @@ app.get("/getMileageActivity", async (req, res, next) => {
 
 app.post("/getSeatInfoFromBookings", async (req, res, next) => {
   try {
-    const bookings = await Booking.find({ flightId: req.body.flightId, departureTime: req.body.departureTime, arrivalTime: req.body.arrivalTime })
+    const bookings = await Booking.find({
+      flightId: req.body.flightId,
+      departureTime: req.body.departureTime,
+      arrivalTime: req.body.arrivalTime,
+    })
       .populate("userId", ["firstName", "lastName"])
       .populate("flightId", [
         "departureAirport",
@@ -248,67 +253,64 @@ app.post("/getSeatInfoFromBookings", async (req, res, next) => {
   }
 });
 
-
 app.post("/getBooking", async (req, res, next) => {
   try {
-    if (req.body.isAdmin  === true){
-    const bookings = await Booking.find()
-      .populate("userId")
-      .populate({
-        path: "flightId",
-        model: "Flight",
-        populate: [
-          {
-            path: "arrivalAirport",
-            model: "Airport",
-          },
-          {
-            path: "departureAirport",
-            model: "Airport",
-          },
-        ],
-      })
-      .sort({ Time: "desc" });
+    if (req.body.isAdmin === true) {
+      const bookings = await Booking.find()
+        .populate("userId")
+        .populate({
+          path: "flightId",
+          model: "Flight",
+          populate: [
+            {
+              path: "arrivalAirport",
+              model: "Airport",
+            },
+            {
+              path: "departureAirport",
+              model: "Airport",
+            },
+          ],
+        })
+        .sort({ Time: "desc" });
 
-    return res.status(200).json({
-      success: true,
-      count: bookings.length,
-      data: bookings,
-    });
-  } else {
-    const bookings = await Booking.find({ userId: req.query.userId })
-      .populate("userId")
-      .populate({
-        path: "flightId",
-        model: "Flight",
-        populate: [
-          {
-            path: "arrivalAirport",
-            model: "Airport",
-          },
-          {
-            path: "departureAirport",
-            model: "Airport",
-          },
-        ],
-      })
-      .sort({ Time: "desc" });
+      return res.status(200).json({
+        success: true,
+        count: bookings.length,
+        data: bookings,
+      });
+    } else {
+      const bookings = await Booking.find({ userId: req.query.userId })
+        .populate("userId")
+        .populate({
+          path: "flightId",
+          model: "Flight",
+          populate: [
+            {
+              path: "arrivalAirport",
+              model: "Airport",
+            },
+            {
+              path: "departureAirport",
+              model: "Airport",
+            },
+          ],
+        })
+        .sort({ Time: "desc" });
 
-    return res.status(200).json({
-      success: true,
-      count: bookings.length,
-      data: bookings,
-    });
-  }
+      return res.status(200).json({
+        success: true,
+        count: bookings.length,
+        data: bookings,
+      });
+    }
   } catch (err) {
     return res.status(500).json({
       success: false,
       error: "Server Error " + err,
     });
   }
-
-}
-);
+});
 
 app.get("/allAirports", function (req, res) {
   Airport.find().exec((error, result) => {
@@ -344,7 +346,7 @@ app.get("/flights", function (req, res) {
           if (
             item.departureDateTime.toDateString() ===
               new Date(req.query.departDate).toDateString() &&
-            req.query.passengers <= remainingSeats
+            remainingSeats > 0
           ) {
             item.airplaneId.seats = null;
             response.push(item);
@@ -356,22 +358,46 @@ app.get("/flights", function (req, res) {
     });
 });
 
+app.get("/allFlights", function (req, res) {
+  Flight.find()
+    .populate(["airplaneId", "airlineId", "departureAirport", "arrivalAirport"])
+    .exec((error, result) => {
+      if (error) {
+        res.status(404).end();
+      } else {
+        let response = [];
+        result.map((item) => {
+          let remainingSeats =
+            item.airplaneId.noOfSeats - item.airplaneId.seats.length;
+          if (remainingSeats > 0) {
+            item.airplaneId.seats = null;
+            response.push(item);
+          }
+        });
+        console.log(response);
+        res.status(200).send(response);
+      }
+    });
+});
 
 app.post("/updatePoints", async function (req, res) {
-
-  UserProfile.findOneAndUpdate({ _id: req.body.userId }, { $set: {mileagePoint:req.body.price} }, { new: true }).then(result => {
-    return res.status(200).json({
-      success: true,
-      data: result
+  UserProfile.findOneAndUpdate(
+    { _id: req.body.userId },
+    { $set: { mileagePoint: req.body.price } },
+    { new: true }
+  )
+    .then((result) => {
+      return res.status(200).json({
+        success: true,
+        data: result,
+      });
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        success: false,
+        error: "Server Error " + err,
+      });
     });
-  })
-  .catch(err => {
-    return res.status(500).json({
-      success: false,
-      error: "Server Error " + err,
-    });
-  });
-
 });
 
 app.listen(3001);

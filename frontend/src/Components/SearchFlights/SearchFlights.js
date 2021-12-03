@@ -37,11 +37,21 @@ class SearchFlights extends Component {
       airports: {},
       showResults: false,
       passengerType: "",
+      flights: [],
     };
   }
 
   componentDidMount = async () => {
     this.getAirports();
+    this.getAllFlights();
+  };
+
+  getAllFlights = async () => {
+    await axios.get(`http://localhost:3001/allFlights`).then((response) => {
+      console.log(response.data);
+      if (response.status === 200)
+        this.setState({ flights: response.data, showResults: true });
+    });
   };
 
   getAirports = async () => {
@@ -56,7 +66,7 @@ class SearchFlights extends Component {
       departLoc: this.state.departLocId,
       arriveLoc: this.state.arriveLocId,
       departDate: this.state.departDate,
-      passengers: this.state.passengers,
+      // passengers: this.state.passengers,
     };
     console.log(data);
     await axios
@@ -257,6 +267,7 @@ class SearchFlights extends Component {
         </Container>
         <Container style={{ padding: "0 50px" }}>
           {this.state.showResults &&
+            this.state.flights &&
             this.state.flights.map((item) => (
               <Container
                 style={{
@@ -265,6 +276,7 @@ class SearchFlights extends Component {
                   borderRadius: "15px",
                 }}
                 className="flight"
+                key={item._id}
               >
                 <Row>
                   <Col md={9}>
@@ -312,8 +324,12 @@ class SearchFlights extends Component {
                         : 10 * item.price}{" "}
                       {this.state.currency === "P" ? "Points" : ""}
                       <div style={{ fontSize: "13px" }}>
-                        {(this.state.currency === "P" &&
-                        userData.mileagePoint < item.price * 10) && <span style={{color:"red"}}>You don't have enough points</span>}
+                        {this.state.currency === "P" &&
+                          userData.mileagePoint < item.price * 10 && (
+                            <span style={{ color: "red" }}>
+                              You don't have enough points
+                            </span>
+                          )}
                       </div>
                     </div>
                     <div>
@@ -327,7 +343,8 @@ class SearchFlights extends Component {
                             userData.mileagePoint < item.price * 10
                               ? "D"
                               : this.state.currency,
-                        }}>
+                        }}
+                      >
                         Book Flight
                       </Link>
                     </div>

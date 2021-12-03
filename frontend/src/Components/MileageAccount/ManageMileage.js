@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import {
-  FormGroup,
-  Label,
-  Input,
-  Col
-} from "reactstrap";
+import { FormGroup, Label, Input, Col } from "reactstrap";
 import { Container, Form, FormControl, Button, Row } from "react-bootstrap";
 import axios from "axios";
-import { Redirect } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { formatAMPM } from "./../Services/ControllerUtils";
 import NavigationBar from "../Navbar/Navbar";
 import "./mileage.css";
@@ -33,12 +27,12 @@ class ManageMileage extends Component {
     };
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
       userInfo: {
         ...this.state.userInfo,
-        [e.target.name]: e.target.value
-      }
+        [e.target.name]: e.target.value,
+      },
     });
   };
 
@@ -49,7 +43,7 @@ class ManageMileage extends Component {
     }
   }
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     //prevent page from refresh
     e.preventDefault();
     axios.defaults.withCredentials = true;
@@ -62,7 +56,7 @@ class ManageMileage extends Component {
           this.SetLocalStorage(JSON.stringify(this.state.userInfo));
           this.setState({
             isSuccess: true,
-            loginError: ""
+            loginError: "",
           });
         } else {
           this.setState({
@@ -78,30 +72,32 @@ class ManageMileage extends Component {
           authFlag: false,
         });
       });
-
   };
 
-
-
-  //// 
+  ////
   getMileageActivity() {
-    axios.get(`http://localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`).then(response => {
-      if (response.status == 200) {
-        console.log(response.data);
-        this.setState({
-          mileageActivity: response.data.data
-        })
-        console.log(this.state.mileageActivity);
-      } else {
-        this.setState({
-          error: response.error
-        })
-      }
-    }).catch(() => {
-      this.setState({
-        error: "Error while getting mileage points"
+    axios
+      .get(
+        `http://localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`
+      )
+      .then((response) => {
+        if (response.status == 200) {
+          console.log(response.data);
+          this.setState({
+            mileageActivity: response.data.data,
+          });
+          console.log(this.state.mileageActivity);
+        } else {
+          this.setState({
+            error: response.error,
+          });
+        }
       })
-    })
+      .catch(() => {
+        this.setState({
+          error: "Error while getting mileage points",
+        });
+      });
   }
 
   componentDidMount() {
@@ -111,7 +107,7 @@ class ManageMileage extends Component {
           userInfo: Object.assign(
             this.state.userInfo,
             JSON.parse(localStorage.getItem("userData"))
-          )
+          ),
         });
 
         this.getMileageActivity();
@@ -126,15 +122,13 @@ class ManageMileage extends Component {
     }
   }
 
-
-
   render() {
     if (this.state.isSuccess) {
       alert("Your profile has been updated successfully");
     }
 
     if (!localStorage.key("userData")) {
-      return <Redirect to='/login' />
+      return <Redirect to="/" />;
     }
 
     return (
@@ -146,17 +140,30 @@ class ManageMileage extends Component {
         )}
         <div className="container-fluid form-cont">
           <div className="flex-container">
-            <div className="row" style={{ paddingTop: "80px", paddingBottom: "40px" }}>
+            <div
+              className="row"
+              style={{ paddingTop: "80px", paddingBottom: "40px" }}
+            >
               {/* <div className="col-sm-2"></div> Hi {this.state.userInfo.firstName} */}
               <div className="col-sm-1"></div>
-              <div className="col-sm-6" style={{ paddingLeft: "50px" }}><h3>Manage Mileage Rewards</h3></div>
+              <div className="col-sm-6" style={{ paddingLeft: "50px" }}>
+                <h3>Manage Mileage Rewards</h3>
+              </div>
             </div>
             <div className="row">
               <div className="col-sm-1"></div>
               <div className="col col-sm-2">
-                <img src={ProfilePic} width="300" height="300" style={{ padding: "30px" }}></img>
+                <img
+                  src={ProfilePic}
+                  width="300"
+                  height="300"
+                  style={{ padding: "30px" }}
+                ></img>
               </div>
-              <div className="col col-sm-6" style={{ paddingLeft: "50px", marginLeft: "50px" }}>
+              <div
+                className="col col-sm-6"
+                style={{ paddingLeft: "50px", marginLeft: "50px" }}
+              >
                 <div
                   id="errorLogin"
                   hidden={this.state.error.length > 0 ? false : true}
@@ -165,13 +172,15 @@ class ManageMileage extends Component {
                 >
                   {this.state.error}
                 </div>
-                <Form onSubmit={this.handleSubmit} className="form-stacked" style={{ paddingLeft: "30px" }}>
+                <Form
+                  onSubmit={this.handleSubmit}
+                  className="form-stacked"
+                  style={{ paddingLeft: "30px" }}
+                >
                   <Row>
                     <Col>
                       <FormGroup>
-                        <Label for="firstname">
-                          FirstName
-                        </Label>
+                        <Label for="firstname">FirstName</Label>
                         <Input
                           type="text"
                           id="name"
@@ -185,9 +194,7 @@ class ManageMileage extends Component {
                     </Col>
                     <Col>
                       <FormGroup>
-                        <Label for="lastname">
-                          LastName
-                        </Label>
+                        <Label for="lastname">LastName</Label>
                         <Input
                           type="text"
                           id="lastName"
@@ -221,9 +228,7 @@ class ManageMileage extends Component {
                     </Col>
                     <Col>
                       <FormGroup>
-                        <Label htmlFor="address">
-                          Address
-                        </Label>
+                        <Label htmlFor="address">Address</Label>
                         <Input
                           type="text"
                           id="address"
@@ -236,7 +241,6 @@ class ManageMileage extends Component {
                     </Col>
                   </Row>
 
-
                   <FormGroup>
                     <Label htmlFor="mileage">
                       <strong>Current Mileage Points:</strong>
@@ -247,10 +251,7 @@ class ManageMileage extends Component {
                   </FormGroup>
                   <FormGroup row>
                     <Col>
-                      <Button
-                        type="submit"
-                        color="btn btn-primary"
-                      >
+                      <Button type="submit" color="btn btn-primary">
                         Update
                       </Button>
                     </Col>
@@ -284,27 +285,39 @@ class ManageMileage extends Component {
                             {item.flightId.departureAirport.name},{" "}
                             {item.flightId.departureAirport.city}
                             <span style={{ margin: "0 24px" }}>To</span>
-                            {item.flightId.arrivalAirport.name}, {item.flightId.arrivalAirport.city}
+                            {item.flightId.arrivalAirport.name},{" "}
+                            {item.flightId.arrivalAirport.city}
                           </Col>
                         </Row>
                         <Row className="item" style={{ width: "85%" }}>
                           <Col className="time">
                             <div>Depart at </div>
-                            <div>{formatAMPM(item.flightId.departureDateTime)}</div>
+                            <div>
+                              {formatAMPM(item.flightId.departureDateTime)}
+                            </div>
                           </Col>
                           <Col className="time">
                             <div>Arrives at </div>
-                            <div>{formatAMPM(item.flightId.arrivalDateTime)}</div>
+                            <div>
+                              {formatAMPM(item.flightId.arrivalDateTime)}
+                            </div>
                           </Col>
                         </Row>
                       </Col>
                       <Col md={3} className="right">
                         <div style={{ textAlign: "center" }}>
-                          Price : {item.price}<br />
-                          MileagePoint:{item.isMileage ? <span style={{ color: "red" }}>-{item.price}</span> : <span style={{ color: "green" }}>+{Math.round(item.price * 0.1)}</span>}
+                          Price : {item.price}
+                          <br />
+                          MileagePoint:
+                          {item.isMileage ? (
+                            <span style={{ color: "red" }}>-{item.price}</span>
+                          ) : (
+                            <span style={{ color: "green" }}>
+                              +{Math.round(item.price * 0.1)}
+                            </span>
+                          )}
                         </div>
-                        <div>
-                        </div>
+                        <div></div>
                       </Col>
                     </Row>
                   </Container>
