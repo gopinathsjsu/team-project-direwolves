@@ -10,7 +10,11 @@ class Landing extends Component {
 
   render() {
     if (localStorage.getItem("userData")) {
-      return <Redirect to="/flights" />;
+      if (JSON.parse(localStorage.getItem("userData")).isAdmin) {
+        return <Redirect to="/createFlight" />;
+      } else {
+        return <Redirect to="/flights" />;
+      }
     }
     return (
       <div className="container-fluid">

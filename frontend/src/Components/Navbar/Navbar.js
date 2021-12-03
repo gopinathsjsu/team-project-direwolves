@@ -39,13 +39,24 @@ class NavigationBar extends Component {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link
-                  onClick={() => {
-                    this.props.history.push("/flights");
-                  }}
-                >
-                  Search Flights
-                </Nav.Link>
+                {localStorage.getItem("userData") &&
+                !JSON.parse(localStorage.getItem("userData")).isAdmin ? (
+                  <Nav.Link
+                    onClick={() => {
+                      this.props.history.push("/flights");
+                    }}
+                  >
+                    Search Flights
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link
+                    onClick={() => {
+                      this.props.history.push("/createFlight");
+                    }}
+                  >
+                    New Flight
+                  </Nav.Link>
+                )}
                 <Nav.Link
                   onClick={() => {
                     this.props.history.push("/bookings");
@@ -53,6 +64,24 @@ class NavigationBar extends Component {
                 >
                   Bookings
                 </Nav.Link>
+              </Nav>
+              <Nav>
+                {localStorage.getItem("userData") &&
+                JSON.parse(localStorage.getItem("userData")).isAdmin ? (
+                  <Nav.Link
+                    disabled
+                    style={{ color: "red", fontWeight: "bold" }}
+                  >
+                    ADMIN
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link
+                    disabled
+                    style={{ color: "green", fontWeight: "bold" }}
+                  >
+                    USER
+                  </Nav.Link>
+                )}
               </Nav>
               <Nav>
                 <Nav.Link

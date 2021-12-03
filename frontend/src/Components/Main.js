@@ -7,6 +7,7 @@ import CreateReservation from "./Home/CreateReservation/CreateReservation";
 import Bookings from "./Flights/Bookings";
 import ManageMileage from "./MileageAccount/ManageMileage";
 import Landing from "./Landing/Landing";
+import CreateFlight from "./CreateFlight/CreateFlight";
 
 //Create a Main Component
 class Main extends Component {
@@ -20,6 +21,7 @@ class Main extends Component {
         <Route path="/createReservation" component={CreateReservation} />
         <Route path="/bookings" component={Bookings} />
         <Route path="/manageProfile" component={ManageMileage} />
+        <Route path="/createFlight" component={CreateFlight} />
       </div>
     );
   }

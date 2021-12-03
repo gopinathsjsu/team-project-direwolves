@@ -69,7 +69,11 @@ class SignUp extends Component {
 
   render() {
     if (this.state.isSuccess || localStorage.getItem("userData")) {
-      return <Redirect to="/flights" />;
+      if (JSON.parse(localStorage.getItem("userData")).isAdmin) {
+        return <Redirect to="/createFlight" />;
+      } else {
+        return <Redirect to="/flights" />;
+      }
     }
     return (
       <div className="container-fluid form-cont">

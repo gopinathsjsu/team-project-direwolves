@@ -97,34 +97,42 @@ app.post("/signup", async function (req, res) {
   });
 });
 
-app.post("/cancelReservation", async function (req,res){
+app.post("/cancelReservation", async function (req, res) {
   try {
-    const update = { $set: { bookingStatus: "Cancelled"} };
-    const bookings = await Booking.findOneAndUpdate({ _id: req.body.bookingId }, update,(error,data)=>{
-      if(error){
-        res.status(500).end("Error Occured");
-      }else{
-        var JSONStr = JSON.stringify(data);
-        res.status(200).end(JSONStr);
+    const update = { $set: { bookingStatus: "Cancelled" } };
+    const bookings = await Booking.findOneAndUpdate(
+      { _id: req.body.bookingId },
+      update,
+      (error, data) => {
+        if (error) {
+          res.status(500).end("Error Occured");
+        } else {
+          var JSONStr = JSON.stringify(data);
+          res.status(200).end(JSONStr);
+        }
       }
-    })
-  }catch{
+    );
+  } catch {
     res.status(500).end("Error Occured");
   }
 });
 
-app.post("/updateReservation", async function (req,res){
+app.post("/updateReservation", async function (req, res) {
   try {
-    const update = { $set: { seatNumber: req.body.seatNumber} };
-    const bookings = await Booking.findOneAndUpdate({ _id: req.body.bookingId }, update,(error,data)=>{
-      if(error){
-        res.status(500).end("Error Occured");
-      }else{
-        var JSONStr = JSON.stringify(data);
-        res.status(200).end(JSONStr);
+    const update = { $set: { seatNumber: req.body.seatNumber } };
+    const bookings = await Booking.findOneAndUpdate(
+      { _id: req.body.bookingId },
+      update,
+      (error, data) => {
+        if (error) {
+          res.status(500).end("Error Occured");
+        } else {
+          var JSONStr = JSON.stringify(data);
+          res.status(200).end(JSONStr);
+        }
       }
-    })
-  }catch{
+    );
+  } catch {
     res.status(500).end("Error Occured");
   }
 });
@@ -180,22 +188,23 @@ app.post("/getbookings", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ userId: req.body.userId })
       .populate("userId", ["firstName", "lastName"])
-      .populate("flightId"
-      // , [
-      //   "departureAirport",
-      //   "arrivalAirport",
-      //   "arrivalDateTime",
-      //   "departureDateTime",
-      // ]
+      .populate(
+        "flightId"
+        // , [
+        //   "departureAirport",
+        //   "arrivalAirport",
+        //   "arrivalDateTime",
+        //   "departureDateTime",
+        // ]
       )
       .sort({ Time: "desc" });
 
-      for(let booking of bookings){
-        booking.name = booking.flightId.name;
-        booking.number = booking.flightId.number;
-        booking.departureDateTime = booking.flightId.departureDateTime;
-        booking.arrivalDateTime = booking.flightId.arrivalDateTime;
-      }
+    for (let booking of bookings) {
+      booking.name = booking.flightId.name;
+      booking.number = booking.flightId.number;
+      booking.departureDateTime = booking.flightId.departureDateTime;
+      booking.arrivalDateTime = booking.flightId.arrivalDateTime;
+    }
 
     return res.status(200).json({
       success: true,
@@ -297,40 +306,42 @@ app.post("/getSeatInfoFromBookings", async (req, res, next) => {
 app.post("/getBooking", async (req, res, next) => {
   try {
     // if (req.body.isAdmin  === true){
-    const bookings = await Booking.find(req.body.isAdmin?{}:{ userId: req.body.userId })
-    .populate("userId")
-    .populate({
-      path: "flightId",
-      model: "Flight",
-      populate: [
-        {
-          path: "arrivalAirport",
-          model: "Airport",
-        },
-        {
-          path: "departureAirport",
-          model: "Airport",
-        },
-        {
-          path: "airplaneId",
-          model: "Airplane",
-        }
-      ],
-    })
-    .sort({ Time: "desc" });
+    const bookings = await Booking.find(
+      req.body.isAdmin ? {} : { userId: req.body.userId }
+    )
+      .populate("userId")
+      .populate({
+        path: "flightId",
+        model: "Flight",
+        populate: [
+          {
+            path: "arrivalAirport",
+            model: "Airport",
+          },
+          {
+            path: "departureAirport",
+            model: "Airport",
+          },
+          {
+            path: "airplaneId",
+            model: "Airplane",
+          },
+        ],
+      })
+      .sort({ Time: "desc" });
     let d = JSON.parse(JSON.stringify(bookings));
-      for(let booking of d){
-        if(booking.flightId){
-          booking.name = booking.flightId.name;
-          booking.number = booking.flightId.number;
-          booking.departureDateTime = booking.flightId.departureDateTime;
-          booking.arrivalDateTime = booking.flightId.arrivalDateTime;
-          booking.departureAirport = booking.flightId.departureAirport;
-          booking.arrivalAirport = booking.flightId.arrivalAirport;
-          booking.airplaneId = booking.flightId.airplaneId;
-        }
+    for (let booking of d) {
+      if (booking.flightId) {
+        booking.name = booking.flightId.name;
+        booking.number = booking.flightId.number;
+        booking.departureDateTime = booking.flightId.departureDateTime;
+        booking.arrivalDateTime = booking.flightId.arrivalDateTime;
+        booking.departureAirport = booking.flightId.departureAirport;
+        booking.arrivalAirport = booking.flightId.arrivalAirport;
+        booking.airplaneId = booking.flightId.airplaneId;
       }
-      console.log("DDDDDD",d);
+    }
+    console.log("DDDDDD", d);
     return res.status(200).json({
       success: true,
       count: d.length,
@@ -342,9 +353,7 @@ app.post("/getBooking", async (req, res, next) => {
       error: "Server Error " + err,
     });
   }
-
-}
-);
+});
 
 app.get("/allAirports", function (req, res) {
   Airport.find().exec((error, result) => {
@@ -432,6 +441,31 @@ app.post("/updatePoints", async function (req, res) {
         error: "Server Error " + err,
       });
     });
+});
+
+app.post("/createAirplane", async function (req, res) {
+  console.log(req.body);
+  await new Airplane(req.body).save((error, data) => {
+    if (error) {
+      console.log(error);
+      res.status(500).end("Error Occured");
+    } else {
+      console.log(data);
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/createFlight", async function (req, res) {
+  await new Flight(req.body).save((error, data) => {
+    if (error) {
+      console.log(error);
+      res.status(500).end("Error Occured");
+    } else {
+      console.log(data);
+      res.status(200).send(data);
+    }
+  });
 });
 
 app.listen(3001);

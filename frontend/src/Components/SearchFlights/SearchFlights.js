@@ -24,10 +24,10 @@ class SearchFlights extends Component {
       arriveLocId: "",
       departLoc: "",
       arriveLoc: "",
-      departLocation: null,
-      arriveLocation: null,
+      departLocation: "",
+      arriveLocation: "",
       departDate: "",
-      departDateString: null,
+      departDateString: "",
       passengers: "",
       radios: [
         { name: "Dollars", value: "D" },
@@ -62,22 +62,28 @@ class SearchFlights extends Component {
   };
 
   searchFLights = async () => {
-    let data = {
-      departLoc: this.state.departLocId,
-      arriveLoc: this.state.arriveLocId,
-      departDate: this.state.departDate,
-      // passengers: this.state.passengers,
-    };
-    console.log(data);
-    await axios
-      .get(`http://localhost:3001/flights`, {
-        params: data,
-      })
-      .then((response) => {
-        console.log(response.data);
-        if (response.status === 200)
-          this.setState({ flights: response.data, showResults: true });
-      });
+    if (
+      this.state.departLocId.length > 0 &&
+      this.state.arriveLocId &&
+      this.state.departDate
+    ) {
+      let data = {
+        departLoc: this.state.departLocId,
+        arriveLoc: this.state.arriveLocId,
+        departDate: this.state.departDate,
+        // passengers: this.state.passengers,
+      };
+      console.log(data);
+      await axios
+        .get(`http://localhost:3001/flights`, {
+          params: data,
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.status === 200)
+            this.setState({ flights: response.data, showResults: true });
+        });
+    }
   };
 
   render() {
@@ -96,6 +102,10 @@ class SearchFlights extends Component {
         ) : (
           this.props.history.push("/")
         )}
+        {localStorage.getItem("userData") &&
+        JSON.parse(localStorage.getItem("userData")).isAdmin
+          ? this.props.history.push("/")
+          : ""}
         <Container className="main">Search Flights</Container>
         <Container style={{ margin: "15px auto", padding: "0 120px" }}>
           <Form>
