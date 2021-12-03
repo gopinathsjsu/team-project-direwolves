@@ -99,8 +99,8 @@ app.post("/signup", async function (req, res) {
 
 app.post("/cancelReservation", async function (req,res){
   try {
-    const update = { bookingStatus: "Cancelled" };
-    const bookings = await Booking.findOneAndUpdate({ userId: req.body.bookingId }, update,(error,data)=>{
+    const update = { $set: { bookingStatus: "Cancelled"} };
+    const bookings = await Booking.findOneAndUpdate({ _id: req.body.bookingId }, update,(error,data)=>{
       if(error){
         res.status(500).end("Error Occured");
       }else{
