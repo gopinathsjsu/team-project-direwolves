@@ -17,7 +17,7 @@ class Landing extends Component {
                 src={icon}
                 style={{
                   width: "50px",
-                  left: "330px",
+                  left: "280px",
                   position: "absolute",
                   paddingTop:"10px"
                 }}
