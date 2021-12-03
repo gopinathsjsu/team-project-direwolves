@@ -12,12 +12,14 @@ import { Link } from "react-router-dom";
 import { formatAMPM } from "./../Services/ControllerUtils";
 import NavigationBar from "../Navbar/Navbar";
 import "./mileage.css";
+import ProfilePic from "../svg/profilePic.png";
 
 class ManageMileage extends Component {
   constructor(props) {
     super(props);
       this.state = {
         userInfo: {
+          _id:"",
           firstName:"",
           lastName:"",
           email:"",
@@ -40,6 +42,13 @@ class ManageMileage extends Component {
     });
   };
 
+  SetLocalStorage(data) {
+    if (typeof Storage !== "undefined") {
+      localStorage.clear();
+      localStorage.setItem("userData", data);
+    }
+  }
+
   handleSubmit = async e => {
     //prevent page from refresh
     e.preventDefault();
@@ -50,6 +59,7 @@ class ManageMileage extends Component {
         .then((response) => {
           console.log("Status Code : ", response.status);
           if (response.status === 200) {
+            this.SetLocalStorage(JSON.stringify(this.state.userInfo));
             this.setState({
               isSuccess: true,
               loginError:""
@@ -119,29 +129,14 @@ class ManageMileage extends Component {
 
 
   render() {
-    let mileage = null;
     if (this.state.isSuccess) {
-      return <Redirect to='/createReservation' />
+     alert("Your profile has been updated successfully");
     }
 
     if(!localStorage.key("userData")){
       return <Redirect to='/login' />
     }
 
-    if(this.state.mileageActivity!=null && this.state.mileageActivity.length>0) { 
-      mileage=this.state.mileageActivity.map((activity,idx)=>{
-        console.log(activity);
-        if(activity.isMileage){
-          return (
-            <span style={{color:"red"}}>-{activity.price}</span>
-          );
-        }else{
-          return (
-            <span style={{color:"green"}}>+{activity.price}*0.1</span>
-          );
-        }
-      });  
-    }
     return (
       <>
         {localStorage.getItem("userData") ? (
@@ -152,13 +147,16 @@ class ManageMileage extends Component {
         <div className="container-fluid form-cont">
           <div className="flex-container">
             <div className="row" style={{paddingTop:"80px", paddingBottom:"40px"}}>
-             <div className="col-sm-2">Hi {this.state.userInfo.firstName}</div>
-             <div className="col-sm-6"><h3><center>Manage Mileage Rewards</center></h3></div>
-             <div className="col-sm-3">Your Current Mileage Points : {this.state.userInfo.mileagePoint}</div>
+             {/* <div className="col-sm-2"></div> Hi {this.state.userInfo.firstName} */}
+             <div className="col-sm-1"></div>
+             <div className="col-sm-6" style={{paddingLeft:"50px"}}><h3>Manage Mileage Rewards</h3></div>
              </div>
             <div className="row">
-              <div className="col col-sm-3"></div>
-              <div className="col col-sm-6">
+              <div className="col-sm-1"></div>
+              <div className="col col-sm-2">
+                <img src={ProfilePic} width="300" height="300" style={{paddingLeft:"50px"}}></img>
+              </div>
+              <div className="col col-sm-6" style={{paddingLeft:"50px"}}>
                 <div
                   id="errorLogin"
                   hidden={this.state.error.length > 0 ? false : true}
@@ -167,7 +165,7 @@ class ManageMileage extends Component {
                 >
                   {this.state.error}
                 </div>
-                <Form onSubmit={this.handleSubmit} className="form-stacked">
+                <Form onSubmit={this.handleSubmit} className="form-stacked" style={{paddingLeft:"30px"}}>
                    <Row>
                        <Col>
                         <FormGroup>
@@ -177,7 +175,7 @@ class ManageMileage extends Component {
                             <Input
                             type="text"
                             id="name"
-                            name="name"
+                            name="firstName"
                             placeholder="First Name"
                             onChange={this.handleChange}
                             value={this.state.userInfo.firstName}
@@ -230,6 +228,14 @@ class ManageMileage extends Component {
                       onChange={this.handleChange}
                     ></Input>
                   </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="mileage">
+                    <strong>Current Mileage Points:</strong>
+                    </Label>
+                    <Label htmlFor="points" style={{paddingLeft:"5px"}}>
+                    {this.state.userInfo.mileagePoint}
+                    </Label>
+                    </FormGroup>
                   <FormGroup row>
                     <Col>
                       <Button

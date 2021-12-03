@@ -97,6 +97,27 @@ app.post("/signup", async function (req, res) {
   });
 });
 
+app.post("/updateProfile", async function (req, res) {
+  const filter = { _id: req.body._id };
+  const newUser = {
+    $set: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      address: req.body.address,
+    }
+  };
+  UserProfile.updateOne(filter,newUser,(error, data)=>{
+    if (error) {
+      res.status(500).end("Error Occured");
+    } else {
+      data.password = "";
+      var JSONStr = JSON.stringify(data);
+      res.status(200).end(JSONStr);
+    }
+  });
+});
+
 app.post("/login", async function (req, res) {
   UserProfile.findOne({ email: req.body.email }, (error, user) => {
     if (error) {
