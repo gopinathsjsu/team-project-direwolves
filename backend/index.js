@@ -201,12 +201,15 @@ app.get("/getMileageActivity", async (req, res, next) => {
           path:'departureAirport',
           model:'Airport'
         },
-     
+      }).populate({ 
+        path:'flightId',
+        model:'Flight',
+        populate:{
+          path:'arrivalAirport',
+          model:'Airport'
+        },
       })
       .sort({ Time: "desc" });
-    
-    
-
     return res.status(200).json({
       success: true,
       count: bookings.length,

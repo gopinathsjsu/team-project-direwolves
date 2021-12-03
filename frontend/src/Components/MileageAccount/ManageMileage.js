@@ -275,7 +275,7 @@ class ManageMileage extends Component {
                         {item.flightId.departureAirport.name},{" "}
                         {item.flightId.departureAirport.city}
                         <span style={{ margin: "0 24px" }}>To</span>
-                        {/* {item.arrivalAirport.name}, {item.arrivalAirport.city} */}
+                        {item.flightId.arrivalAirport.name}, {item.flightId.arrivalAirport.city}
                       </Col>
                     </Row>
                     <Row className="item" style={{ width: "85%" }}>
