@@ -26,10 +26,10 @@ class Landing extends Component {
             </div>
             <div className="col-sm-3">
             <Link to="/login" style={{padding:"20px"}}>
-                <button className="btn buttonColor ">Login</button>
+                <button className="btn btn-primary-outline ">Login</button>
             </Link>
             <Link to="/register">
-                <button className="btn buttonColor">Register</button>
+                <button className="btn btn-primary-outline">Register</button>
             </Link>
             </div>
             </div>
