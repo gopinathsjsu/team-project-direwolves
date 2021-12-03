@@ -95,6 +95,7 @@ class CreateReservation extends Component {
       .post(`http://localhost:3001/updatePoints`, params)
       .then((response) => {
         console.log("resp for updatePoints ", response);
+        this.setState({isSuccess:true});
         localStorage.setItem("userData", JSON.stringify(response.data.data));
       });
   }
@@ -426,6 +427,7 @@ class CreateReservation extends Component {
                             .then((response) => {
                               console.log("Status Code : ", response.status);
                               if (response.status === 200) {
+                                alert("Flight booked successfully. PNR no:"+response.data._id);
                                 this.updateCustomerPoints(response.data);
                               } else {
                                 // this.setState({
@@ -439,7 +441,7 @@ class CreateReservation extends Component {
                   
                 }}
               >
-                Submit
+                Book Flight
               </Button>
             </center>
           </Row>

@@ -102,8 +102,8 @@ class CreateFlight extends Component {
         !JSON.parse(localStorage.getItem("userData")).isAdmin
           ? this.props.history.push("/")
           : ""}
-        <div>create flight</div>
-        <pre>{JSON.stringify(this.state, "", 2)}</pre>
+        {/* <div>create flight</div> */}
+        {/* <pre>{JSON.stringify(this.state, "", 2)}</pre> */}
         <div>
           <Container style={{ padding: "0 200px" }}>
             <Form

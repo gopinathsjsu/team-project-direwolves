@@ -265,7 +265,7 @@ class SearchFlights extends Component {
                 <div>{this.state.arriveLocation}</div>
               </Col>
               <Col md={3}>
-                <div>{this.state.departDateString}</div>
+                {/* <div>{this.state.departDateString}</div> */}
               </Col>
               {/* <Col>
                 <div>{this.state.passengerType}</div>

@@ -65,10 +65,10 @@ export function getDateFromStr(dates) {
 }
 
 export function getTimeDifference(date1, date2) {
-  let date1_ob = new Date(Date.parse(date1));
-  let date2_ob = new Date(Date.parse(date2));
-  let val = parseInt(date2_ob - date1_ob);
-  let hours = val > 0 ? val / ((1000 * 60 * 60) % 24) : val;
-  let minutes = val > 0 ? val / ((1000 * 60) % 24) : val;
+  let date1_ob = new Date(Date.parse(date1)).getTime();
+  let date2_ob = new Date(Date.parse(date2)).getTime();
+  let val = date1_ob - date2_ob;
+  let hours = Math.floor((val / (1000 * 60 * 60)) % 24);
+  let minutes = Math.floor((val / (1000 * 60)) % 60)
   return hours.toString() + " hrs " + minutes.toString() + " mins";
 }

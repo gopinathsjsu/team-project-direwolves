@@ -39,11 +39,11 @@ class SignUp extends Component {
       .then((response) => {
         console.log("Status Code : ", response.status);
         if (response.status === 200) {
+          this.SetLocalStorage(JSON.stringify(response.data));
           this.setState({
             isSuccess: true,
             loginError: "",
           });
-          this.SetLocalStorage(JSON.stringify(response.data));
         } else {
           this.setState({
             loginError: "User is already registered",
@@ -69,7 +69,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.isSuccess || localStorage.getItem("userData")) {
-      if (JSON.parse(localStorage.getItem("userData")).isAdmin) {
+      if (localStorage.getItem("userData") && JSON.parse(localStorage.getItem("userData")) && JSON.parse(localStorage.getItem("userData")).isAdmin) {
         return <Redirect to="/createFlight" />;
       } else {
         return <Redirect to="/flights" />;
