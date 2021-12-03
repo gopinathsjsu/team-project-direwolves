@@ -173,8 +173,18 @@ app.post("/createReservation", async (req, res, next) => {
 app.get("/getMileageActivity", async (req, res, next) => {
   try {
     const bookings = await Booking.find({ userId: req.query.userId })
-      .populate("flightId", ["name"])
+      .populate({ 
+        path:'flightId',
+        model:'Flight',
+        populate:{
+          path:'departureAirport',
+          model:'Airport'
+        },
+     
+      })
       .sort({ Time: "desc" });
+    
+    
 
     return res.status(200).json({
       success: true,

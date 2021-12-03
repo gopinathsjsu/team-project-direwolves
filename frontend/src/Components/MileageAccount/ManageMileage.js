@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import {
-  Button,
-  Form,
   FormGroup,
   Label,
   Input,
-  Col,
-  Row
+  Col
 } from "reactstrap";
+import { Container,Form, FormControl,Button, Row} from "react-bootstrap";
 import axios from "axios";
 import {Redirect} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { formatAMPM } from "./../Services/ControllerUtils";
+import NavigationBar from "../Navbar/Navbar";
+import "./mileage.css";
+
 class ManageMileage extends Component {
   constructor(props) {
     super(props);
@@ -113,6 +116,8 @@ class ManageMileage extends Component {
     }
   }
 
+
+
   render() {
     let mileage = null;
     if (this.state.isSuccess) {
@@ -128,24 +133,22 @@ class ManageMileage extends Component {
         console.log(activity);
         if(activity.isMileage){
           return (
-            <tr key={idx} >
-              <td>
-                you used {activity.price} mileage rewards points for booking your flight {activity.flightId.name}
-              </td>
-            </tr>
+            <span style={{color:"red"}}>-{activity.price}</span>
           );
         }else{
           return (
-            <tr key={idx} >
-              <td>
-                you got {activity.price*0.1} mileage rewards points for booking your flight {activity.flightId.name} 
-              </td>
-            </tr>
+            <span style={{color:"green"}}>+{activity.price}*0.1</span>
           );
         }
       });  
     }
     return (
+      <>
+        {localStorage.getItem("userData") ? (
+          <NavigationBar />
+        ) : (
+          this.props.history.push("/")
+        )}
         <div className="container-fluid form-cont">
           <div className="flex-container">
             <div className="row" style={{paddingTop:"80px", paddingBottom:"40px"}}>
@@ -240,13 +243,61 @@ class ManageMileage extends Component {
                 </Form>
               </div>
             </div>
-            <div className="row shadow p-4 bg-light rounded">
-              <table className="table">
-                <tbody>{mileage}</tbody>
-              </table>
-            </div>
+            <Container style={{ padding: "0 50px" }}>
+            {this.state.mileageActivity &&
+             this.state.mileageActivity.map((item,idx) => (
+              <Container
+                style={{
+                  padding: "20px",
+                  border: "1px solid #ddd",
+                  borderRadius: "15px",
+                }}
+                className="flight"
+              >
+                <Row>
+                  <Col md={9}>
+                    <Row className="item">
+                      <div>
+                        #
+                        <span style={{ fontWeight: "bold" }}>
+                          {item.flightId.name} {item.flightId.number}
+                        </span>
+                      </div>
+                    </Row>
+                    <Row className="item">
+                      <Col>
+                        {item.flightId.departureAirport.name},{" "}
+                        {item.flightId.departureAirport.city}
+                        <span style={{ margin: "0 24px" }}>To</span>
+                        {/* {item.arrivalAirport.name}, {item.arrivalAirport.city} */}
+                      </Col>
+                    </Row>
+                    <Row className="item" style={{ width: "85%" }}>
+                      <Col className="time">
+                        <div>Depart at </div>
+                        <div>{formatAMPM(item.flightId.departureDateTime)}</div>
+                      </Col>
+                      <Col className="time">
+                        <div>Arrives at </div>
+                        <div>{formatAMPM(item.flightId.arrivalDateTime)}</div>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col md={3} className="right">
+                    <div style={{ textAlign: "center" }}>
+                      Price : {item.price}<br/>
+                      MileagePoint:{item.isMileage?<span style={{color:"red"}}>-{item.price}</span>:<span style={{color:"green"}}>+{Math.round(item.price*0.1)}</span>}
+                    </div>
+                    <div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            ))}
+            </Container>
           </div>
         </div>
+        </>
     );
   }
 }

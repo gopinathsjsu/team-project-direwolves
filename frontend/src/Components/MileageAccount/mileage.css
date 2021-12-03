@@ -1,0 +1,60 @@
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .main {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 0 120px;
+  }
+  
+  .bottomRow div {
+    font-size: 13px;
+    padding-left: 10px;
+  }
+  
+  .aboveRow {
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  .flight:hover {
+    background-color: #eee;
+  }
+  
+  .flight .item {
+    margin-bottom: 5px;
+  }
+  
+  .flight .item .time {
+    display: flex;
+  }
+  .flight .item .time div {
+    margin-right: 5px;
+  }
+  
+  .flight .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .bookFlight {
+    text-decoration: none;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .bookFlight:hover {
+    text-decoration: none;
+    background-color: #0d6efd;
+    color: #fff;
+    cursor: pointer;
+  }
+  
