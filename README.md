@@ -1,46 +1,50 @@
-
 # DireWolves Airlines
 
 ## Tools and Languages:
 
-* Frontend - React
-* Backend - Node JS
-* Database - MongoDB
-* Cloud - AWS EC2, ELB
+- Frontend - React
+- Backend - Node JS
+- Database - MongoDB
+- Cloud - AWS EC2, ELB
 
 ## Team Members
 
-* Divya Mittal
-* Vinay Guda
-* Nikhil Raj
-* Rugved Manookar
+- Divya Mittal
+- Vinay Guda
+- Nikhil Raj
+- Rugved Manookar
 
 ## Scrum meetings schedule:
 
 Every Friday
 
-## Feature Set 
+## Feature Set
+
 ### Customer
-*  can register for the airlines
-*  can login for the airlines
-*  search a flight
-*  can create a reservation ( Book a flight)
-*  purchase a seat (Economy and Bussiness class)
-*  can update the reservation( Only seat can be updated using update reservation)
-*  can cancel the reservation
-*  can update the Profile
-*  can view the mileage points used and add while reservation
-*  Can view all the bookings
+
+- can register for the airlines
+- can login for the airlines
+- search a flight
+- can create a reservation ( Book a flight)
+- purchase a seat (Economy and Bussiness class)
+- can update the reservation( Only seat can be updated using update reservation)
+- can cancel the reservation
+- can update the Profile
+- can view the mileage points used and add while reservation
+- Can view all the bookings
 
 ### Admin
-* can create a flight
-* View all the bookings created by a passenger
 
+- can create a flight
+- View all the bookings created by a passenger
 
 ## Architecture Diagram
 
 ![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/0e7fbd0209c3a947c62036579a02405d49c43f63/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
 
+## Database Schema
+
+![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/0e7fbd0209c3a947c62036579a02405d49c43f63/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
 
 ## Deployment Diagram
 
@@ -48,8 +52,8 @@ Every Friday
 
 ## XP Core Values
 
-* Communication : We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
-* Feedback : We beleive in feedback. We have given valuable feedback to the team to create a better product
+- Communication : We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+- Feedback : We beleive in feedback. We have given valuable feedback to the team to create a better product
 
 ## Burndown Charts
 
