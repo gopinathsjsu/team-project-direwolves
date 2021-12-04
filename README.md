@@ -22,16 +22,17 @@ Every Friday
 ### Customer
 *  can register for the airlines
 *  can login for the airlines
-*  can create a reservation 
-*  purchase a seat (Only aisle seats are chargable)
+*  search a flight
+*  can create a reservation ( Book a flight)
+*  purchase a seat (Economy and Bussiness class)
 *  can update the reservation( Only seat can be updated using update reservation)
 *  can cancel the reservation
-*  Can update the Profile
-*  can view the mileage points used and added while reservation
-*  can view all the bookings
+*  can update the Profile
+*  can view the mileage points used and add while reservation
+*  Can view all the bookings
 
 ### Admin
-* Can Create a flight
+* can create a flight
 * View all the bookings created by a passenger
 
 
