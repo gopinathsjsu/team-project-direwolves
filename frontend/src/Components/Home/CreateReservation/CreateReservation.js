@@ -41,7 +41,7 @@ class CreateReservation extends Component {
       departure: flightDetails.departureAirport.name,
       arrival: flightDetails.arrivalAirport.name,
       noOfSeats: flightDetails.airplaneId.noOfSeats,
-      premiumSeatPrice: flightDetails.premiumSeatPrice,
+      premiumSeatPrice: flightDetails.premiumSeatPrice?flightDetails.premiumSeatPrice:100,
       radios: [
         { name: "One Way", value: "O" },
         { name: "Two Way", value: "T" },
