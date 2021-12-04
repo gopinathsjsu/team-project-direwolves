@@ -20,7 +20,7 @@ Every Friday
 
 ## Architecture Diagram
 
-![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/9e903c72ae403dedd5f177e35512704ffd169811/Architecture%20Diagram.pdf)
+![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/0e7fbd0209c3a947c62036579a02405d49c43f63/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
 
 
 ## Deployment Diagram
