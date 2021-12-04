@@ -37,6 +37,7 @@ Every Friday
 
 - can create a flight
 - View all the bookings created by a passenger
+- Can create Airport
 
 ## Architecture Diagram
 
