@@ -40,7 +40,13 @@ export function getTimeFromStr(dates) {
   let hours = date_ob.getHours();
   let minutes = date_ob.getMinutes();
   // return year + "-" + months[month] + "-" + date + " " + hours + ":" + minutes;
-  return date_ob.toISOString().split("T")[0] + " " + (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes);
+  return (
+    date_ob.toISOString().split("T")[0] +
+    " " +
+    (hours < 10 ? "0" + hours : hours) +
+    ":" +
+    (minutes < 10 ? "0" + minutes : minutes)
+  );
 }
 
 export function formatAMPM(date) {
@@ -64,13 +70,23 @@ export function getDateFromStr(dates) {
   return year + "-" + month + "-" + date + " " + hours + ":" + minutes;
 }
 
+export function getOnlyDateFromStr(dates) {
+  let date_ob = new Date(Date.parse(dates));
+  let day = ("0" + date_ob.getDate()).slice(-2);
+  let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  let year = date_ob.getFullYear();
+  return month + "-" + day + "-" + year;
+}
+
 export function getTimeDifference(date1, date2) {
   let date1_ob = new Date(Date.parse(date1)).getTime();
   let date2_ob = new Date(Date.parse(date2)).getTime();
   let val = date1_ob - date2_ob;
   let hours = Math.floor((val / (1000 * 60 * 60)) % 24);
-  let minutes = Math.floor((val / (1000 * 60)) % 60)
-  return hours.toString() + " hrs " + minutes.toString() + " mins";
+  let minutes = Math.floor((val / (1000 * 60)) % 60);
+  let hrsString = hours > 0 ? hours.toString() + " hrs " : "";
+  let minsString = minutes > 0 ? minutes.toString() + " mins" : "";
+  return hrsString + minsString;
 }
 
 export function getToday() {
@@ -80,13 +96,13 @@ export function getToday() {
   var yyyy = today.getFullYear();
 
   if (dd < 10) {
-    dd = '0' + dd;
+    dd = "0" + dd;
   }
 
   if (mm < 10) {
-    mm = '0' + mm;
+    mm = "0" + mm;
   }
 
-  today = yyyy + '-' + mm + '-' + dd;
+  today = yyyy + "-" + mm + "-" + dd;
   return today;
 }

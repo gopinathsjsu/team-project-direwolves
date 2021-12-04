@@ -16,6 +16,7 @@ import {
   formatAMPM,
   getTimeDifference,
   getToday,
+  getOnlyDateFromStr,
 } from "./../Services/ControllerUtils";
 import "./SearchFlights.css";
 import backend from "../../config";
@@ -322,15 +323,53 @@ class SearchFlights extends Component {
                     </Row>
                     <Row className="item" style={{ width: "85%" }}>
                       <Col className="time">
-                        <div>Depart at </div>
-                        <div>{formatAMPM(item.departureDateTime)}</div>
+                        <div
+                          style={{
+                            fontSize: "13px",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Departs at{" "}
+                        </div>
+                        <div>
+                          {getOnlyDateFromStr(item.departureDateTime)}{" "}
+                          {formatAMPM(item.departureDateTime)}
+                        </div>
                       </Col>
                       <Col className="time">
-                        <div>Arrives at </div>
-                        <div>{formatAMPM(item.arrivalDateTime)}</div>
+                        <div
+                          style={{
+                            fontSize: "13px",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Arrives at{" "}
+                        </div>
+                        <div>
+                          {getOnlyDateFromStr(item.arrivalDateTime)}{" "}
+                          {formatAMPM(item.arrivalDateTime)}
+                        </div>
                       </Col>
+                    </Row>
+                    <Row className="item">
                       <Col className="time">
-                        <div>Duration </div>
+                        <div
+                          style={{
+                            fontSize: "13px",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Duration{" "}
+                        </div>
                         <div>
                           {getTimeDifference(
                             item.arrivalDateTime,
