@@ -99,7 +99,7 @@ app.post("/signup", async function (req, res) {
 
 app.post("/cancelReservation", async function (req, res) {
   try {
-    const update = { $set: { bookingStatus: "Cancelled",seatNumber:"" } };
+    const update = { $set: { bookingStatus: "Cancelled", seatNumber: "" } };
     const bookings = await Booking.findOneAndUpdate(
       { _id: req.body.bookingId },
       update,
@@ -119,7 +119,12 @@ app.post("/cancelReservation", async function (req, res) {
 
 app.post("/updateReservation", async function (req, res) {
   try {
-    const update = { $set: { seatNumber: req.body.seatNumber, bookingStatus: req.body.bookingStatus } };
+    const update = {
+      $set: {
+        seatNumber: req.body.seatNumber,
+        bookingStatus: req.body.bookingStatus,
+      },
+    };
     const bookings = await Booking.findOneAndUpdate(
       { _id: req.body.bookingId },
       update,
@@ -458,6 +463,18 @@ app.post("/createAirplane", async function (req, res) {
 
 app.post("/createFlight", async function (req, res) {
   await new Flight(req.body).save((error, data) => {
+    if (error) {
+      console.log(error);
+      res.status(500).end("Error Occured");
+    } else {
+      console.log(data);
+      res.status(200).send(data);
+    }
+  });
+});
+
+app.post("/createAirport", async function (req, res) {
+  await new Airport(req.body).save((error, data) => {
     if (error) {
       console.log(error);
       res.status(500).end("Error Occured");

@@ -18,7 +18,7 @@ class Landing extends Component {
     }
     return (
       <div className="container-fluid">
-        <div className="landing_img">
+        <div className="landing_img" style={{ maxHeight: "100vh" }}>
           <div className="row">
             <div className="col-sm-9">
               {/* <img
@@ -38,8 +38,8 @@ class Landing extends Component {
                   paddingLeft: "355px",
                   paddingTop: "10px",
                   color: "#32689a",
-                  letterSpacing:"6px",
-                  fontFamily:"fantasy"
+                  letterSpacing: "6px",
+                  fontFamily: "fantasy",
                 }}
               >
                 Direwolves Airlines
@@ -47,10 +47,28 @@ class Landing extends Component {
             </div>
             <div className="col-sm-3">
               <Link to="/login" style={{ padding: "20px" }}>
-                <button style={{fontWeight:"900", fontFamily:"fantasy", letterSpacing:"5px"}} className="btn btn-primary-outline ">Login</button>
+                <button
+                  style={{
+                    fontWeight: "900",
+                    fontFamily: "fantasy",
+                    letterSpacing: "5px",
+                  }}
+                  className="btn btn-primary-outline "
+                >
+                  Login
+                </button>
               </Link>
               <Link to="/register">
-                <button style={{fontWeight:"900", fontFamily:"fantasy", letterSpacing:"5px"}} className="btn btn-primary-outline">Register</button>
+                <button
+                  style={{
+                    fontWeight: "900",
+                    fontFamily: "fantasy",
+                    letterSpacing: "5px",
+                  }}
+                  className="btn btn-primary-outline"
+                >
+                  Register
+                </button>
               </Link>
             </div>
           </div>

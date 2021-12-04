@@ -79,6 +79,18 @@ class CreateFlight extends Component {
             .post(`http://localhost:3001/createFlight`, flight)
             .then((response2) => {
               console.log(response2.data);
+              alert("FLight has been added");
+              this.setState({
+                name: "",
+                number: "",
+                departLoc: "",
+                arriveLoc: "",
+                departDate: "",
+                arriveDate: "",
+                price: "",
+                seats: "",
+                premiumSeatPrice: "",
+              });
             });
         });
     }
@@ -122,6 +134,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.name}
                       onChange={(e) => this.setState({ name: e.target.value })}
                       required
                     ></Input>
@@ -135,6 +148,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.value}
                       onChange={(e) =>
                         this.setState({ number: e.target.value })
                       }
@@ -154,6 +168,7 @@ class CreateFlight extends Component {
                       name="name"
                       list="airportDataList"
                       placeholder=""
+                      defaultValue={this.state.departLoc}
                       onChange={(e) => {
                         if (this.state.airports[e.target.value] != null) {
                           this.setState({
@@ -175,6 +190,7 @@ class CreateFlight extends Component {
                       list="airportDataList"
                       name="name"
                       placeholder=""
+                      defaultValue={this.state.arriveLoc}
                       onChange={(e) => {
                         if (this.state.airports[e.target.value] != null) {
                           this.setState({
@@ -197,6 +213,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.departDate}
                       onChange={(e) =>
                         this.setState({ departDate: e.target.value })
                       }
@@ -212,6 +229,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.arriveDate}
                       onChange={(e) =>
                         this.setState({ arriveDate: e.target.value })
                       }
@@ -229,6 +247,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.price}
                       onChange={(e) => this.setState({ price: e.target.value })}
                       required
                     ></Input>
@@ -242,6 +261,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.seats}
                       onChange={(e) => this.setState({ seats: e.target.value })}
                       required
                     ></Input>
@@ -255,6 +275,7 @@ class CreateFlight extends Component {
                       id="name"
                       name="name"
                       placeholder=""
+                      value={this.state.premiumSeatPrice}
                       onChange={(e) =>
                         this.setState({ premiumSeatPrice: e.target.value })
                       }
@@ -266,7 +287,23 @@ class CreateFlight extends Component {
 
               <FormGroup row>
                 <Col>
-                  <Button type="submit" color="btn btn-primary">
+                  <Button
+                    disabled={
+                      !(
+                        this.state.name.length != "" &&
+                        this.state.number.length != "" &&
+                        this.state.departLoc.length != "" &&
+                        this.state.arriveLoc.length != "" &&
+                        this.state.departDate.length != "" &&
+                        this.state.arriveDate.length != "" &&
+                        this.state.price.length != "" &&
+                        this.state.seats.length != "" &&
+                        this.state.premiumSeatPrice.length != ""
+                      )
+                    }
+                    type="submit"
+                    color="btn btn-primary"
+                  >
                     Add Flight Details
                   </Button>
                 </Col>

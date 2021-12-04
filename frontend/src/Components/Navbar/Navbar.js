@@ -20,7 +20,8 @@ class NavigationBar extends Component {
           fixed="top"
         >
           <Container style={{ position: "relative" }}>
-            <Navbar.Brand style={{cursor:"pointer"}}
+            <Navbar.Brand
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 this.props.history.push("/");
               }}
@@ -29,7 +30,7 @@ class NavigationBar extends Component {
                 src={icon}
                 style={{
                   width: "50px",
-                  marginRight:"20px",
+                  marginRight: "20px",
                   // left: "-50px",
                   // position: "absolute",
                 }}
@@ -40,8 +41,8 @@ class NavigationBar extends Component {
                   fontWeight: "50px",
                   paddingTop: "10px",
                   color: "white",
-                  letterSpacing:"6px",
-                  fontFamily:"fantasy"
+                  letterSpacing: "6px",
+                  fontFamily: "fantasy",
                 }}
               >
                 Direwolves Airlines
@@ -60,13 +61,22 @@ class NavigationBar extends Component {
                     Search Flights
                   </Nav.Link>
                 ) : (
-                  <Nav.Link
-                    onClick={() => {
-                      this.props.history.push("/createFlight");
-                    }}
-                  >
-                    New Flight
-                  </Nav.Link>
+                  <>
+                    <Nav.Link
+                      onClick={() => {
+                        this.props.history.push("/createAirport");
+                      }}
+                    >
+                      New Airport
+                    </Nav.Link>
+                    <Nav.Link
+                      onClick={() => {
+                        this.props.history.push("/createFlight");
+                      }}
+                    >
+                      New Flight
+                    </Nav.Link>
+                  </>
                 )}
                 <Nav.Link
                   onClick={() => {

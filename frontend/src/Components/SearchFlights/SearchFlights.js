@@ -12,7 +12,11 @@ import {
 } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import NavigationBar from "../Navbar/Navbar";
-import { formatAMPM, getTimeDifference, getToday } from "./../Services/ControllerUtils";
+import {
+  formatAMPM,
+  getTimeDifference,
+  getToday,
+} from "./../Services/ControllerUtils";
 import "./SearchFlights.css";
 
 class SearchFlights extends Component {
@@ -248,7 +252,13 @@ class SearchFlights extends Component {
               <Col className="flexColumn" md={2}>
                 <Button
                   type="submit"
-                  disabled={!(this.state.departLocId && this.state.arriveLocId && this.state.departDate)}
+                  disabled={
+                    !(
+                      this.state.departLocId &&
+                      this.state.arriveLocId &&
+                      this.state.departDate
+                    )
+                  }
                   style={{ padding: "3px" }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -266,9 +276,7 @@ class SearchFlights extends Component {
               <Col md={2}>
                 <div>{this.state.arriveLocation}</div>
               </Col>
-              <Col md={3}>
-                {/* <div>{this.state.departDateString}</div> */}
-              </Col>
+              <Col md={3}>{/* <div>{this.state.departDateString}</div> */}</Col>
               {/* <Col>
                 <div>{this.state.passengerType}</div>
               </Col> */}
@@ -286,6 +294,7 @@ class SearchFlights extends Component {
                   padding: "20px",
                   border: "1px solid #ddd",
                   borderRadius: "15px",
+                  marginBottom: "20px",
                 }}
                 className="flight"
                 key={item._id}
@@ -304,7 +313,9 @@ class SearchFlights extends Component {
                       <Col>
                         {item.departureAirport.name},{" "}
                         {item.departureAirport.city}
-                        <span style={{ margin: "0 24px" }}><i class="fa fa-plane"></i> </span>
+                        <span style={{ margin: "0 24px" }}>
+                          <i class="fa fa-plane"></i>{" "}
+                        </span>
                         {item.arrivalAirport.name}, {item.arrivalAirport.city}
                       </Col>
                     </Row>
