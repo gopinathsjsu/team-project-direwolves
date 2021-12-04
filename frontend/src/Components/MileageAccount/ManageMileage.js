@@ -7,6 +7,7 @@ import { formatAMPM } from "./../Services/ControllerUtils";
 import NavigationBar from "../Navbar/Navbar";
 import "./mileage.css";
 import ProfilePic from "../svg/profilePic.png";
+import backend from "../../config";
 
 class ManageMileage extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class ManageMileage extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post(`http://localhost:3001/updateProfile`, this.state.userInfo)
+      .post(`${backend}/updateProfile`, this.state.userInfo)
       .then((response) => {
         console.log("Status Code : ", response.status);
         if (response.status === 200) {
@@ -78,7 +79,7 @@ class ManageMileage extends Component {
   getMileageActivity() {
     axios
       .get(
-        `http://localhost:3001/getMileageActivity?userId=${this.state.userInfo._id}`
+        `${backend}/getMileageActivity?userId=${this.state.userInfo._id}`
       )
       .then((response) => {
         if (response.status == 200) {

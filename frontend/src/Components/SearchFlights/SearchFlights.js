@@ -18,6 +18,7 @@ import {
   getToday,
 } from "./../Services/ControllerUtils";
 import "./SearchFlights.css";
+import backend from "../../config";
 
 class SearchFlights extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class SearchFlights extends Component {
   };
 
   getAllFlights = async () => {
-    await axios.get(`http://localhost:3001/allFlights`).then((response) => {
+    await axios.get(`${backend}/allFlights`).then((response) => {
       console.log(response.data);
       if (response.status === 200)
         this.setState({ flights: response.data, showResults: true });
@@ -59,7 +60,7 @@ class SearchFlights extends Component {
   };
 
   getAirports = async () => {
-    await axios.get(`http://localhost:3001/allAirports`).then((response) => {
+    await axios.get(`${backend}/allAirports`).then((response) => {
       console.log(response.data);
       if (response.status === 200) this.setState({ airports: response.data });
     });
@@ -79,7 +80,7 @@ class SearchFlights extends Component {
       };
       console.log(data);
       await axios
-        .get(`http://localhost:3001/flights`, {
+        .get(`${backend}/flights`, {
           params: data,
         })
         .then((response) => {

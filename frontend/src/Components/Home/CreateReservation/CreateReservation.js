@@ -14,6 +14,7 @@ import selectedSeat from "../../svg/seatSelected.svg";
 import axios from "axios";
 import "./CreateReservation.css";
 import NavigationBar from "../../Navbar/Navbar";
+import backend from "../../../config";
 
 class CreateReservation extends Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class CreateReservation extends Component {
 
   componentDidMount() {
     axios
-      .post(`http://localhost:3001/getSeatInfoFromBookings`, {
+      .post(`${backend}/getSeatInfoFromBookings`, {
         flightId: this.state.flightId,
         departureTime: this.state.departureDateTime,
         arrivalTime: this.state.arrivalDateTime,
@@ -92,7 +93,7 @@ class CreateReservation extends Component {
       price: Math.round(p + (data.isMileage ? -data.price : data.price * 0.1)),
     };
     axios
-      .post(`http://localhost:3001/updatePoints`, params)
+      .post(`${backend}/updatePoints`, params)
       .then((response) => {
         console.log("resp for updatePoints ", response);
         this.setState({isSuccess:true});
@@ -400,7 +401,7 @@ class CreateReservation extends Component {
                             bookingStatus: "Updated",
                           };
                           axios
-                            .post(`http://localhost:3001/updateReservation`, data)
+                            .post(`${backend}/updateReservation`, data)
                             .then((response) => {
                               console.log("Status Code : ", response.status);
                               if (response.status === 200) {
@@ -424,7 +425,7 @@ class CreateReservation extends Component {
                             isMileage: this.state.isMileage,
                           };
                           axios
-                            .post(`http://localhost:3001/createReservation`, data)
+                            .post(`${backend}/createReservation`, data)
                             .then((response) => {
                               console.log("Status Code : ", response.status);
                               if (response.status === 200) {

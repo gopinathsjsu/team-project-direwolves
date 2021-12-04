@@ -12,6 +12,7 @@ import {
   Input,
   Col,
 } from "reactstrap";
+import backend from "../../config";
 
 class CreateAirport extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class CreateAirport extends Component {
       city: this.state.city,
     };
     await axios
-      .post(`http://localhost:3001/CreateAirport`, Airport)
+      .post(`${backend}/CreateAirport`, Airport)
       .then((response) => {
         alert("Airport has been Created");
         this.setState({

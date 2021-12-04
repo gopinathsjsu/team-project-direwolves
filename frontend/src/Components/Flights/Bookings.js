@@ -12,6 +12,7 @@ import NavigationBar from "../Navbar/Navbar";
 import { useHistory } from "react-router";
 import { Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import backend from "../../config";
 
 const Bookings = ({ user }) => {
   const [bookings, setBookings] = useState([]);
@@ -21,7 +22,7 @@ const Bookings = ({ user }) => {
 
 
   const fetchBookings = async () => {
-    const result = await axios.post("http://localhost:3001/getBooking", {
+    const result = await axios.post(`${backend}/getBooking`, {
       userId: profile._id,
       isAdmin: profile.isAdmin,
     })
@@ -117,7 +118,7 @@ const Bookings = ({ user }) => {
                                       modeOfPayment: !booking.isMileage ? "D" : "P",
                                       sourcePage: "E"
                                     }}><Button variant="outline-dark">Update</Button></Link> <Button variant="outline-danger" onClick={(e) => {
-                                      axios.post(`http://localhost:3001/cancelReservation`, { bookingId: booking._id })
+                                      axios.post(`${backend}/cancelReservation`, { bookingId: booking._id })
                                         .then((response) => {
                                           fetchBookings();
                                         });

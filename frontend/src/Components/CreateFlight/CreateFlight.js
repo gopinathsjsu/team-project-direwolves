@@ -12,6 +12,7 @@ import {
   Input,
   Col,
 } from "reactstrap";
+import backend from "../../config";
 
 class CreateFlight extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class CreateFlight extends Component {
   };
 
   getAirports = async () => {
-    await axios.get(`http://localhost:3001/allAirports`).then((response) => {
+    await axios.get(`${backend}/allAirports`).then((response) => {
       console.log(response.data);
       if (response.status === 200) this.setState({ airports: response.data });
     });
@@ -60,7 +61,7 @@ class CreateFlight extends Component {
       };
       console.log(airplane);
       await axios
-        .post(`http://localhost:3001/createAirplane`, airplane)
+        .post(`${backend}/createAirplane`, airplane)
         .then(async (response1) => {
           console.log(response1.data);
           let flight = {
@@ -76,7 +77,7 @@ class CreateFlight extends Component {
           };
           console.log(flight);
           await axios
-            .post(`http://localhost:3001/createFlight`, flight)
+            .post(`${backend}/createFlight`, flight)
             .then((response2) => {
               console.log(response2.data);
               alert("FLight has been added");

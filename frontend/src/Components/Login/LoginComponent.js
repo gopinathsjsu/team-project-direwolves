@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import axios from "axios";
 import { Redirect, Link } from "react-router-dom";
 import Flight from "../svg/Flight.jpeg";
+import backend from "../../config";
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Login extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post(`http://localhost:3001/login`, data)
+      .post(`${backend}/login`, data)
       .then((response) => {
         console.log("Status Code : ", response.status);
         if (response.status === 200) {

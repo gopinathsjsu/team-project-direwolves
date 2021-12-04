@@ -4,6 +4,7 @@ import axios from "axios";
 import "../styles/loginStyle.css";
 import { Link, Redirect } from "react-router-dom";
 import Flight from "../svg/Flight.jpeg";
+import backend from "../../config";
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +36,7 @@ class SignUp extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios
-      .post(`http://localhost:3001/signup`, this.state.userInfo)
+      .post(`${backend}/signup`, this.state.userInfo)
       .then((response) => {
         console.log("Status Code : ", response.status);
         if (response.status === 200) {
