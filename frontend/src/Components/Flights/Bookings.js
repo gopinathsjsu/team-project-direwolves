@@ -109,7 +109,7 @@ const Bookings = ({ user }) => {
                                     {booking.flightId.departureAirport.shortCode} - {booking.flightId.arrivalAirport.shortCode}
                                   </div>
                                   <div class="bcell" data-title="Seat No">
-                                    {booking.seatNumber?getSeat(booking.seatNumber):""} 
+                                    {booking.seatNumber?getSeat(Number(booking.seatNumber)-1):""} 
                                   </div>
                                   <div class="bcell" data-title="Price">
                                     {(booking.isMileage?"":"$ ")+ booking.price+(booking.isMileage?" Pts":"")}
