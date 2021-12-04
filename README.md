@@ -45,6 +45,11 @@ Every Friday
 
 ![Deployment_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/7d67e07cacf810746d84cf884637f166d211d9f8/Documentation/Deployment%20Diagram/Deployment%20Diagram0.png)
 
+## XP Core Values
+
+* Communication : We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+* Feedback : We beleive in feedback. We have given valuable feedback to the team to create a better product
+
 ## Burndown Charts
 
 ![Burndown_chart_sprint-0](https://github.com/gopinathsjsu/team-project-direwolves/blob/b462bd89a9099fc5a99fde4df7fcb2594c72d8bf/Documentation/Burndown%20Charts/Sprint%200.png)
