@@ -288,6 +288,22 @@ class SearchFlights extends Component {
           </Form>
         </Container>
         <Container style={{ padding: "0 50px" }}>
+          {this.state.flights.length == 0 ? (
+            <Container
+              style={{
+                padding: "20px",
+                border: "1px solid #ddd",
+                borderRadius: "15px",
+                marginBottom: "20px",
+                textAlign: "center",
+              }}
+              className="flight"
+            >
+              No flights available
+            </Container>
+          ) : (
+            ""
+          )}
           {this.state.showResults &&
             this.state.flights &&
             this.state.flights.map((item) => (

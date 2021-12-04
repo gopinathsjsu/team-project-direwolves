@@ -79,19 +79,27 @@ class CreateFlight extends Component {
           await axios
             .post(`${backend}/createFlight`, flight)
             .then((response2) => {
-              console.log(response2.data);
-              alert("FLight has been added");
-              this.setState({
-                name: "",
-                number: "",
-                departLoc: "",
-                arriveLoc: "",
-                departDate: "",
-                arriveDate: "",
-                price: "",
-                seats: "",
-                premiumSeatPrice: "",
-              });
+              console.log(response2);
+              if (response2.status != 200) {
+                alert("Flight name should be unique");
+              } else {
+                console.log(response2.data);
+                alert("FLight has been added");
+                this.setState({
+                  name: "",
+                  number: "",
+                  departLoc: "",
+                  arriveLoc: "",
+                  departDate: "",
+                  arriveDate: "",
+                  price: "",
+                  seats: "",
+                  premiumSeatPrice: "",
+                });
+              }
+            })
+            .catch((error) => {
+              alert("Flight name should be unique");
             });
         });
     }
