@@ -53,8 +53,10 @@ Every Friday
 
 ## XP Core Values
 
-- Communication : We all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
-- Feedback : We beleive in feedback. We have given valuable feedback to the team to create a better product
+- Communication: During these tough times, in which meeting in person is not well suited we still were able to get things done by communicating through online video conferencing platforms and we all have been “Communicating” and Collaborating through Whatsapp and Zoom conversations pertaining to the project discussion.
+- Feedback: We believe in feedback. We have given valuable feedback to the team to create a better product. After every development item is completed, the team gave feedback on the delivered item for changes/suggestions.
+- Respect: In every discussion, be it about tech stack, database design or project level discussions, we acknowledged each others’ unique ideas and individual viewpoints and came to a common consensus. All the team members were empathetic towards others in resolving challenges. Hence, We distributed responsibilities such that everyone gets to learn everything and restrict one person to solely one aspect of programming
+- Simplicity: The team was always working towards delivering products with absolutely necessary features though which we were able to omit unnecessary development items. Even in terms of UI development, we maintained a simple and elegant design that is easier to maintain and revise.
 
 ## Burndown Charts
 
