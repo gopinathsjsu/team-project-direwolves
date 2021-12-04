@@ -6,6 +6,7 @@
 * Frontend - React
 * Backend - Node JS
 * Database - MongoDB
+* Cloud - AWS EC2, ELB
 
 ## Team Members
 
