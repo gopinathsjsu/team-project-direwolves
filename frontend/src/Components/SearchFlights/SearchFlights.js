@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import NavigationBar from "../Navbar/Navbar";
-import { formatAMPM, getTimeDifference } from "./../Services/ControllerUtils";
+import { formatAMPM, getTimeDifference, getToday } from "./../Services/ControllerUtils";
 import "./SearchFlights.css";
 
 class SearchFlights extends Component {
@@ -195,6 +195,7 @@ class SearchFlights extends Component {
                   <Form.Control
                     type="date"
                     size="sm"
+                    min={getToday()}
                     defaultValue={this.state.departDate}
                     onChange={(e) => {
                       this.setState({
@@ -247,6 +248,7 @@ class SearchFlights extends Component {
               <Col className="flexColumn" md={2}>
                 <Button
                   type="submit"
+                  disabled={!(this.state.departLocId && this.state.arriveLocId && this.state.departDate)}
                   style={{ padding: "3px" }}
                   onClick={(e) => {
                     e.preventDefault();
@@ -302,7 +304,7 @@ class SearchFlights extends Component {
                       <Col>
                         {item.departureAirport.name},{" "}
                         {item.departureAirport.city}
-                        <span style={{ margin: "0 24px" }}>To</span>
+                        <span style={{ margin: "0 24px" }}><i class="fa fa-plane"></i> </span>
                         {item.arrivalAirport.name}, {item.arrivalAirport.city}
                       </Col>
                     </Row>

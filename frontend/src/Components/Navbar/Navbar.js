@@ -11,7 +11,7 @@ class NavigationBar extends Component {
   }
   render() {
     return (
-      <div style={{ marginBottom: "75px" }}>
+      <div style={{ marginBottom: "100px" }}>
         <Navbar
           collapseOnSelect
           expand="lg"
@@ -20,7 +20,7 @@ class NavigationBar extends Component {
           fixed="top"
         >
           <Container style={{ position: "relative" }}>
-            <Navbar.Brand
+            <Navbar.Brand style={{cursor:"pointer"}}
               onClick={() => {
                 this.props.history.push("/");
               }}
@@ -29,12 +29,23 @@ class NavigationBar extends Component {
                 src={icon}
                 style={{
                   width: "50px",
-                  top: "-8px",
-                  left: "-50px",
-                  position: "absolute",
+                  marginRight:"20px",
+                  // left: "-50px",
+                  // position: "absolute",
                 }}
               />
-              Direwolves Airlines
+              <span
+                style={{
+                  fontFamily: "system-ui",
+                  fontWeight: "50px",
+                  paddingTop: "10px",
+                  color: "white",
+                  letterSpacing:"6px",
+                  fontFamily:"fantasy"
+                }}
+              >
+                Direwolves Airlines
+              </span>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">

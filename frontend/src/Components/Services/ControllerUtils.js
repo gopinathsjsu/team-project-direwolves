@@ -40,7 +40,7 @@ export function getTimeFromStr(dates) {
   let hours = date_ob.getHours();
   let minutes = date_ob.getMinutes();
   // return year + "-" + months[month] + "-" + date + " " + hours + ":" + minutes;
-  return date_ob.toISOString().split("T")[0] + " " + (hours<10?"0"+hours:hours) + ":" + (minutes<10?"0"+minutes:minutes);
+  return date_ob.toISOString().split("T")[0] + " " + (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes);
 }
 
 export function formatAMPM(date) {
@@ -71,4 +71,22 @@ export function getTimeDifference(date1, date2) {
   let hours = Math.floor((val / (1000 * 60 * 60)) % 24);
   let minutes = Math.floor((val / (1000 * 60)) % 60)
   return hours.toString() + " hrs " + minutes.toString() + " mins";
+}
+
+export function getToday() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  return today;
 }
