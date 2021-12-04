@@ -18,6 +18,23 @@
 
 Every Friday
 
+## Feature Set 
+### Customer
+*  can register for the airlines
+*  can login for the airlines
+*  can create a reservation 
+*  purchase a seat (Only aisle seats are chargable)
+*  can update the reservation( Only seat can be updated using update reservation)
+*  can cancel the reservation
+*  Can update the Profile
+*  can view the mileage points used and added while reservation
+*  can view all the bookings
+
+### Admin
+* Can Create a flight
+* View all the bookings created by a passenger
+
+
 ## Architecture Diagram
 
 ![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/0e7fbd0209c3a947c62036579a02405d49c43f63/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
