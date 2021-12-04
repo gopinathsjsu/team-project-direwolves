@@ -151,7 +151,7 @@ class CreateFlight extends Component {
                 </Col>
                 <Col>
                   <FormGroup>
-                    <Label for="firstname">First Number</Label>
+                    <Label for="firstname">Flight Number</Label>
                     <Input
                       type="number"
                       id="name"

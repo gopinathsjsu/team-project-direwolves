@@ -29,6 +29,12 @@ const Bookings = ({ user }) => {
     setBookings(result.data.data);
   }
 
+  const getSeat = (i) => {
+    return (
+      Math.floor(i / 6 + 1) + "" + ((i % 6) + 10).toString(36).toUpperCase()
+    );
+  }
+
 
   useEffect(() => {
     if (profile) {
@@ -103,7 +109,7 @@ const Bookings = ({ user }) => {
                                     {booking.flightId.departureAirport.shortCode} - {booking.flightId.arrivalAirport.shortCode}
                                   </div>
                                   <div class="bcell" data-title="Seat No">
-                                    {booking.seatNumber} 
+                                    {booking.seatNumber?getSeat(booking.seatNumber):""} 
                                   </div>
                                   <div class="bcell" data-title="Price">
                                     {(booking.isMileage?"":"$ ")+ booking.price+(booking.isMileage?" Pts":"")}

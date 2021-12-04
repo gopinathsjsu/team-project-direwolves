@@ -266,6 +266,7 @@ class ManageMileage extends Component {
                   <Container
                     style={{
                       padding: "20px",
+                      marginBottom:"20px",
                       border: "1px solid #ddd",
                       borderRadius: "15px",
                     }}
