@@ -260,7 +260,7 @@ class ManageMileage extends Component {
               </div>
             </div>
             <Container style={{ padding: "0 50px" }}>
-              {this.state.mileageActivity &&
+              {this.state.mileageActivity && this.state.mileageActivity.length > 0 &&
                 this.state.mileageActivity.map((item, idx) => (
                   <Container
                     style={{
@@ -270,7 +270,7 @@ class ManageMileage extends Component {
                     }}
                     className="flight"
                   >
-                    <Row>
+                    {item.flightId && <Row>
                       <Col md={9}>
                         <Row className="item">
                           <div>
@@ -318,7 +318,7 @@ class ManageMileage extends Component {
                         </div>
                         <div></div>
                       </Col>
-                    </Row>
+                    </Row>}
                   </Container>
                 ))}
             </Container>
