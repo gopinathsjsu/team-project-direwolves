@@ -40,11 +40,11 @@ Every Friday
 
 ## Architecture Diagram
 
-![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/0e7fbd0209c3a947c62036579a02405d49c43f63/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
+![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/af4a563c818d84a50403452212d46bb3e0254a2a/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
 
 ## Database Schema
 
-![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/0e7fbd0209c3a947c62036579a02405d49c43f63/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
+![Database Schema](https://github.com/gopinathsjsu/team-project-direwolves/blob/af4a563c818d84a50403452212d46bb3e0254a2a/Documentation/DatabaseSchema/Database%20Schema.png)
 
 ## Deployment Diagram
 
