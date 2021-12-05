@@ -39,6 +39,13 @@ Every Friday
 - View all the bookings created by a passenger
 - Can create Airport
 
+## Contribution
+We have distributed the work equally among the teammates and everyone has worked on both frontend and backend
+Divya:Frontend and Backend
+Vinay:Frontend and Backend
+Rugved:Frontend and Backend
+Nikhil:Frontend and Backend
+
 ## Architecture Diagram
 
 ![Architecture_Diagram](https://github.com/gopinathsjsu/team-project-direwolves/blob/af4a563c818d84a50403452212d46bb3e0254a2a/Documentation/Architecture_Diagram/Architecture%20Diagram.png)
