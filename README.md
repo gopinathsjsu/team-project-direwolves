@@ -41,10 +41,10 @@ Every Friday
 
 ## Contribution
 We have distributed the work equally among the teammates and everyone has worked on both frontend and backend
-Divya:Frontend and Backend
-Vinay:Frontend and Backend
-Rugved:Frontend and Backend
-Nikhil:Frontend and Backend
+* Divya:Frontend and Backend
+* Vinay:Frontend and Backend
+* Rugved:Frontend and Backend
+* Nikhil:Frontend and Backend
 
 ## Architecture Diagram
 
